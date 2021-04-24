@@ -1,46 +1,20 @@
+{% extends 'paginas/modelo.html' %}
 {% load static %}
+{% block conteudo %}
 
-<!DOCTYPE HTML>
+<div align="center" class="container-fluid" style="background-image: url({% static 'img/background.jpg' %});">
+    <div style="padding: 20px"></div>
+    <div class="jumbotron" style="background-color: none !important;">
+        <h1 class="display-3">Bem vindo ao SIIC</h1>
+        <p class="lead">Sistema Integrado de Inventário e Controle</p>
+        <hr class="my-2">
+        <p>Mais informações</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+        </p>
 
-<html lang=”pt-br”>
-<head>
-    <meta charset=”UTF-8”>
-    <meta name="viewport" content="width=device, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Controle de acesso</title>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </div>
+    <div style="padding: 10px"></div>
 
-</head>
-<body>
-    <form class="form" action="">
-        <div class="card">
-            <div class="card-top">
-                <img class="imglogin" src="{% static 'img/profile-user.png' %}" alt="" width="100" height="100">
-                <h2 class="title-card-top">CONTROLE DE ACESSO</h2>
-                <p>SIIC - Sistema Integrado de Inventário e Controle</p>
-            </div>
-
-            <div class="card-group">
-                <label for="">Email</label>
-                <input placeholder="Digite seu email" type="email" name="email" required>
-            </div>
-
-            <div class="card-group">
-                <label for="">Senha</label>
-                <input placeholder="Digite sua senha" type="password" name="senha" required>
-            </div>
-
-            <div class="card-group">
-                <label for=""><input type="checkbox" name="lembreme">Lembre-me</label>
-            </div>
-            <p></p>
-
-            <div class="card-group btn">
-                <p></p>
-                <button type="submit">ACESSAR</button>
-            </div>
-
-        </div>
-    </form>
-</body>
-</html>
+</div>
+{% endblock conteudo %}

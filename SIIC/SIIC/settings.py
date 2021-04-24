@@ -26,7 +26,7 @@ SECRET_KEY = 'n=4wn6bffd-ak+4^tv@^e30yo41su5+uoi6d3+7w*syqblo=s)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,9 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Aplicações locais
     'paginas.apps.PaginasConfig',
+    'cadastros.apps.CadastrosConfig',
+    'usuarios.apps.UsuariosConfig',
+
+    'crispy_forms',
     # nomedoapp.apps.Nomedoappconfig
 ]
+
+# CRISPY FORMS
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +80,7 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'usuarios.Usuario'
 WSGI_APPLICATION = 'SIIC.wsgi.application'
 
 
@@ -79,9 +90,25 @@ WSGI_APPLICATION = 'SIIC.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'TESTE',
+#         'USER': 'queen',
+#         'PASSWORD': '@@Que2021',
+#         'HOST': 'serverqueen.database.windows.net',
+#         'PORT': '1433',
+
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#         },
+#     },
+# }
 
 
 # Password validation
@@ -124,3 +151,17 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+# DATABASE_CONNECTION_POOLING = False
+
+
+# CONFIGURAÇÕES DE AUTENTICAÇÃO
+
+# Redireciona usuário para a página pós login
+LOGIN_REDIRECT_URL = 'inicio'
+
+# Redireciona usuário caso não tenha acesso à págiuna
+LOGIN_URL = 'login'
+
+# Redireciona usuário para a página pós logout
+LOGOUT_REDIRECT_URL = 'login'

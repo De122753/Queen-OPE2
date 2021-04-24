@@ -1,0 +1,43 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+    <title>{{titulo_pagina}}</title>
+{% endblock titulo %}
+
+
+{% block conteudo %}
+<div class="jumbotron jumbotron-fluid bg-light">
+    <H4 class="container"align=center>{{titulo}}</H4>
+    <p class="lead" align=center>{{subtitulo}}</p>
+    <hr>
+        <form class="container container-fluid" action="" method="POST">
+        <h3>{{request.Pedido}}</h3>
+            {% csrf_token %} <!--autenticador-->
+            {{ form|crispy }} <!--formulário exibido como parágrafo-->
+            <p align=right>*Campo com preenchimento obrigatório</p>
+            <button class="btn btn-primary" type="submit">{{botao}}</button>
+        </form>
+    <hr>
+</div>
+{% endblock conteudo %}
+{% block scripts %}
+    {% comment %} Jquery_mascaras {% endcomment %}
+    <script src={% static 'js/jquery.mask.min.js' %}></script>
+    <script>
+        $(document).ready(function(){
+             $('#id_cpf').mask('000.000.000-00');
+            var SPMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+            spOptions = {
+            onKeyPress: function(val, e, field, options) {
+                field.mask(SPMaskBehavior.apply({}, arguments), options);
+                }
+            };
+            $('#id_telefone').mask(SPMaskBehavior, spOptions);
+        });
+    </script>
+    {% comment %} Jquery {% endcomment %}
+{% endblock scripts %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% comment %} {% extends 'paginas/modelo.html' %} {% endcomment %}
+{% load static %}
+{% load crispy_forms_tags%}
+
+<html lang="pt-br">
+
+<head>
+    {% block titulo %}
+    <title>Login</title>
+    {% endblock %}
+    <meta charset="”UTF-8”">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <!-- Classes do bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--Fim das classes do bootstrap-->
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% comment %} FONTAWESOME {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+    {% block conteudo %}
+    <div style="padding: 25px" class="container-fluid col-sm-4">
+        <p></p>
+        <div class="container-fluid bg-1 text-center">
+            <img src='{% static 'img/profile-user.png' %}' alt="imagem não disponível" class="img-responsive"
+                style="width:15%">
+        </div>
+        <div style="padding: 10px"></div>
+        {% if request.user.is_authenticated %}
+        <div>
+            <h3 align="center">Ação não permitida</h3>
+            <hr>
+            <p>
+                <p class="lead text-center">
+                    Você não possui permissão para acessar a lista
+                    <br>
+                    <br>
+                    <a href="{% url 'inicio'%}" class="btn btn-info" role="button">Voltar</a>
+                </p>
+            </p>
+        </div>
+        {% else %}
+        <div>
+            <h3 align="center">Autenticação</h3>
+            <hr>
+            <p>
+                <p class="lead text-center">
+                    Informe seu nome de usuário e senha
+                </p>
+            </p>
+        </div>
+        <div style="padding: 10px"></div>
+        <hr>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p></p>
+        <hr>
+        <P class="lead" align="center" style="color: #ccc">
+            <i class="fas fa-cog"></i>
+            - - <strong> SIIC </strong> - SISTEMA INTEGRADO DE INVENTÁRIO E CONTROLE - -
+            <i class="fas fa-cog"></i>
+        </P>
+        <hr>
+        {% block rodape_nome %}
+        {% endblock rodape_nome %}
+        {% block rodape %}
+        {% endblock rodape %}
+    </div>
+    {% endif %}
+    {% endblock conteudo %}
+</body>
+
+</html>

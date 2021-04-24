@@ -1,0 +1,37 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block titulo %}
+<title>Alteração de senha do usuário</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+<div class="container container-fluid" style="padding: 20px;">
+    <form class="form-horizontal" method="POST">
+        {% csrf_token %}
+        {{ views.alterar_senha|crispy }}
+        <div class="form-group">
+            {{form_senha.old_password.errors}}
+            <label class="control-label col-sm-4" for="">Senha antiga: </label>
+            {{form_senha.old_password}}
+        </div>
+        <div class="form-group">
+            {{form_senha.new_password1.errors}}
+            <label class="control-label col-sm-4" for="">Nova senha: </label>
+            {{form_senha.new_password1}}
+        </div>
+        <div class="form-group">
+            {{form_senha.new_password2.errors}}
+            <label class="control-label col-sm-4" for="">Confirme a nova senha: </label>
+            {{form_senha.new_password2}}
+        </div>
+        <div class="form-group">
+            <input type="submit" value='Alterar' class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+
+{% endblock conteudo %}

@@ -1,0 +1,107 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+{% block titulo %}
+<title>Lista de produtos</title>
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+<h1 align="center">Produtos cadastrados</h1>
+{% endblock titulo_pagina %}
+
+{% block conteudo %}
+
+<p>
+    <h2 align=center>Lista de produtos cadastrados no SIIC</h2>
+</p>
+
+<div class="container-fluid">
+    <style>
+    .dataTables_filter{
+            float: right !important;
+        }
+    </style>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-hover table-condensed" id='tabela_listar_produtos'>
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID produto</th>
+                    <th>Nome produto</th>
+                    <th>Tamanho</th>
+                    <th>Cor</th>
+                    <th>Preço unitário</th>
+                    <th>Quantidade disponível</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for Produto in object_list %}
+
+                <tr>
+                    <td>{{Produto.pk}}</td>
+                    <td>{{Produto.nome_produto}}</td>
+                    <td>{{Produto.tamanho_produto}}</td>
+                    <td>{{Produto.cor_produto}}</td>
+                    <td>{{Produto.preco_unitario}}</td>
+                    <td>{{Produto.quantidade_disponivel}}</td>
+                    <td>
+                        <a href="{% url 'editar-produto' Produto.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                                class="fas fa-edit" aria-hidden="true"></i></a>
+                        <a href="{% url 'excluir-produto' Produto.pk %}" class="btn btn-danger btn-sm"
+                            title="Excluir"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Nenhum campo registrado</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% comment %} Datatable Jquery {% endcomment %}
+        {% block scripts %}
+        <script>
+            $(document).ready(function () {
+                $('#tabela_listar_produtos').DataTable({
+                    retrieve: true,
+                    "aaSorting": [],
+                    "pageLength": 50,
+                    "language": {
+                        "decimal": "",
+                        "emptyTable": "Sem dados disponíveis",
+                        "info": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+                        "infoEmpty": "Mostrando de 0 até 0 de 0 registos",
+                        "infoFiltered": "(filtrado de _MAX_ registos no total)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ registos",
+                        "loadingRecords": "A carregar dados...",
+                        "processing": "A processar...",
+                        "search": "Procurar:",
+                        "zeroRecords": "Não foram encontrados resultados",
+                        "paginate": {
+                            "first": "Primeiro",
+                            "last": "Último",
+                            "next": "Seguinte",
+                            "previous": "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending": ": ordem crescente",
+                            "sortDescending": ": ordem decrescente"
+                        }
+
+                    }
+
+                });
+            });
+        </script>
+
+        {% endblock scripts %}
+        <hr>
+    </div>
+</div>
+{% endblock conteudo %}
