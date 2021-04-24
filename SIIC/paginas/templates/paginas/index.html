@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+
+<html lang=”pt-br”>
+<head>
+    <meta charset=”UTF-8”>
+    <meta name="viewport" content="width=device, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <title>Controle de acesso</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+    <form class="form" action="">
+        <div class="card">
+            <div class="card-top">
+                <img class="imglogin" src="{% static 'img/profile-user.png' %}" alt="" width="100" height="100">
+                <h2 class="title-card-top">CONTROLE DE ACESSO</h2>
+                <p>SIIC - Sistema Integrado de Inventário e Controle</p>
+            </div>
+
+            <div class="card-group">
+                <label for="">Email</label>
+                <input placeholder="Digite seu email" type="email" name="email" required>
+            </div>
+
+            <div class="card-group">
+                <label for="">Senha</label>
+                <input placeholder="Digite sua senha" type="password" name="senha" required>
+            </div>
+
+            <div class="card-group">
+                <label for=""><input type="checkbox" name="lembreme">Lembre-me</label>
+            </div>
+            <p></p>
+
+            <div class="card-group btn">
+                <p></p>
+                <button type="submit">ACESSAR</button>
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>
