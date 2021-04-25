@@ -1,0 +1,63 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Detalhes do produto</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+
+<h2 align="center">Detalhes do produto</h2>
+<container class="container container-fluid">
+    <div class="row">
+        <div class="class col-sm-3"></div>
+        <div class="col col-sm-6">
+            <a href="{% url 'listar-produtos' %}" class="btn btn-info">Voltar</a>
+            <hr>
+            <h1>
+                {{object}}
+                <span style="float: right; padding-right: 10px; color: white;">
+                    <button type="button" class="btn btn-success">
+                        <a style="color: white;" href="{% url 'editar-produto' object.pk %}">
+                            <i class="fas fa-pen-square" style="color: white;"></i> Editar
+                        </a>
+                    </button>
+                </span>
+            </h1>
+                            <hr>
+
+            <div class="container" style="background-color: #FAFCFF; border-radius: 5px;">
+                <table class="table table-user-information table-responsive">
+                    <tbody>
+                    <tr>
+                        <th>Preço do produto: </th>
+                        <td>R$ {{object.preco_unitario}}</td>
+                    </tr>
+                                        <tr>
+                        <th>Cor do produto: </th>
+                        <td>{{object.cor_produto}}</td>
+                    </tr>
+                    </tr>
+                                        <tr>
+                        <th>Tamanho do produto: </th>
+                        <td>{{object.tamanho_produto}}</td>
+                    </tr>
+                    </tr>
+                                        <tr>
+                        <th>Quantidade disponível: </th>
+                        <td>{{object.quantidade_disponivel}}</td>
+                    </tr>                  
+                    </tr>
+                                        <tr>
+                        <th>Descriçao do produto: </th>
+                        <td>{{object.descricao_produto}}</td>
+                    </tr>    
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+        </div>
+    </div>
+</container>
+
+{% endblock conteudo %}

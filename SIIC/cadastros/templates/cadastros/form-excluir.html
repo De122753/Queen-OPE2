@@ -4,29 +4,35 @@
 
 
 {% block titulo %}
-    <title>Cadastros</title>
+<title>Cadastros</title>
 {% endblock titulo %}
 
 
 {% block titulo_pagina %}
-    <h1 align=center >EXCLUSÃO DE REGISTRO</h1>
+<h1 align="center">EXCLUSÃO DE REGISTRO</h1>
 {% endblock titulo_pagina %}
 
 
 {% block conteudo %}
-<h3>Excluir registros</h3>
+<p>
+</p>
 <div class="jumbotron jumbotron-fluid bg-light">
-    <H4 class="container"align=center>Exclusão de registro</H4>
+    <H4 class="container" align=center>Exclusão de registro</H4>
     <p class="lead" align=center>Certifique-se que é o registro desejado</p>
     <hr>
-        <form class="container" action="" method="POST">
-            <p>
-            Deseja excluir o registro: <b>{{ object }}</b>?
-            </p>
-            {% csrf_token %}
-            {{ form|crispy }}
+    <form class="container" action="" method="POST">
+        <p>
+            Deseja excluir o registro :<b>{{ object }}</b>?
+        </p>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <a href="{% url 'listar-produtos' %}" class="btn btn-info">Voltar</a>
+
+        <span>
             <button class="btn btn-danger" type="submit">Excluir</button>
-        </form>
+
+        </span>
+    </form>
     <hr>
 </div>
 {% endblock conteudo %}

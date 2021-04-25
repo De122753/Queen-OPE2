@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 from usuarios.models import Usuario
-
+from django.shortcuts import render
 # Create your views here.
 
 # lista de usuarios django
@@ -133,10 +133,12 @@ class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
         context["botao"] = "Cadastrar"
         return context
 
+
 class ProdutoCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('Login')
     model = Produto
-    fields = ['nome_produto', 'descricao_produto', 'preco_unitario', 'quantidade_disponivel', 'tamanho_produto', 'cor_produto']
+    fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
+              'quantidade_disponivel', 'tamanho_produto', 'cor_produto']
     template_name = 'cadastros/form_produto.html'
     success_url = reverse_lazy('inicio')
 
@@ -147,18 +149,19 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de produto"
-        context ['titulo'] = 'Cadastrar novo produto'
-        context ['subtitulo'] = 'Cadastro de produtos'
-        context ['botao'] = 'Cadastrar'
+        context['titulo'] = 'Cadastrar novo produto'
+        context['subtitulo'] = 'Cadastro de produtos'
+        context['botao'] = 'Cadastrar'
         return context
 
 
 class ItemCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Item
-    fields = ['quantidade_item ', 'desconto', 'valor_item', 'produto', 'pedido']
+    fields = ['quantidade_item ', 'desconto',
+              'valor_item', 'produto', 'pedido']
     template_name = 'cadastros/form.html'
-    success_url =  reverse_lazy('inicio')
+    success_url = reverse_lazy('inicio')
 
     def form_valid(self, form):
         url = super().form_valid(form)
@@ -167,11 +170,10 @@ class ItemCreate(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de item"
-        context ['titulo'] = 'Cadastrar novo item'
-        context ['subtitulo'] = 'Cadastro de itens'
-        context ['botao'] = 'Cadastrar'
+        context['titulo'] = 'Cadastrar novo item'
+        context['subtitulo'] = 'Cadastro de itens'
+        context['botao'] = 'Cadastrar'
         return context
-
 
     # ##################################### UPDATE #################################
 
@@ -213,7 +215,8 @@ class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     group_required = [u"Adm", u"Padrão"]
     login_url = reverse_lazy('login')
     model = Produto
-    fields = ['nome_produto', 'descricao_produto', 'preco_unitario', 'tamanho_produto', 'cor_produto', 'quantidade_disponivel']
+    fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
+              'tamanho_produto', 'cor_produto', 'quantidade_disponivel']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produtos')
 
@@ -262,13 +265,21 @@ class UsuarioList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
 
 class PedidoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
-    group_required = [u"Adm", u"Padrão"]    
+    group_required = [u"Adm", u"Padrão"]
     login_url = reverse_lazy('login')
     model = Pedido
     template_name = 'cadastros/listas/pedidos.html'
+
 
 class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"Adm", u"Padrão"]
     login_url = reverse_lazy('login')
     model = Produto
     template_name = 'cadastros/listas/produtos.html'
+
+
+def ProdutoDetalhes(request, pk):
+    obj = Produto.objects.get(pk=pk)
+    template_name = 'cadastros/listas/detalhe_produto.html'
+    context = {'object': obj}
+    return render(request, template_name, context)

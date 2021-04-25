@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls.base import reverse_lazy
 from usuarios.models import Usuario
 
 
@@ -70,20 +71,36 @@ class Pedido(models.Model):
     def __str__(self):
         return "Usuário: {}".format(self.pedido_usuario)
 
+
 class Produto(models.Model):
-    nome_produto = models.CharField(max_length=50, verbose_name='Nome do produto')
-    descricao_produto = models.CharField(max_length=255, verbose_name='Descrição do produto', blank=True)
-    preco_unitario = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Preço unitário')
-    quantidade_disponivel = models.PositiveIntegerField(verbose_name='Quantidade disponíve')
-    tamanho_produto = models.ForeignKey(TamanhoProduto, verbose_name="Tamanho do produto", on_delete=models.CASCADE)
-    cor_produto = models.ForeignKey(CorProduto, verbose_name="Cor do produto", on_delete=models.CASCADE)
+    nome_produto = models.CharField(
+        max_length=50, verbose_name='Nome do produto')
+    descricao_produto = models.CharField(
+        max_length=255, verbose_name='Descrição do produto', blank=True)
+    preco_unitario = models.DecimalField(
+        max_digits=6, decimal_places=2, verbose_name='Preço unitário')
+    quantidade_disponivel = models.PositiveIntegerField(
+        verbose_name='Quantidade disponíve')
+    tamanho_produto = models.ForeignKey(
+        TamanhoProduto, verbose_name="Tamanho do produto", on_delete=models.CASCADE)
+    cor_produto = models.ForeignKey(
+        CorProduto, verbose_name="Cor do produto", on_delete=models.CASCADE)
 
     def __str__(self):
         return "{}".format(self.nome_produto)
 
+    def get_absolute_url(self):
+        return reverse_lazy("produto:detalhar-produto", kwargs={"pk": self.pk})
+
+
 class Item(models.Model):
-    quantidade_item = models.IntegerField(verbose_name="Quantidade de produtos")
-    desconto = models.DecimalField(max_digits=5, decimal_places=4, verbose_name='Desconto', blank=True)
-    valor_item = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Valor do item')
-    produto = models.ForeignKey(Produto, verbose_name='Produto', on_delete=models.CASCADE)
-    pedido = models.ForeignKey(Pedido, verbose_name='Pedido N.', on_delete=models.CASCADE)
+    quantidade_item = models.IntegerField(
+        verbose_name="Quantidade de produtos")
+    desconto = models.DecimalField(
+        max_digits=5, decimal_places=4, verbose_name='Desconto', blank=True)
+    valor_item = models.DecimalField(
+        max_digits=5, decimal_places=2, verbose_name='Valor do item')
+    produto = models.ForeignKey(
+        Produto, verbose_name='Produto', on_delete=models.CASCADE)
+    pedido = models.ForeignKey(
+        Pedido, verbose_name='Pedido N.', on_delete=models.CASCADE)

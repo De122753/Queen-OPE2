@@ -17,12 +17,17 @@
 
 <div class="container-fluid">
     <style>
-    .dataTables_filter{
+        .dataTables_filter {
             float: right !important;
         }
     </style>
     <hr>
     <div class="table-responsive">
+        <style>
+            a {
+                color: black;
+            }
+        </style>
         <table class="table table-hover table-condensed" id='tabela_listar_produtos'>
 
             <thead class="thead-dark">
@@ -42,7 +47,9 @@
 
                 <tr>
                     <td>{{Produto.pk}}</td>
-                    <td>{{Produto.nome_produto}}</td>
+                    <td>
+                        <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>
+                    </td>
                     <td>{{Produto.tamanho_produto}}</td>
                     <td>{{Produto.cor_produto}}</td>
                     <td>{{Produto.preco_unitario}}</td>
