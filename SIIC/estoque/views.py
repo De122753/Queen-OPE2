@@ -23,10 +23,11 @@ def estoque_entrada_detalhes(request, pk):
 
 def dar_baixa_estoque(form):
     # Pega os produtos a partir da instância do formulário (Estoque).
+    # análise do update no banco.
     produtos = form.estoques.all()
     for item in produtos:
         produto = Produto.objects.get(pk=item.produto.pk)
-        produto.estoque = item.saldo
+        produto.quantidade_disponivel = item.saldo
         produto.save()
     print('Estoque atualizado com sucesso.')
 
