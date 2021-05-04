@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -226,6 +227,7 @@ class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context["titulo"] = "Editar produtos"
         context["subtitulo"] = "Editar produtos cadastrados no SIIC"
         context["botao"] = "Editar"
+
         return context
 
 # ##################################### DELETE #################################
@@ -283,3 +285,9 @@ def ProdutoDetalhes(request, pk):
     template_name = 'cadastros/listas/detalhe_produto.html'
     context = {'object': obj}
     return render(request, template_name, context)
+
+
+def produto_json(request, pk):
+    produto = Produto.objects.filter(pk=pk)
+    data = [item.to_dict_json() for item in produto]
+    return JsonResponse({'data': data})

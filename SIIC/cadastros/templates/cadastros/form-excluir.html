@@ -22,7 +22,7 @@
     <hr>
     <form class="container" action="" method="POST">
         <p>
-            Deseja excluir o registro :<b>{{ object }}</b>?
+            Deseja excluir o registro: <b>{{ object }}</b>?
         </p>
         {% csrf_token %}
         {{ form|crispy }}

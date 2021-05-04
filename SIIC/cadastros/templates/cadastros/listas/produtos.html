@@ -12,7 +12,7 @@
 {% block conteudo %}
 
 <p>
-    <h2 align=center>Lista de produtos cadastrados no SIIC</h2>
+    <h2 align=center>Relação de produtos cadastrados no SIIC</h2>
 </p>
 
 <div class="container-fluid">
@@ -52,7 +52,7 @@
                     </td>
                     <td>{{Produto.tamanho_produto}}</td>
                     <td>{{Produto.cor_produto}}</td>
-                    <td>{{Produto.preco_unitario}}</td>
+                    <td>R$ {{Produto.preco_unitario}}</td>
                     <td>{{Produto.quantidade_disponivel}}</td>
                     <td>
                         <a href="{% url 'editar-produto' Produto.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
@@ -81,11 +81,11 @@
                         "decimal": "",
                         "emptyTable": "Sem dados disponíveis",
                         "info": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
-                        "infoEmpty": "Mostrando de 0 até 0 de 0 registos",
-                        "infoFiltered": "(filtrado de _MAX_ registos no total)",
+                        "infoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                        "infoFiltered": "(filtrado de _MAX_ registros no total)",
                         "infoPostFix": "",
                         "thousands": ",",
-                        "lengthMenu": "Mostrar _MENU_ registos",
+                        "lengthMenu": "Mostrar _MENU_ registros",
                         "loadingRecords": "A carregar dados...",
                         "processing": "A processar...",
                         "search": "Procurar:",

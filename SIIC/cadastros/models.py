@@ -87,10 +87,18 @@ class Produto(models.Model):
         CorProduto, verbose_name="Cor do produto", on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}".format(self.nome_produto)
+        return "{} | tam: {} | cor: {}".format(self.nome_produto, self.tamanho_produto, self.cor_produto)
 
     def get_absolute_url(self):
         return reverse_lazy("produto:detalhar-produto", kwargs={"pk": self.pk})
+    # json
+
+    def to_dict_json(self):
+        return {
+            'pk': self.pk,
+            'produto': self.nome_produto,
+            'estoque': self.quantidade_disponivel,
+        }
 
 
 class Item(models.Model):

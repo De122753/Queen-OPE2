@@ -2,7 +2,7 @@ from django.urls import path
 from .views import PedidoCreate
 from .views import UsuarioUpdate, PedidoUpdate, ProdutoUpdate
 from .views import UsuarioDelete, PedidoDelete, ProdutoDelete
-from .views import UsuarioList, PedidoList, StatusCreate, CorCreate, TipoMovCreate, TamanhoProdutoCreate, ProdutoCreate, ItemCreate, ProdutoList, ProdutoDetalhes
+from .views import UsuarioList, PedidoList, StatusCreate, CorCreate, TipoMovCreate, TamanhoProdutoCreate, ProdutoCreate, ItemCreate, ProdutoList, ProdutoDetalhes, produto_json
 
 # from .views import IndexView
 
@@ -37,5 +37,6 @@ urlpatterns = [
     path('listar/usuarios/', UsuarioList.as_view(), name='listar-usuarios'),
     path('listar/pedidos/', PedidoList.as_view(), name='listar-pedidos'),
     path('listar/produtos/', ProdutoList.as_view(), name='listar-produtos'),
-    path('<int:pk>/', ProdutoDetalhes, name='detalhar-produto'),
+    path('detalhes/produtos/<int:pk>/', ProdutoDetalhes, name='detalhar-produto'),
+    path('produto/<int:pk>/json/', produto_json, name='produto_json'),
 ]

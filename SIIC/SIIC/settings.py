@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'paginas.apps.PaginasConfig',
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
+    'estoque.apps.EstoqueConfig',
 
+    'bootstrapform',
+    'widget_tweaks',
     'crispy_forms',
     # nomedoapp.apps.Nomedoappconfig
 ]
