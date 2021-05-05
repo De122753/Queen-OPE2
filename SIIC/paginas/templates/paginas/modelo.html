@@ -206,51 +206,11 @@
 
         {% if request.user.is_authenticated %}
         {% block rodape_nome %}
-        <div class="bg-secondary text-center container-fluid text-light">
-            Rodapé
+        <div class="bg-dark text-left container-fluid text-light">
+            &copy; Todos os Direitos Reservados
         </div>
         {% endblock rodape_nome %}
 
-        {% block rodape %}
-        <footer class="footer fixed-botton">
-            <div class="jumbotron jumbotron-fluid text-center jumbotron-fixed-botton">
-
-                <!--Alterar cor de fundo de uma classe bootstrap com css próprio-->
-                <style>
-                    .jumbotron {
-                        background-color: #dddddd !important;
-                    }
-                </style>
-                <!--Fim do script CSS-->
-
-                <div class="row">
-                    <div class="col-sm-4 text-justify">
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                            <li>Aliquam tincidunt mauris eu risus.</li>
-                            <li>Vestibulum auctor dapibus neque.</li>
-                        </ul>
-                    </div>
-                    <hr class="vertical_line">
-                    <div class="col-sm-4 text-justify">
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                            <li>Aliquam tincidunt mauris eu risus.</li>
-                            <li>Vestibulum auctor dapibus neque.</li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4 text-justify">
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                            <li>Aliquam tincidunt mauris eu risus.</li>
-                            <li>Vestibulum auctor dapibus neque.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        {% endblock rodape %}
         {% else %}
         {% endif %}
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
