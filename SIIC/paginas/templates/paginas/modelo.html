@@ -45,13 +45,14 @@
         .navbar {
             position: sticky !important;
             top: 0 !important;
-            t !important;
         }
     </style>
 
     <nav class="navbar  navbar-expand-sm bg-dark navbar-dark navbar-fixed-top"
         style="position: relative; z-index: 999;">
+        <!-- REMOVIDO O BOTÃO MENU: edit fsato
         <a class="navbar-brand" href="#">Menu</a>
+        -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -119,9 +120,16 @@
                 {% else %}
                 {% endif%}
                 {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Relatórios</a>
+                <!--Menu para relatórios: edit fsato a partir daqui-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="relatorio" data-toggle="dropdown">
+                        Relatórios
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/relatorio/">Movimentos</a>
+                    </div>
                 </li>
+                <!--Menu para relatórios: edit fsato até aqui-->
                 {% else %}
                 {% endif %}
                 <li class="nav-item">
