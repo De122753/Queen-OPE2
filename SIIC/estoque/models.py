@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from cadastros.models import Produto
 from django.urls.base import reverse_lazy
 from django import forms
-
+from .manager import EstoqueEntradaManager, EstoqueSaidaManager
 # Create your models here.
 
 # classe para obter data e hora da criação e modificação
@@ -44,6 +44,29 @@ class Estoque(TimeStampedModel):
             return str(self.nf).zfill(6)
         return '---'
 
+# cria tabela virtual somente com as entradas
+
+
+class EstoqueEntrada(Estoque):
+    objects = EstoqueEntradaManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'estoque entrada'
+        verbose_name_plural = 'estoque entrada'
+
+
+# cria tabela virtual somente com as saidas
+
+
+class EstoqueSaida(Estoque):
+    objects = EstoqueSaidaManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'estoque saida'
+        verbose_name_plural = 'estoque saida'
+
 
 class EstoqueItens(models.Model):
     estoque = models.ForeignKey(
@@ -57,6 +80,3 @@ class EstoqueItens(models.Model):
 
     def __str__(self):
         return '{} - {} - {}'.format(self.pk, self.estoque.pk, self.produto)
-
-
-# base para formulário para adicão de itens INLINE

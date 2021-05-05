@@ -1,0 +1,99 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load bootstrap %}
+
+{% block conteudo %}
+
+{% block css %}
+<style>
+    span.required:after {
+        content: "*";
+        color: red;
+    }
+
+    .form-control {
+        margin: 5px;
+    }
+</style>
+{% endblock css %}
+
+<h1 style="text-align: center;">Saída de itens no estoque</h1>
+
+{% comment %} CONTEUDO {% endcomment %}
+<div class="container container-fluid">
+    <div class="row offset-md-1">
+
+        <form method="POST" novalidate style="padding-bottom: 20px;">
+            {% csrf_token %}
+            <legend style="border-bottom: 1px solid #e5e5e5;">Estoque Saída: </legend>
+
+            <div class="form-inline col-sm-12 offset-md-1" align="center">
+                {% for field in form.visible_fields %}
+                <div class="form-group{% if field.errors %} has-error {% endif%}">
+                    <label for="{{ field.id_for_label }}">
+                        {% if field.field.required %}
+                        <span style="margin-left: 10px;" class="required">{{ field.label }}</span>
+                        {% else %}
+                        <span style="margin-left: 10px;">{{ field.label }}</span>
+                        {% endif %}
+                    </label>
+                    <span style="margin-left: 10px;">{% render_field field class="form-control" %}</span>
+                    {% for error in field.errors %}
+                    <span class="text-muted">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                {{ formset.management_form }}
+            </div>
+
+
+            <legend style="border-bottom: 2px solid #e5e5e5;">Produtos: </legend>
+
+            <div align="center">
+                <div id="estoque" class="form-inline col-sm-12">
+                    {% for item_estoque_form in formset %}
+                    <div id="item-{{ forloop.counter0 }}" class="form-group">
+                        {{ item_estoque_form|bootstrap }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="row float-left">
+                    <span id="add-item" class="btn btn-info" style="margin-top: 10px;">
+                        <i class="fa fa-plus"></i> Adicionar
+                    </span>
+                </div>
+                <hr>
+                <div class="row float-right">
+                    <div class="col-sm-12" style="margin-top: 50px;">
+                        <div class="form-inline buttons">
+                            <button class="btn btn-primary" value="Save">
+                                <i class="fa fa-floppy-o"></i>
+                                Salvar
+                            </button>
+                            <a style="margin-left: 10px;" href="{% url 'estoque_saida_list' %}"
+                                class="btn btn-danger">
+                                <i class="fa fa-times"></i>
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock conteudo %}
+
+{% block scripts %}
+{% comment %} Link JS externo {% endcomment %}
+<script src="{% static 'js/estoque_saida.js' %}"></script>
+<script type="text/html" id="item-estoque">
+    <div id="item-__prefix__" class="form-group">
+        {{ formset.empty_form|bootstrap }}
+    </div>
+</script>
+{% endblock scripts %}
