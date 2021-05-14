@@ -168,3 +168,4 @@ LOGIN_URL = 'login'
 
 # Redireciona usuário para a página pós logout
 LOGOUT_REDIRECT_URL = 'login'
+

@@ -5,10 +5,11 @@ from .models import Estoque, EstoqueItens
 class EstoqueForm(forms.ModelForm):
     class Meta:
         model = Estoque
-        fields = '__all__'
+        fields = ('nf',)
 
 
 class EstoqueIntensForm(forms.ModelForm):
     class Meta:
         model = EstoqueItens
-        fields = '__all__'
+        fields = ('produto', 'quantidade', 'saldo',
+                  'preco_unit',)  # '__all__'

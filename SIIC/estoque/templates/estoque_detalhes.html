@@ -1,0 +1,83 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Detalhes do item</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+
+<h2 style="padding-top: 25px" align="center">{{titulo_detalhe}}</h2>
+<container class="container container-fluid">
+    <div class="row">
+        <div class="class col-sm-1"></div>
+        <div class="col col-sm-10">
+            <a href="{% url url_list %}" class="btn btn-info"><i><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </i>{{botao_listas}}</a>
+            <hr>
+            <h1 style="margin-left: 50px; margin-top: 10px;" class="float-left">
+                {{object}}
+            </h1>
+
+            <div class="container container-fluid" style="background-color: #FAFCFF; border-radius: 5px;">
+                <table class="table table-user-information table-responsive">
+                    <tbody>
+                        <tr>
+                            <th>Nota fiscal: </th>
+                            <td>{{object.nota_formatada}}</td>
+                        </tr>
+                        <tr>
+                            <th>Data da criação: </th>
+                            <td>{{object.created}}</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th>Funcionário responsável: </th>
+                            <td>{{object.funcionario}}</td>
+                        </tr>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Categoria</th>
+                        <th>Estoque</th>
+                        <th>Qtd. mov</th>
+                        <th>Preço unitário</th>
+                        <th>Total do item </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in object.estoques.all %}
+                    <tr>
+                        <td>{{obj.produto}}</td>
+                        <td>{{obj.categoria}}</td>
+                        <td align="center">{{obj.saldo}}</td>
+                        <td align="center">{{obj.quantidade}}</td>
+                        <td align="center">R$: {{obj.preco_unit}}</td>
+                        <td align="center">R$: {{obj.valor_item}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+
+                    {% for obj in object.estoques.all %}
+
+                    <div>
+                    {% if forloop.last %}
+                    <span id="total_geral" class="btn btn-danger">
+                    <h3>Total R$: {{obj.calcula_total_geral}}</h3>
+                    </span>
+                    {% endif %}
+                    </div>
+                    {% endfor %}
+        </div>
+    </div>
+</container>
+
+{% endblock conteudo %}

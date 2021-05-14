@@ -2,12 +2,6 @@ body {
     background-color: #dddddd;
 }
 
-.form {
-    width: 400px;
-    margin: auto;
-    padding-top: 40px;
-}
-
 .card-top {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -65,6 +59,57 @@ body {
     border-radius: 6px;
 }
 
-.jumbotron {
-    max-height: 50%;
+#logo_small {
+    _background: none;
+    filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='img/LogoSmalFashion.png', sizingMethod='scale');
+}
+
+span.required:after {
+    content: "*";
+    color: red;
+}
+
+.form-control {
+    margin: 5px;
+}
+
+.form-group {
+    vertical-align: auto;
+}
+
+.checkbox {
+    color: grey !important;
+    margin-left: 20px !important;
+    text-indent: 7px;
+}
+
+h5 {
+    background-color: #768591 !important;
+    border-radius: 3px;
+    color: #F0F0EB;
+    text-align: left;
+    padding-left: 10px;
+}
+
+i {
+    vertical-align: auto;
+}
+
+#rodape {
+    margin-top: 15px;
+}
+
+#seta_nota {
+    padding: 0.5rem;
+}
+
+#estoque {
+    background-color: #F0F0EB;
+    border: 0.2rem solid lightgrey;
+}
+
+#total_geral {
+    text-transform: uppercase;
+    float: right;
+    vertical-align: auto;
 }

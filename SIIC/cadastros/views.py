@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from .models import CorProduto, TamanhoProduto, Produto
+from .models import CorProduto, TamanhoProduto, Produto, Categoria
 
 # Controle de login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -42,6 +42,27 @@ class CorCreate(LoginRequiredMixin, CreateView):
         return context
 
 
+class CategoriaCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
+    model = Categoria
+    fields = ['categoria']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('inicio')
+
+    def form_valid(self, form):
+        form.instance.usuario_pedido = self.request.user
+        url = super().form_valid(form)
+        return url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["titulo_pagina"] = "Cadastro de categorias"
+        context["titulo"] = "Cadastrar nova categoria de produto"
+        context["subtitulo"] = "Cadastro de categorias"
+        context["botao"] = "Cadastrar"
+        return context
+
+
 class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = TamanhoProduto
@@ -67,7 +88,7 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('Login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
-              'quantidade_disponivel', 'tamanho_produto', 'cor_produto']
+              'quantidade_disponivel', 'tamanho_produto', 'cor_produto', 'categoria']
     template_name = 'cadastros/form_produto.html'
     success_url = reverse_lazy('inicio')
 
@@ -107,7 +128,7 @@ class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
-              'tamanho_produto', 'cor_produto', 'quantidade_disponivel']
+              'tamanho_produto', 'cor_produto', 'quantidade_disponivel', 'categoria']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produtos')
 
@@ -116,7 +137,7 @@ class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context["titulo_pagina"] = "Atualizar produto"
         context["titulo"] = "Editar produtos"
         context["subtitulo"] = "Editar produtos cadastrados no SIIC"
-        context["botao"] = "Editar"
+        context["botao"] = "Salvar edição"
 
         return context
 
