@@ -43,3 +43,5 @@ typing-extensions==3.7.4.3
 virtualenv==20.4.3
 virtualenvwrapper-win==1.2.6
 wcwidth==0.2.5
+reportlab==
+weasyprint==52.5

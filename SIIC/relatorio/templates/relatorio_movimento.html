@@ -3,10 +3,56 @@
 {% extends 'paginas/modelo.html' %}
 
 {% block conteudo %}
-<div>
-    <p>
-        
+
+<script>
+    function mostrarResultado(){
+        document.getElementById('resultado').style.display = '';
+    }
+</script>
+
+<div class="container">
+    <p>   
     </p>
-    <h2 align="center">Relatório de Movimentos</h1>
+    <h2 align="center">Relatório de Movimentação do Estoque</h1>
+    <br><br>
+ 
+<!--Inicio das janelas de data e botão pesquisar-->
+    <div class='col-sm-6'  style="padding: 10px;">
+        <label style="margin-left: 10px" for="date">De:</label>
+        <input type="date" id="data_ini">
+        <label style="margin-left: 10px" for="date">De:</label>
+        <input type="date" id="data_fim">
+        <input type="submit" class="btn btn-primary" value="Pesquisar" 
+               id="consultar" onclick="mostrarResultado()">
+        
+    </div>
+<!--Fim das janelas de data e botão pesquisar-->
+
+<!--Inicio da Tabela do Relatório -->  
+    <div class="conteiner">
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Funcionário</th>
+                    <th scope="col">Tipo de Movimento</th>
+                    <th scope="col">Nota Fiscal</th>
+                    <th scope="col">Data Movimento</th>
+                </tr>
+            </thead>
+            <tbody id="resultado" style="display: none;">
+                {% for campo in campos_relatorio %}
+                <tr>
+                    <th scope="row">{{campo.id}}</th>
+                    <th scope="row">{{campo.funcionario}}</th>
+                    <th scope="row">{{campo.movimento}}</th>               
+                    <th scope="row">{{campo.nf}}</th>
+                    <th scope="row">{{campo.created}}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>   
 </div>
+
 {% endblock conteudo %}
