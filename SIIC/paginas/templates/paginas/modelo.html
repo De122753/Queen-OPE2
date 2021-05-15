@@ -26,6 +26,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!--Fim das classes do bootstrap-->
 
+
     {% comment %} FONTAWESOME {% endcomment %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
@@ -46,7 +47,7 @@
         .navbar {
             position: sticky !important;
             top: 0 !important;
-            t:  !important;
+            <<<<<<< HEAD t:  !important;
         }
 
         #logo_small {
@@ -69,19 +70,15 @@
 
     <nav class="navbar  navbar-expand-sm bg-dark navbar-dark navbar-fixed-top"
         style="position: relative; z-index: 999;">
-        {% if request.user.is_authenticated %}
-
-        <img id="logo_small" src="{% static 'img/LogoSmalFashion.jpg' %}" class="img img-fluid" width="100" height="30"
-            alt="Logotipo" style='#'>
+        {% if request.user.is_authenticated %} <img id="logo_small" src="{% static 'img/LogoSmalFashion.jpg' %}"
+            class="img img-fluid" width="100" height="30" alt="Logotipo" style='#'>
 
         <div class="col-sm-1"></div> {% else%}
         {% endif%}
         <div class="navbar-header">
             <a class="navbar-brand" href="#">SIIC</a>
         </div>
-
         <hr id="linha_v" width="2" size="100" color="white">
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -149,11 +146,20 @@
                     </div>
                 </li>
                 {% else %}
-                {% endif%}
+                {% endif %}
                 {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Relatórios</a>
+                <!--Menu para relatórios: edit fsato a partir daqui-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="relatorio" data-toggle="dropdown">
+                        Relatórios
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/relatorio/">Movimentos</a>
+                    </div>
                 </li>
+                {% else %}
+                {% endif %}
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
                 </li>
@@ -229,23 +235,23 @@
 
         {% if request.user.is_authenticated %}
         {% block rodape_nome %}
-
         {% endblock rodape_nome %}
-
         {% block rodape %}
         <div id="rodape" class="bg-secondary text-center container-fluid text-light">
             Rodapé
         </div>
         <footer class="footer fixed-botton">
             <div class="jumbotron jumbotron-fluid text-center jumbotron-fixed-botton">
-                    <div class="row">
-                        <div class="col-sm-4 text-justify"></div>
-                        <div class="col-sm-4 text-justify"></div>
-                        <div class="col-sm-4 text-justify"></div>
+                <div class="row">
+                    <div class="col-sm-4 text-justify"></div>
+                    <div class="col-sm-4 text-justify"></div>
+                    <div class="col-sm-4 text-justify"></div>
                 </div>
             </div>
         </footer>
-
+        <div class="bg-dark text-left container-fluid text-light">
+            &copy; Todos os Direitos Reservados
+        </div>
         {% endblock rodape %}
         {% else %}
         {% endif %}

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
     'estoque.apps.EstoqueConfig',
+    'relatorio.apps.RelatorioConfig',
 
     'bootstrapform',
     'widget_tweaks',
