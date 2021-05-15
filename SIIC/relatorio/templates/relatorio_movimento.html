@@ -3,44 +3,56 @@
 {% extends 'paginas/modelo.html' %}
 
 {% block conteudo %}
-<div>
-    <p>
-        
+
+<script>
+    function mostrarResultado(){
+        document.getElementById('resultado').style.display = '';
+    }
+</script>
+
+<div class="container">
+    <p>   
     </p>
     <h2 align="center">Relatório de Movimentação do Estoque</h1>
     <br><br>
-    
-    <p>
-        <!-- Campo de Data inicio e fim -->
+ 
+<!--Inicio das janelas de data e botão pesquisar-->
+    <div class='col-sm-6'  style="padding: 10px;">
         <label style="margin-left: 10px" for="date">De:</label>
-            <input type="date" id="data_ini">
-        <label style="margin-left: 10px" for="date">Até:</label>
-            <input type="date" id="data_fim">
-        <button style="margin-left: 20px;" type="button" class="btn btn-primary">Pesquisar</button>
-        <br>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Estoque</th>
-                <th scope="col">Produto</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Saldo</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for campos in campos_relatorio %}
-                    <tr>
-                        <th> scope="row">{{ campos.id }} </th>
-                        <td>{{ campos.estoque }}</td>
-                        <td>{{ campos.produto }}</td>
-                        <td>{{ campos.quantidade }}</td>
-                        <td>{{ campos.saldo }}</td>
+        <input type="date" id="data_ini">
+        <label style="margin-left: 10px" for="date">De:</label>
+        <input type="date" id="data_fim">
+        <input type="submit" class="btn btn-primary" value="Pesquisar" 
+               id="consultar" onclick="mostrarResultado()">
+        
+    </div>
+<!--Fim das janelas de data e botão pesquisar-->
 
-                    </tr>
-                {%endfor%}
+<!--Inicio da Tabela do Relatório -->  
+    <div class="conteiner">
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Funcionário</th>
+                    <th scope="col">Tipo de Movimento</th>
+                    <th scope="col">Nota Fiscal</th>
+                    <th scope="col">Data Movimento</th>
+                </tr>
+            </thead>
+            <tbody id="resultado" style="display: none;">
+                {% for campo in campos_relatorio %}
+                <tr>
+                    <th scope="row">{{campo.id}}</th>
+                    <th scope="row">{{campo.funcionario}}</th>
+                    <th scope="row">{{campo.movimento}}</th>               
+                    <th scope="row">{{campo.nf}}</th>
+                    <th scope="row">{{campo.created}}</th>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
-    </p>
+    </div>   
 </div>
+
 {% endblock conteudo %}
