@@ -1,6 +1,6 @@
 {% extends 'paginas/modelo.html' %}
 {% load static %}
-
+{% load l10n %}
 {% block titulo %}
 <title>Detalhes do item</title>
 {% endblock titulo %}
@@ -66,16 +66,15 @@
                 {% endfor %}
             </table>
 
-                    {% for obj in object.estoques.all %}
-
-                    <div>
-                    {% if forloop.last %}
-                    <span id="total_geral" class="btn btn-danger">
-                    <h3>Total R$: {{obj.calcula_total_geral}}</h3>
-                    </span>
-                    {% endif %}
-                    </div>
-                    {% endfor %}
+            {% for obj in object.estoques.all %}
+            <div>
+                {% if forloop.last %}
+                <span id="total_geral" class="btn btn-danger">
+                    <h3>Total R$ {{obj.calcula_total_geral | floatformat:2 }}</h3>
+                </span>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
     </div>
 </container>

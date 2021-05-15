@@ -47,7 +47,7 @@
                 {% for Produto in object_list %}
 
                 <tr>
-                    <td>{{Produto.pk}}</td>
+                    <td>{{Produto.codigo_produto_formatado}}</td>
                     <td>{{Produto.categoria}}</td>
                     <td>
                         <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>

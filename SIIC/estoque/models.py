@@ -1,4 +1,3 @@
-from django.db.models.expressions import Value
 from django.db.models.fields import FloatField
 from usuarios.models import Usuario
 from django.db import models
@@ -8,10 +7,8 @@ from django.urls.base import reverse_lazy
 from django import forms
 from .manager import EstoqueEntradaManager, EstoqueSaidaManager
 from django.db.models import F, ExpressionWrapper, DecimalField, Max, Sum, Avg, Min
-from decimal import Decimal
 from django.db.models import Sum
 from django.db.models import FloatField
-from django.db.models import Q
 
 
 # Create your models here.
@@ -41,8 +38,6 @@ class Estoque(TimeStampedModel):
     nf = models.PositiveIntegerField(
         null=False, blank=False, verbose_name='Nota Fiscal')
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
-    valor_item_total = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         ordering = ('-created',)
@@ -83,7 +78,7 @@ class EstoqueItens(models.Model):
     estoque = models.ForeignKey(
         Estoque, on_delete=models.CASCADE, related_name='estoques')
     produto = models.ForeignKey(
-        Produto, on_delete=models.CASCADE, verbose_name='Produto: ')
+        Produto, on_delete=models.SET_NULL, verbose_name='Produto: ', null=True)
     quantidade = models.PositiveIntegerField(verbose_name='Qtd.: ')
     saldo = models.PositiveIntegerField(verbose_name='Estoque: ')
     preco_unit = models.DecimalField(

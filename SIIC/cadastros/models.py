@@ -45,6 +45,8 @@ class Produto(models.Model):
         CorProduto, verbose_name="Cor do produto", on_delete=models.CASCADE)
     categoria = models.ForeignKey(
         'Categoria', on_delete=models.SET_NULL, null=True, blank=True)
+    foto = models.ImageField(null=True, blank=True,
+                             verbose_name="Foto do produto")
 
     def __str__(self):
         return "{} | tam: {} | cor: {}".format(self.nome_produto, self.tamanho_produto, self.cor_produto)
@@ -59,6 +61,9 @@ class Produto(models.Model):
             'produto': self.nome_produto,
             'estoque': self.quantidade_disponivel,
         }
+
+    def codigo_produto_formatado(self):
+        return str(self.pk).zfill(6)
 
 
 class Categoria(models.Model):

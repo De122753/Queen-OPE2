@@ -11,7 +11,7 @@
     <H4 class="container" align=center>Cadastro de produtos no SIIC</H4>
     <p class="lead" align=center>Cadastro de produtos</p>
     <hr>
-    <form class="container container-fluid" action="" method="POST">
+    <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
             <div class="row">
                 <div class="form-group col-md-8 mb-0">
@@ -35,6 +35,9 @@
                 <div class="form-group col-md-3 mb-0">
                     {{form.quantidade_disponivel|as_crispy_field}}
                 </div>               
+            </div>
+            <div class="lign-center">
+                {{form.foto|as_crispy_field}}
             </div>
         {% comment %} {{ form|crispy }} {% endcomment %}
         <!--formulário exibido como parágrafo-->
