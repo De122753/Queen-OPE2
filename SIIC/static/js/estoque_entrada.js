@@ -2,27 +2,16 @@ $(document).ready(function() {
     // Insere classe no primeiro item de produto
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-quantidade').addClass('clQuantidade');
+    $('#id_estoque-0-preco_unit').addClass('clPreco');
     // Desabilita o primeiro campo 'Saldo'
     $('#id_estoque-0-saldo').prop('type', 'hidden');
-    //$('#id_estoque-0-DELETE').prop('type', 'hidden');
     // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-0-saldo"]').append('<input id="id_estoque-0-inicial" class="form-control" type="hidden" />')
-        // Select2
     $('.clProduto').select2()
 
 });
-
-
-// $(function() {
-//     $('.inlineform').formset({
-//         prefix: '{{ item_estoque_form.prefix }}',
-//         deleteText: 'Remover',
-//         addText: 'Adicionar outro',
-//     });
-// })
-
 
 $('#add-item').click(function(ev) {
     ev.preventDefault();
@@ -45,6 +34,7 @@ $('#add-item').click(function(ev) {
 
     $('#id_estoque-' + (count) + '-produto').addClass('clProduto');
     $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
+    $('#id_estoque-' + (count) + '-preco_unit').addClass('clPreco');
 
     // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
@@ -62,23 +52,28 @@ let saldo
 let campo
 let campo2
 let quantidade
+let preco
+let campo3
 
 $(document).on('change', '.clProduto', function() {
+    // preco_unit = $(this).val();
     let self = $(this)
     let pk = $(this).val()
     let url = '/produto/' + pk + '/json/'
-
     $.ajax({
         url: url,
         type: 'GET',
         success: function(response) {
+            preco_unitario = response.data[0].preco_unitario
             estoque = response.data[0].estoque
-            campo = self.attr('id').replace('produto', 'quantidade')
-            estoque_inicial = self.attr('id').replace('produto', 'inicial')
+            campo3 = self.attr('id').replace('produto', 'preco_unit');
+            campo = self.attr('id').replace('produto', 'quantidade');
+            estoque_inicial = self.attr('id').replace('produto', 'inicial');
+            preco = Number(preco_unitario)
                 // Estoque inicial
-            $('#' + estoque_inicial).val(estoque)
-                // Remove o valor do campo 'quantidade'
-            $('#' + campo).val('')
+            $('#' + estoque_inicial).val(estoque);
+            $('#' + campo).val('');
+            $('#' + campo3).val(preco);
         },
         error: function(xhr) {
             // body...

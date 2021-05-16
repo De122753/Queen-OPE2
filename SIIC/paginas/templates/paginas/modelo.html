@@ -92,11 +92,8 @@
                 </li>
                 {% else%}
                 {% endif%}
-
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
-
-
                     <a class="nav-link dropdown-toggle" href="#" id="Cadastros" data-toggle="dropdown">
                         Cadastros
                     </a>
@@ -105,21 +102,15 @@
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Cadastro de produto</a>
                         <hr>
-
                         <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a>
                     </div>
-
                 </li>
-
                 {% else %}
                 {% endif %}
-
-                <!--Dropdown LISTAS-->
-
                 {% if request.user.is_authenticated %}
                 </li>
                 <li class="nav-item dropdown">
@@ -138,17 +129,16 @@
                         Estoque
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'listar-produtos' %}">Relação de produtos</a>
+                        <a class="dropdown-item" href="{% url 'listar-produtos' %}">Estoque - Relação de produtos</a>
                         <hr>
-                        <a class="dropdown-item" href="{% url 'estoque_entrada_list' %}">Entradas</a>
+                        <a class="dropdown-item" href="{% url 'estoque_entrada_list' %}">Movimentação - Entradas</a>
                         <hr>
-                        <a class="dropdown-item" href="{% url 'estoque_saida_list' %}">Saídas</a>
+                        <a class="dropdown-item" href="{% url 'estoque_saida_list' %}">Movimentação - Saídas</a>
                     </div>
                 </li>
                 {% else %}
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                <!--Menu para relatórios: edit fsato a partir daqui-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="relatorio" data-toggle="dropdown">
                         Relatórios
@@ -167,8 +157,6 @@
                 {% endif %}
             </ul>
         </div>
-
-        {% comment %} Usuário logago {% endcomment %}
         {% if request.user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
@@ -209,9 +197,7 @@
         {% endif %}
     </nav>
     {% endblock menu %}
-
     {% if request.user.is_authenticated %}
-    <!--Conteúdo da página-->
     {% block conteudo %}
     <div class="bg-secondary text-center">
         Destaques da página
@@ -232,7 +218,6 @@
             </div>
         </div>
         {% endif %}
-
         {% if request.user.is_authenticated %}
         {% block rodape_nome %}
         {% endblock rodape_nome %}
@@ -260,7 +245,6 @@
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         {% block scripts %}{% endblock scripts %}
         {% block js %}{% endblock js %}
 </body>

@@ -1,142 +1,142 @@
-            body {
-                background-color: #dddddd;
-            }
-            
-            .card-top {
-                text-align: center;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-            
-            .imglogin {
-                border-radius: 100px;
-                box-shadow: 1px 1px 5px grey;
-            }
-            
-            .title-card-top {
-                color: #bd2000;
-            }
-            
-            .card-group>label {
-                width: 100%;
-                color: rgb(119, 117, 117);
-                font-family: 'Trebuchet MS';
-                display: block;
-            }
-            
-            .card-group>input {
-                width: 100%;
-                height: 30px;
-                margin-bottom: 10px;
-                font-family: 'Trebuchet MS';
-                display: block;
-                border-radius: 5px;
-                outline: 0;
-                padding: 5px;
-                background: rgba(121, 121, 121, 0.116);
-            }
-            
-            .card-group>button {
-                width: 100%;
-                border-radius: 30px;
-                padding: 15px;
-                background-image: linear-gradient(to right, #08719b, #160b79);
-                color: rgb(255, 255, 255);
-                font-family: 'Trebuchet MS';
-                display: block;
-                border: 0px;
-                outline: 0px;
-                font-size: 20px;
-            }
-            
-            .btn button:hover {
-                background-image: linear-gradient(to right, #05384d, #02010e);
-            }
-            
-            .card {
-                box-shadow: 1px 1px 10px rgb(150, 149, 149);
-                background-color: white;
-                padding: 30px;
-                border-radius: 6px;
-            }
-            
-            #logo_small {
-                _background: none;
-                filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='img/LogoSmalFashion.png', sizingMethod='scale');
-            }
-            
-            span.required:after {
-                content: "*";
-                color: red;
-            }
-            
-            .form-control {
-                margin: 5px;
-            }
-            
-            .form-group {
-                vertical-align: auto;
-            }
-            
-            .checkbox {
-                color: grey !important;
-                margin-left: 20px !important;
-                text-indent: 7px;
-            }
-            
-            h5 {
-                background-color: #768591 !important;
-                border-radius: 3px;
-                color: #F0F0EB;
-                text-align: left;
-                padding-left: 10px;
-            }
-            
-            i {
-                vertical-align: auto;
-            }
-            
-            #rodape {
-                margin-top: 15px;
-            }
-            
-            #seta_nota {
-                padding: 0.5rem;
-            }
-            
-            #estoque {
-                background-color: #F0F0EB;
-                border: 0.2rem solid lightgrey;
-            }
-            
-            #total_geral {
-                text-transform: uppercase;
-                float: right;
-                vertical-align: auto;
-            }
-            
-            .control-label {
-                padding: 0.5rem;
-            }
-            
-            .form-inline {
-                display: inline-block !important;
-            }
-            
-            .asteriskField {
-                margin: 0.2rem;
-            }
-            
-            #tbl_detail {
-                white-space: nowrap;
-                vertical-align: 20%;
-            }
-            
-            .imagem_produto {
-                width: 100%;
-                height: 100%;
-                align-items: center;
-            }
-            
-            #celula_foto {
-                width: 30%;
-            }
+body {
+    background-color: #dddddd;
+}
+
+.card-top {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.imglogin {
+    border-radius: 100px;
+    box-shadow: 1px 1px 5px grey;
+}
+
+.title-card-top {
+    color: #bd2000;
+}
+
+.card-group>label {
+    width: 100%;
+    color: rgb(119, 117, 117);
+    font-family: 'Trebuchet MS';
+    display: block;
+}
+
+.card-group>input {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    font-family: 'Trebuchet MS';
+    display: block;
+    border-radius: 5px;
+    outline: 0;
+    padding: 5px;
+    background: rgba(121, 121, 121, 0.116);
+}
+
+.card-group>button {
+    width: 100%;
+    border-radius: 30px;
+    padding: 15px;
+    background-image: linear-gradient(to right, #08719b, #160b79);
+    color: rgb(255, 255, 255);
+    font-family: 'Trebuchet MS';
+    display: block;
+    border: 0px;
+    outline: 0px;
+    font-size: 20px;
+}
+
+.btn button:hover {
+    background-image: linear-gradient(to right, #05384d, #02010e);
+}
+
+.card {
+    box-shadow: 1px 1px 10px rgb(150, 149, 149);
+    background-color: white;
+    padding: 30px;
+    border-radius: 6px;
+}
+
+#logo_small {
+    _background: none;
+    filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='img/LogoSmalFashion.png', sizingMethod='scale');
+}
+
+span.required:after {
+    content: "*";
+    color: red;
+}
+
+.form-control {
+    margin: 5px;
+}
+
+.form-group {
+    vertical-align: auto;
+}
+
+.checkbox {
+    color: grey !important;
+    margin-left: 20px !important;
+    text-indent: 7px;
+}
+
+h5 {
+    background-color: #768591 !important;
+    border-radius: 3px;
+    color: #F0F0EB;
+    text-align: left;
+    padding-left: 10px;
+}
+
+i {
+    vertical-align: auto;
+}
+
+#rodape {
+    margin-top: 15px;
+}
+
+#seta_nota {
+    padding: 0.5rem;
+}
+
+#estoque {
+    background-color: #F0F0EB;
+    border: 0.2rem solid lightgrey;
+}
+
+#total_geral {
+    text-transform: uppercase;
+    float: right;
+    vertical-align: auto;
+}
+
+.control-label {
+    padding: 0.5rem;
+}
+
+.form-inline {
+    display: inline-block !important;
+}
+
+.asteriskField {
+    margin: 0.2rem;
+}
+
+#tbl_detail {
+    white-space: nowrap;
+    vertical-align: 20%;
+}
+
+.imagem_produto {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+#celula_foto {
+    width: 30%;
+}

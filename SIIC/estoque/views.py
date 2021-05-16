@@ -41,9 +41,7 @@ def dar_baixa_estoque(form):
         produto = Produto.objects.get(pk=item.produto.pk)
         produto.quantidade_disponivel = item.saldo
         produto.preco_unitario = item.preco_unit
-        # calcula o valor do item antes de salvar
         produto.valor_item = item.calcula_total
-        # produto.valor_item_total = item.total_geral_item()
         produto.save()
     print('Estoque atualizado com sucesso.')
 
