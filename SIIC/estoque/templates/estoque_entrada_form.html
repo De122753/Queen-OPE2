@@ -4,6 +4,8 @@
 {% load bootstrap %}
 {% load crispy_forms_tags %}
 {% block conteudo %}
+{% load l10n %}
+
 
 {% block css %}
 {% endblock css %}
@@ -46,11 +48,11 @@
                 <div id="estoque" class="form-inline justify-content-center" style="padding: 10px;">
                     {% for item_estoque_form in formset %}
                     <div class="inlineform">
-                        <div id="item-{{ forloop.counter0 }}" class="form-group">
+                        <div id="item-{{ forloop.counter0 }}" class="form-group text-center">
                             {{ item_estoque_form.produto|as_crispy_field }}
+                            {{ item_estoque_form.preco_unit|as_crispy_field}}
                             {{ item_estoque_form.quantidade|as_crispy_field }}
                             {{ item_estoque_form.saldo|as_crispy_field }}
-                            {{ item_estoque_form.preco_unit|as_crispy_field }}
                             <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
                         </div>
                     </div>
@@ -89,7 +91,7 @@
 {% block scripts %}
 
 {% comment %} Link JS externo {% endcomment %}
-
+<script src={% static 'js/jquery.mask.min.js' %}></script>
 <script src="{% static 'js/estoque_entrada.js' %}"></script>
 <script type="text/html" id="item-estoque">
     <div id="item-__prefix__" class="form-group">
@@ -97,5 +99,20 @@
     </div>
 </script>
 
+
+
+<script>
+    $(document).ready(function () {
+        $('.clPreco').mask('000.000.000.000.000,00', {
+            placeholder: "Preço unitário"
+        }); {
+            % comment %
+        }
+        $('.clPreco').mask("#.##0,00"); {
+            % endcomment %
+        }
+
+    });
+</script>
 
 {% endblock scripts %}

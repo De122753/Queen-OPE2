@@ -1,7 +1,10 @@
 {% extends 'paginas/modelo.html' %}
 {% load static %}
-
+{% block titulo %}
+<title>{{titulo}}</title>
+{% endblock titulo %}
 {% block conteudo %}
+
 <P></P>
 <div class="container" style="padding-top: 20px">
     <h3>{{titulo_list}}

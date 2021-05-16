@@ -135,8 +135,13 @@ i {
     width: 100%;
     height: 100%;
     align-items: center;
+    max-height: min-content;
 }
 
 #celula_foto {
     width: 30%;
+}
+
+.clPreco {
+    text-align: center;
 }

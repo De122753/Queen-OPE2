@@ -16,7 +16,8 @@ def estoque_entrada_list(request):
         'object_list': objects,
         'titulo_list': 'ENTRADA DE ITENS NO ESTOQUE',
         'url_list_add': 'estoque_entrada_add',
-        'detalhes': 'detalhar-itens'
+        'detalhes': 'detalhar-itens',
+        'titulo': 'Movimentação - Entradas',
     }
     return render(request, template_name, context)
 
@@ -95,7 +96,8 @@ def estoque_saida_list(request):
         'object_list': objects,
         'titulo_list': 'SAIDA DE ITENS DO ESTOQUE',
         'url_list_add': 'estoque_saida_add',
-        'detalhes': 'detalhar-itens-saida'
+        'detalhes': 'detalhar-itens-saida',
+        'titulo': 'Movimentação - Saidas',
     }
     return render(request, template_name, context)
 
