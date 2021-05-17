@@ -109,7 +109,7 @@ i {
 }
 
 #total_geral {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     float: right;
     vertical-align: auto;
 }

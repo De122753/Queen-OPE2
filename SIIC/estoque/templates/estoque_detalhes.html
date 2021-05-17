@@ -16,7 +16,7 @@
                 </i>{{botao_listas}}</a>
             <hr>
             <h1 style="margin-left: 50px; margin-top: 10px;" class="float-left">
-                {{object}}
+                ITEM: {{object}}
             </h1>
 
             <div class="container container-fluid" style="background-color: #FAFCFF; border-radius: 5px;">
@@ -70,7 +70,7 @@
             <div>
                 {% if forloop.last %}
                 <span id="total_geral" class="btn btn-danger">
-                    <h3>Total R$ {{obj.calcula_total_geral | floatformat:2 }}</h3>
+                    <h4>Valor total em produtos: R$ {{obj.calcula_total_geral | floatformat:2 }}</h4>
                 </span>
                 {% endif %}
             </div>
