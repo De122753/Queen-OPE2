@@ -45,6 +45,7 @@
                 <thead>
                     <tr>
                         <th>Produto</th>
+                        <th>Fabricante</th>
                         <th>Estoque</th>
                         <th>Qtd. mov</th>
                         <th>Preço unitário</th>
@@ -55,6 +56,7 @@
                     {% for obj in object.estoques.all %}
                     <tr>
                         <td>{{obj.produto}}</td>
+                        <td align="center">{{obj.fabricante}}</td>
                         <td align="center">{{obj.saldo}}</td>
                         <td align="center">{{obj.quantidade}}</td>
                         <td align="center">R$ {{obj.preco_unit}}</td>

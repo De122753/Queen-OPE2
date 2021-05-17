@@ -49,6 +49,7 @@
                     <div class="inlineform">
                         <div id="item-{{ forloop.counter0 }}" class="form-group text-center">
                             {{ item_estoque_form.produto|as_crispy_field }}
+                            {{ item_estoque_form.fabricante|as_crispy_field }}
                             {{ item_estoque_form.preco_unit|as_crispy_field}}
                             {{ item_estoque_form.quantidade|as_crispy_field }}
                             {{ item_estoque_form.saldo|as_crispy_field }}

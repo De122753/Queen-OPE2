@@ -7,14 +7,14 @@ from crispy_forms.layout import Submit
 class EstoqueForm(forms.ModelForm):
     class Meta:
         model = Estoque
-        fields = ('nf', 'nf_arquivo',)
+        fields = ('nf',)
 
 
 class EstoqueIntensForm(forms.ModelForm):
     class Meta:
         model = EstoqueItens
-        fields = ('produto', 'quantidade', 'saldo',
-                  'preco_unit',)  # '__all__'
+        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante'
+                  )  # '__all__'
 
     # personalização do crispy form
 

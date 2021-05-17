@@ -70,6 +70,7 @@ class Produto(models.Model):
             'produto': self.nome_produto,
             'estoque': self.quantidade_disponivel,
             'preco_unitario': self.preco_unitario,
+            'fabricante': self.fabricante,
         }
 
     def codigo_produto_formatado(self):

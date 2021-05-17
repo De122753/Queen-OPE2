@@ -12,7 +12,7 @@
     <div class="col-12" align="center">
         <h1 style="text-align: center;">SAÍDA DE ITENS</h1>
         <div class="row h-100 justify-content-center align-items-center">
-            <form enctype="multipart/form-data" method="POST" novalidate >
+            <form enctype="multipart/form-data" method="POST" novalidate>
                 {% csrf_token %}
                 <H5>ESTOQUE - SAÍDA: </H5>
                 <hr style="margin: 5px;">
@@ -48,6 +48,7 @@
                     <div class="inlineform">
                         <div id="item-{{ forloop.counter0 }}" class="form-group">
                             {{ item_estoque_form.produto|as_crispy_field }}
+                            {{ item_estoque_form.fabricante|as_crispy_field }}
                             {{ item_estoque_form.preco_unit|as_crispy_field }}
                             {{ item_estoque_form.quantidade|as_crispy_field }}
                             {{ item_estoque_form.saldo|as_crispy_field }}

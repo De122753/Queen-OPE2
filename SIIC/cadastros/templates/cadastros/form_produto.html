@@ -31,6 +31,7 @@
             </div>
             <div class="form-group col-sm-2 mb-0">
                 {{form.cor_produto|as_crispy_field}}
+                {% comment %} <h6 align="center"><small>Cadastrar cor</small></h6> {% endcomment %}
             </div>
             <div class="form-group col-sm-3 mb-0">
                 {{form.fabricante|as_crispy_field}}
@@ -60,6 +61,7 @@
         <!--formulário exibido como parágrafo-->
         <p align=left>*Campo com preenchimento obrigatório</p>
         <button class="btn btn-primary" type="submit">Cadastar</button>
+
     </form>
     <hr>
 </div>

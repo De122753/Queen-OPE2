@@ -1,7 +1,7 @@
 from django.db.models.fields import FloatField
 from usuarios.models import Usuario
 from django.db import models
-from cadastros.models import Produto
+from cadastros.models import Categoria, Produto
 from .manager import EstoqueEntradaManager, EstoqueSaidaManager
 from django.db.models import Sum
 
@@ -81,6 +81,7 @@ class EstoqueItens(models.Model):
     preco_unit = models.DecimalField(
         max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
     valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    fabricante = models.CharField(max_length=50, verbose_name='', blank=True, null=True)
 
     class Meta:
         ordering = ('pk',)
@@ -103,3 +104,8 @@ class EstoqueItens(models.Model):
         self.tt = list(self.tt.values())[0]
         self.tt = round(self.tt, 2)
         return str(self.tt)
+
+    # def categoria(self):
+    #     self.cat = Categoria.objects.filter(categoria=self.categoria).values()
+    #     self.cat = list(self.cat.values())[0]
+    #     return str(self.cat)
