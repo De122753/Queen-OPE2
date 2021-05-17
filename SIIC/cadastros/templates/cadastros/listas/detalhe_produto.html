@@ -31,7 +31,7 @@
             <tbody>
                 <tr>
                     <th class="align-middle text-center text-monospace" colspan=2>Caractgerísticas do produto</th>
-                    <th class="align-middle" id="celula_foto" rowspan=6>
+                    <th class="align-middle" id="celula_foto" rowspan=11>
                         <div class="imagem_produto">
                             <img id="img_prouto" class="img-thumbnail" src="/static/uploads/{{object.foto}}"
                                 alt=" Imagem não disponível">
@@ -39,13 +39,29 @@
                         </div>
                     </th>
                 </tr>
-                <th class="align-middle">Código do produto:  </th>
+                <th class="align-middle">Código do produto: </th>
                 <td class="align-middle">{{object.codigo_produto_formatado}}</td>
                 </tr>
 
                 </tr>
-                <th class="align-middle">Preço do produto: </th>
-                <td class="align-middle">R$ {{object.preco_unitario}}</td>
+                    <th class="align-middle">NCM: </th>
+                    <td class="align-middle">{{object.ncm}}</td>
+                </tr>
+                 </tr>
+                    <th class="align-middle">Fabricante: </th>
+                    <td class="align-middle">{{object.fabricante}}</td>
+                </tr>
+                </tr>
+                    <th class="align-middle">Localização no estoque: </th>
+                    <td class="align-middle">{{object.localizacao}}</td>
+                </tr>
+                </tr>
+                    <th class="align-middle">Preço do produto: </th>
+                    <td class="align-middle">R$ {{object.preco_unitario}}</td>
+                </tr>
+                </tr>
+                    <th class="align-middle">Peso do produto (kg): </th>
+                    <td class="align-middle">{{object.peso}} kg</td>
                 </tr>
                 <tr class="align-middle">
                     <th class="align-middle">Cor do produto: </th>
@@ -53,11 +69,15 @@
                 </tr>
                 <tr>
                     <th class="align-middle">Tamanho do produto: </th>
-                    <td class="align-middle"> {{object.tamanho_produto}}</td>
+                    <td class="align-middle">{{object.tamanho_produto}}</td>
                 </tr>
                 <tr>
                     <th class="align-middle">Quantidade disponível: </th>
                     <td class="align-middle">{{object.quantidade_disponivel}}</td>
+                </tr>
+                </tr>
+                    <th class="align-middle">Estoque mínimo: </th>
+                    <td class="align-middle">{{object.estoque_minimo}}</td>
                 </tr>
                 <tr>
                     <td class="align-middle text-center" colspan=3>Detalhes: {{object.descricao_produto}}</td>

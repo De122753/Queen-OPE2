@@ -56,8 +56,7 @@ def estoque_add(request, template_name, movimento, url):
         extra=0,
         min_num=1,
         validate_min=True,
-        can_delete=True
-
+        can_delete=True,
     )
     if request.method == 'POST':
         form = EstoqueForm(

@@ -3,10 +3,11 @@ from .models import Estoque, EstoqueItens
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
+
 class EstoqueForm(forms.ModelForm):
     class Meta:
         model = Estoque
-        fields = ('nf',)
+        fields = ('nf', 'nf_arquivo',)
 
 
 class EstoqueIntensForm(forms.ModelForm):

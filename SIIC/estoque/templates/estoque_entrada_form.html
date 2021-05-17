@@ -6,7 +6,6 @@
 {% block conteudo %}
 {% load l10n %}
 
-
 {% block css %}
 {% endblock css %}
 <P></P>
@@ -14,13 +13,13 @@
     <div class="col-12" align="center">
         <h1 style="text-align: center;">ENTRADA DE ITENS</h1>
         <div class="row h-100 justify-content-center align-items-center">
-            <form method="POST" novalidate>
+            <form action="" enctype="multipart/form-data" method="POST" novalidate >
                 {% csrf_token %}
                 <H5>ESTOQUE - ENTRADA: </H5>
                 <hr style="margin: 5px;">
                 <div class="form">
                     {% for field in form.visible_fields %}
-                    <div class="form-group {% if field.errors %} has-error {% endif%}">
+                    <div class="form-group {% if field.errors %} has-error {% endif%}"     >
                         <div class="input-group mb-1">
                             <label style=" margin: 5px; width: 20%;" class="label label-primary"
                                 for="{{ field.id_for_label }}">

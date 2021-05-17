@@ -88,7 +88,7 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('Login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
-              'quantidade_disponivel', 'tamanho_produto', 'cor_produto', 'categoria', 'foto']
+              'quantidade_disponivel', 'tamanho_produto', 'cor_produto', 'peso', 'categoria', 'ncm', 'fabricante', 'localizacao', 'estoque_minimo',  'foto']
     template_name = 'cadastros/form_produto.html'
     success_url = reverse_lazy('inicio')
 
@@ -128,7 +128,7 @@ class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
-              'tamanho_produto', 'cor_produto', 'quantidade_disponivel', 'categoria', 'foto']
+              'tamanho_produto', 'cor_produto', 'quantidade_disponivel', 'categoria', 'peso', 'ncm', 'fabricante', 'localizacao', 'estoque_minimo', 'foto']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produtos')
 

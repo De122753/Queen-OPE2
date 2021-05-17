@@ -1,4 +1,5 @@
 from django.db.models.fields import FloatField
+from django.db.models.fields.files import FieldFile, FileField
 from usuarios.models import Usuario
 from django.db import models
 from django.contrib.auth.models import User
@@ -38,6 +39,8 @@ class Estoque(TimeStampedModel):
     nf = models.PositiveIntegerField(
         null=False, blank=False, verbose_name='Nota Fiscal')
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
+    nf_arquivo = models.FileField(
+        upload_to='notas_fiscais/', null=True, blank=True)
 
     class Meta:
         ordering = ('-created',)
@@ -83,8 +86,7 @@ class EstoqueItens(models.Model):
     saldo = models.PositiveIntegerField(verbose_name='Estoque: ')
     preco_unit = models.DecimalField(
         max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
-    valor_item = models.DecimalField(
-        max_digits=9, decimal_places=2, default=0)
+    valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0)
 
     class Meta:
         ordering = ('pk',)

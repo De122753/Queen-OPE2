@@ -1,6 +1,7 @@
 from functools import total_ordering
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields import CharField
 from django.urls.base import reverse_lazy
 from usuarios.models import Usuario
 
@@ -40,11 +41,19 @@ class Produto(models.Model):
     quantidade_disponivel = models.PositiveIntegerField(
         verbose_name='Quantidade disponíve')
     tamanho_produto = models.ForeignKey(
-        TamanhoProduto, verbose_name="Tamanho do produto", on_delete=models.CASCADE)
+        TamanhoProduto, verbose_name="Tamanho", on_delete=models.CASCADE)
     cor_produto = models.ForeignKey(
         CorProduto, verbose_name="Cor do produto", on_delete=models.CASCADE)
+    peso = models.DecimalField(
+        max_digits=6, decimal_places=3, verbose_name='Peso (Kg)', blank=True, null=True)
     categoria = models.ForeignKey(
         'Categoria', on_delete=models.SET_NULL, null=True, blank=True)
+    ncm = models.CharField(verbose_name='NCM', max_length=10)
+    fabricante = models.CharField(
+        verbose_name='Fabricante/Fornecedor', max_length=50)
+    localizacao = models.CharField(
+        verbose_name='Localização no Estoque', max_length=11)
+    estoque_minimo = models.PositiveIntegerField(verbose_name='Estoque mínimo')
     foto = models.ImageField(null=True, blank=True,
                              verbose_name="Foto do produto")
 

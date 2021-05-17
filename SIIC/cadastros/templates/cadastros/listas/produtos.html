@@ -35,9 +35,11 @@
                     <th>ID produto</th>
                     <th>Categoria</th>
                     <th>Nome produto</th>
+                    <th>Marca</th>
                     <th>Tamanho</th>
                     <th>Cor</th>
                     <th>Preço</th>
+                    <th>Est. mínimo</th>
                     <th>Estoque</th>
                     <th>Opções</th>
                 </tr>
@@ -52,17 +54,19 @@
                     <td>
                         <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>
                     </td>
-                    <td>{{Produto.tamanho_produto}}</td>
+                    <td align="center">{{Produto.fabricante}}</td>
+                    <td align="center">{{Produto.tamanho_produto}}</td>
                     <td>{{Produto.cor_produto}}</td>
                     <td>R$ {{Produto.preco_unitario}}</td>
-                    <td>{{Produto.quantidade_disponivel}}</td>
+                    <td align="center">{{Produto.estoque_minimo}}</td>
+                    <td align="center">{{Produto.quantidade_disponivel}}</td>
                     <td>
                         <a href="{% url 'detalhar-produto' Produto.pk %}" class="btn btn-info btn-sm" title="Detalhes"><i
                                 class="fa fa-plus-circle" aria-hidden="true"></i></a>
                         <a href="{% url 'editar-produto' Produto.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
                                 class="fas fa-edit" aria-hidden="true"></i></a>
-                        <a href="{% url 'excluir-produto' Produto.pk %}" class="btn btn-danger btn-sm"
-                            title="Excluir"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                        {% comment %} <a href="{% url 'excluir-produto' Produto.pk %}" class="btn btn-danger btn-sm"
+                            title="Excluir"><i class="fas fa-trash-alt" aria-hidden="true"></i></a> {% endcomment %}
                     </td>
                 </tr>
                 {% empty %}

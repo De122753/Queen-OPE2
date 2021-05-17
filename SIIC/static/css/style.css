@@ -145,3 +145,7 @@ i {
 .clPreco {
     text-align: center;
 }
+
+#id_preco_unitario {
+    text-align: center;
+}

@@ -63,6 +63,7 @@ $(document).on('change', '.clProduto', function() {
     $.ajax({
         url: url,
         type: 'GET',
+        enctype: 'multipart/form-data',
         success: function(response) {
             preco_unitario = response.data[0].preco_unitario
             estoque = response.data[0].estoque
