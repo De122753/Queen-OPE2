@@ -149,3 +149,7 @@ i {
 #id_preco_unitario {
     text-align: center;
 }
+
+.red {
+    background-color: coral !important;
+}
