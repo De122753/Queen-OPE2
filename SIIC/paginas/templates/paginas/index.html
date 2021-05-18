@@ -61,7 +61,7 @@
                     <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_relatorios.jpeg' %}"
                         alt="Card image cap">
                     <p></p>
-                    <h6 class="card-title" id="card-titulo-relatorios">RELATÓRIOS</h6>
+                    <h6 class="card-title" id="card-titulo-relatorios">RELATÓRIOS/LISTAS</h6>
                 </div>
                 <div class="card-corpo">
                     <p class="card-text">Módudo de relatórios do SIIC.</p>
@@ -70,9 +70,9 @@
                     <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
                             href="{% url 'relatorio_movimento' %}"> Rel. - Movimentação</a></li>
                     <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'estoque_entrada_list' %}"> - </a></li>
+                            href="{% url 'listar-usuarios' %}"> Lista de usuários </a></li>
                     <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'estoque_saida_list' %}"> - </a></li>
+                            href="{% url 'estoque_saida_list' %}"> Lista de fornecedores </a></li>
                 </ul>
             </div>
         </div>
@@ -87,7 +87,7 @@
                     <h6 class="card-title" id="card-titulo-exportacao">EXPORTAÇÕES</h6>
                 </div>
                 <div class="card-corpo">
-                    <p class="card-text">Módudo contendo ferramentas para exportação.</p>
+                    <p class="card-text">Exportação dos relatórios de movimentação do estoque.</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .XLSX

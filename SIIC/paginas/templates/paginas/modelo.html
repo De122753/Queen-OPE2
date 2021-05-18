@@ -199,23 +199,13 @@
     </nav>
     {% endblock menu %}
     {% if request.user.is_authenticated %}
-    {% block conteudo %}
+
     
-
-
-
-
-
-
-
-
-
-
-
-
-
+    {% block conteudo %}
 
     {% endblock conteudo %}
+
+
     {% else %}
     <div style="padding: 50px">
         <hr>
@@ -230,21 +220,285 @@
         {% block rodape_nome %}
         {% endblock rodape_nome %}
         {% block rodape %}
-        <div id="rodape" class="bg-secondary text-center container-fluid text-light">
-            Rodapé
-        </div>
-        <footer class="footer fixed-botton">
-            <div class="jumbotron jumbotron-fluid text-center jumbotron-fixed-botton">
-                <div class="row">
-                    <div class="col-sm-4 text-justify"></div>
-                    <div class="col-sm-4 text-justify"></div>
-                    <div class="col-sm-4 text-justify"></div>
+ 
+                <style>
+.jumbotron {
+    background-color: #dddd !important;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.footer {
+    background-size: cover;
+    margin:10px;
+    border-radius: 5px;
+    background-color: rgb(52,58,64);
+    font-family: 'Poppins', sans-serif !important;
+}
+#logo-insta{
+    margin-top: -1%;
+}
+#contatos{
+    font-size: 14px;
+}
+.first {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+}
+
+    .first h4 {
+        font-size: 20px;
+        letter-spacing: 3px;
+        position: relative;
+        margin-bottom: 20px;
+        font-size: 1.6em;
+        color: #fff;
+        padding-bottom: 0.5em;
+    }
+
+        .first h4::after {
+            content: '';
+            background: #66c83d;
+            width: 20%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+    .first p {
+        font-size: 14px;
+    }
+
+.second {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.second2 {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.second h4 {
+    font-size: 20px;
+    letter-spacing: 3px;
+    position: relative;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+    color: #fff;
+    padding-bottom: 0.5em;
+}
+
+    .second h4::after {
+        content: '';
+        background: #66c83d;
+        width: 20%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 40%;
+    }
+
+
+.second li {
+    list-style: none;
+    padding-bottom: 30px;
+}
+
+.second a, .second2 a {
+    color: rgb(206, 206, 206);
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+    .second a:hover, .second2 a:hover {
+        color: #fff;
+        transition: 0.2s;
+        text-shadow: 1px 1px 20px rgba(0,0,0,1);
+        text-decoration: none
+
+    }
+
+
+
+.third {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+    text-align: right;
+}
+
+
+    .third h4 {
+        font-size: 20px;
+        letter-spacing: 3px;
+        position: relative;
+        margin-bottom: 20px;
+        font-size: 1.6em;
+        color: #fff;
+        padding-bottom: 0.5em;
+    }
+
+
+        .third h4::after {
+            content: '';
+            background: #66c83d;
+            width: 20%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 80%;
+        }
+
+
+
+    .third li {
+        list-style: none;
+        padding-bottom: 15px;
+    }
+
+
+    .third a {
+        color: rgb(206, 206, 206);
+        text-decoration: none;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+
+        .third a:hover {
+            color: #fff;
+            transition: 0.2s;
+            text-shadow: 1px 1px 20px rgba(0,0,0,1);
+        }
+
+
+@media screen and (max-width:1000px) {
+    .first {
+        text-align: center;
+    }
+
+        .first h4::after {
+            left: 40%;
+        }
+}
+
+@media screen and (max-width:1000px) {
+    .third {
+        text-align: center;
+    }
+
+        .third h4::after {
+            left: 40% !important;
+        }
+}
+
+.margin {
+    margin-left: 20px;
+}
+
+.line {
+    height:2px;
+    background-color:rgb(206,206,206);
+    width:100%;
+}
+
+.container h1{
+    text-align:center;
+    margin-top:100px;
+    margin-bottom:100px;
+}
+
+.logo_queen{
+max-width: 20em;
+max-height: 5em;
+}
+                </style>
+                <!--Fim do script CSS-->
+
+                <!-- footer -->
+<footer>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="first" id="habilidades">
+                        <strong>
+                            <h4>Habilidades</h4>
+                                <p id="footer">Percepção orientada ao negócio</p>
+                                <p id="footer">Capacidade analítica</p>
+                                <p id="footer">Pensamento critíco</p>
+                                <p id="footer">Experiência</p>
+                                <p id="footer">Agilidade</p>
+                                <p id="footer">Comprometimento</p>
+                        </strong>
+                    </div>
+                </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="second">   
+                    <div>
+                                <div class="logo_queen">
+                                <legend><h6>Desenvolvido por:</h6></legend>
+                                    <img src="{% static 'img/LogoQueen.jpg' %}" alt="Logo" style="width:70%">
+                                </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="third" id="contatos">
+                    <h4> Contatos</h4>
+                        <ul>
+                            <strong>
+                                <p id="footer"><i class="far fa-envelope"></i> queen.corporation@gmail.com</p>
+                                <p id="footer"><i class="fas fa-phone-square "></i> (11) 4444-5555</p>
+                                <p id="footer"><i class="fas fa-mobile "></i>  (11) 99999-8888</p>
+                                <p id="footer"><i class="fas fa-map-marker-alt"></i> Rua Maria, Nº 123 - São Paulo-SP </p>
+                            </strong>
+                        </ul>
                 </div>
             </div>
-        </footer>
-        <div class="bg-dark text-left container-fluid text-light">
-            &copy; Todos os Direitos Reservados
         </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="line"></div>
+                    <div class="second2">
+                        <p>
+                            <a href="https://www.instagram.com/" target="_blank"> <i class="fab fa-instagram fa-2x margin"></i></a>
+                            <a href="https://github.com/De122753/Queen-OPE2"target="_blank"> <i class="fab fa-github fa-2x margin"></i></a>
+                            <a href="https://www.linkedin.com/login/"target="_blank"> <i class="fab fa-linkedin fa-2x margin"></i></a>
+                            <a href="https://www.youtube.com/?gl=BR&hl=PT"target="_blank"><i class="fab fa-youtube fa-2x margin" ></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</footer>
+
+  <!-- End of .container -->
+
         {% endblock rodape %}
         {% else %}
         {% endif %}
