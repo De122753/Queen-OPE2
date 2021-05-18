@@ -22,12 +22,12 @@
                     <div class="form-group {% if field.errors %} has-error {% endif%}"     >
                         <div class="input-group mb-1">
                             <label style=" margin: 5px; width: 20%;" class="label label-primary"
-                                for="{{ field.id_for_label }}">
+                                for="{{ field.id_for_label}}">
                                 <span class="input-group-text" id="basic-addon1">
                                     {% if field.field.required %}
                                     <span style="margin-left: 2px;" class="required">{{ field.label }}</span>
                                     {% else %}
-                                    <span style="margin-left: 10px;">{{ field.label }}</span>
+                                    <span style="margin-left: 10px;">{{ field.label}}</span>
                                     {% endif %}
                                 </span>
                             </label>
