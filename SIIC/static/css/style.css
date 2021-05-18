@@ -137,6 +137,22 @@ body {
     border-radius: 5em;
 }
 
+#card-titulo-exportacao {
+    vertical-align: bottom;
+    background-color: #009ACD;
+    color: whitesmoke;
+    width: 70%;
+    border-radius: 5em;
+}
+
+#card-titulo-relatorios {
+    vertical-align: bottom;
+    background-color: #EE3B3B;
+    color: whitesmoke;
+    width: 70%;
+    border-radius: 5em;
+}
+
 .card-top {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -187,4 +203,8 @@ body {
     height: 7rem;
     margin: 0px;
     padding: 0.5rem;
+}
+
+.fa-arrow-alt-circle-right {
+    color: #dddddd;
 }

@@ -12,7 +12,8 @@
         <div class="col col-sm-3">
             <div class="card">
                 <div class="imagem_card">
-                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_cadastro.jpeg' %}" alt="Card image cap">
+                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_cadastro.jpeg' %}"
+                        alt="Card image cap">
                     <p></p>
                     <h6 class="card-title" id="card-titulo-cadastro">CADASTROS</h6>
                 </div>
@@ -20,9 +21,12 @@
                     <p class="card-text">Módulo para cadastros diversos.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="{% url 'registrar' %}">Cadastro de usuários</a></li>
-                    <li class="list-group-item"><a href="{% url 'cadastrar-produto' %}">Cadastro de produtos</a></li>
-                    <li class="list-group-item"><a href="">Cadastro de fornecedores</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'registrar' %}"> Cadastro de usuários</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'cadastrar-produto' %}"> Cadastro de produtos</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Cadastro de
+                            fornecedores</a></li>
                 </ul>
             </div>
         </div>
@@ -31,32 +35,72 @@
         <div class="col col-sm-3">
             <div class="card">
                 <div class="imagem_card">
-                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_estoque.jpg' %}" alt="Card image cap">
+                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_estoque.jpg' %}"
+                        alt="Card image cap">
                     <p></p>
-                    <h6 class="card-title"id="card-titulo-estoque">ESTOQUE</h6>
+                    <h6 class="card-title" id="card-titulo-estoque">ESTOQUE</h6>
                 </div>
                 <div class="card-corpo">
-                    <p class="card-text">Módulo de gerenciamento do estoque.</p>
+                    <p class="card-text">Módulo para gerenciamento do estoque.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="{% url 'listar-produtos' %}">Estoque - Produtos</a></li>
-                    <li class="list-group-item"><a href="{% url 'estoque_entrada_list' %}">Movimentação - Entrada</a></li>
-                    <li class="list-group-item"><a href="{% url 'estoque_saida_list' %}">Movimentação - Saída</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'listar-produtos' %}"> Estoque - Produtos</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'estoque_entrada_list' %}"> Movimentação - Entrada</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'estoque_saida_list' %}"> Movimentação - Saída</a></li>
                 </ul>
             </div>
         </div>
 
 
-
         <div class="col col-sm-3">
-            Coluna3
+            <div class="card">
+                <div class="imagem_card">
+                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_relatorios.jpeg' %}"
+                        alt="Card image cap">
+                    <p></p>
+                    <h6 class="card-title" id="card-titulo-relatorios">RELATÓRIOS</h6>
+                </div>
+                <div class="card-corpo">
+                    <p class="card-text">Módudo de relatórios do SIIC.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'relatorio_movimento' %}"> Rel. - Movimentação</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'estoque_entrada_list' %}"> - </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
+                            href="{% url 'estoque_saida_list' %}"> - </a></li>
+                </ul>
+            </div>
         </div>
 
 
         <div class="col col-sm-3">
-            Coluna4
+            <div class="card">
+                <div class="imagem_card">
+                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_exportacao.jpeg' %}"
+                        alt="Card image cap">
+                    <p></p>
+                    <h6 class="card-title" id="card-titulo-exportacao">EXPORTAÇÕES</h6>
+                </div>
+                <div class="card-corpo">
+                    <p class="card-text">Módudo contendo ferramentas para exportação.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .XLSX
+                        </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .CSV
+                        </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .PDF
+                        </a></li>
+                </ul>
+            </div>
         </div>
     </div>
+</div>
 </div>
 
 {% endblock conteudo %}
