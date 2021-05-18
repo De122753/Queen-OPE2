@@ -109,7 +109,7 @@ i {
 }
 
 #total_geral {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     float: right;
     vertical-align: auto;
 }
@@ -148,4 +148,8 @@ i {
 
 #id_preco_unitario {
     text-align: center;
+}
+
+.red {
+    background-color: coral !important;
 }
