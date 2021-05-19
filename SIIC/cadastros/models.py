@@ -75,7 +75,7 @@ class Produto(models.Model):
                              verbose_name="Foto do produto")
 
     def __str__(self):
-        return "{} | tam: {} | cor: {}".format(self.nome_produto, self.tamanho_produto, self.cor_produto)
+        return "{} - {} | tam: {} | cor: {}".format(self.nome_produto, self.fabricante, self.tamanho_produto, self.cor_produto, )
 
     def get_absolute_url(self):
         return reverse_lazy("produto:detalhar-produto", kwargs={"pk": self.pk})

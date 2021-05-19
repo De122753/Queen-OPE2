@@ -1,9 +1,3 @@
-#logo_small {
-    _background: none;
-    filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='img/LogoSmalFashion.png', sizingMethod='scale');
-    position: -ms-page;
-}
-
 span.required:after {
     content: "*";
     color: red;

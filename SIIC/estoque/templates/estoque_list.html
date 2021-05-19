@@ -28,6 +28,8 @@
                 <th>Funcionário</th>
                 {% comment %} <th>Total do item</th> {% endcomment %}
                 <th>Detalhes</th>
+                <th>Nota fiscal</th>
+
             </tr>
         </thead>
         <tbody>
@@ -39,18 +41,23 @@
                 <td>{{ object.nota_formatada }}</td>
                 <td>{{ object.created }}</td>
                 <td>{{ object.funcionario }}</td>
-{% comment %} 
-                    {% for obj in object.estoques.all %}
-                    <td>R$ {{obj.valor_item_total}}</td>
-                    {% endfor %} {% endcomment %}
 
                 <td>
                     <a href="{%url detalhes object.pk%}">
-                        <button type="button" class="btn btn-info">
-                            <span class="fa fa-plus-circle"></span> Detalhes
+                        <button type="button" class="btn btn-primary btn-sm">
+                            <span class="fa fa-info-circle"></span> Detalhes
                         </button>
                     </a>
                 </td>
+                <td>
+                    <a href="/static/uploads/{{object.nf_arquivo}}">
+                        <button type="button" class="btn btn-danger btn-sm">
+                            <span class="fa fa-file-pdf"></span> Nota fiscal
+                        </button>
+                    </a>
+                </td>
+
+
             </tr>
             {% endfor %}
         </tbody>
