@@ -40,7 +40,7 @@
             };
         $('#id_telefone').mask(SPMaskBehavior, spOptions);
 
-        $('#id_ncm').mask('00-00-0000', {
+        $('#id_ncm').mask('00-00-00-0-0', {
             placeholder: "número NCM"
         });
         $('#id_localizacao').mask('C00-P00-L00', {
@@ -54,6 +54,23 @@
             placeholder: "kg",
             reverse: true
         });
+
+        $('#id_cnpj_fornecedor').mask('00.000.000/0000-00', {
+            placeholder: "número do CNPJ"
+        });
+
+                var SPMaskBehavior = function (val) {
+                    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+                    },
+                    spOptions = {
+                    onKeyPress: function(val, e, field, options) {
+                        field.mask(SPMaskBehavior.apply({}, arguments), options);
+                        }
+                    };
+
+                    $('#id_telefone_fornecedor').mask(SPMaskBehavior, spOptions);
+
+
     });
 </script>
 {% comment %} Jquery {% endcomment %}

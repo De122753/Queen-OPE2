@@ -54,7 +54,7 @@
                     <td>
                         <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>
                     </td>
-                    <td align="center">{{Produto.fabricante}}</td>
+                    <td align="left">{{Produto.fabricante}}</td>
                     <td align="center">{{Produto.tamanho_produto}}</td>
                     <td>{{Produto.cor_produto}}</td>
                     <td>R$ {{Produto.preco_unitario}}</td>
@@ -89,7 +89,7 @@
                         }
                     },
                     "aaSorting": [],
-                    "pageLength": 50,
+                    "pageLength": 10,
                     "language": {
                         "decimal": "",
                         "emptyTable": "Sem dados disponíveis",

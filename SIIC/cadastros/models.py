@@ -65,7 +65,7 @@ class Produto(models.Model):
         max_digits=6, decimal_places=3, verbose_name='Peso (Kg)', blank=True, null=True)
     categoria = models.ForeignKey(
         'Categoria', on_delete=models.SET_NULL, null=True, blank=True)
-    ncm = models.CharField(verbose_name='NCM', max_length=10)
+    ncm = models.CharField(verbose_name='NCM', max_length=12)
     fabricante = models.ForeignKey(
         'Fornecedor', verbose_name='Fornecedor', on_delete=models.CASCADE, null=True, blank=True)
     localizacao = models.CharField(
