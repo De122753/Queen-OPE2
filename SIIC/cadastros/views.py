@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from .models import CorProduto, TamanhoProduto, Produto, Categoria
+from .models import CorProduto, TamanhoProduto, Produto, Categoria, Fornecedor
 
 # Controle de login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -104,6 +104,36 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar'
         return context
 
+
+class FornecedorCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('Login')
+    model = Fornecedor
+    fields = ['nome_fornecedor',
+              'nome_fornecedor_redizido',
+              'cnpj_fornecedor',
+              'logradouro_fornecedor',
+              'numero_via_fornecedor',
+              'cidade_fornecedor',
+              'uf_fornecedor',
+              'contato_fornecedor',
+              'email_fornecedor',
+              'telefone_fornecedor'
+              ]
+    template_name = 'cadastros/form_fornecedor.html'
+    success_url = reverse_lazy('inicio')
+
+    def form_valid(self, form):
+        url = super().form_valid(form)
+        return url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["titulo_pagina"] = "Cadastro fornecedor"
+        context['titulo'] = 'Cadastrar novo fornecedor/fabricante'
+        context['subtitulo'] = 'Cadastro de fornecedor/fabricante'
+        context['botao'] = 'Cadastrar'
+        return context
+
     # ##################################### UPDATE #################################
 
 
@@ -119,6 +149,32 @@ class UsuarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context = super().get_context_data(*args, **kwargs)
         context["titulo_pagina"] = "Atualizar usuário"
         context["titulo"] = 'Atualizar dados do usuário'
+        context["botao"] = 'atualizar'
+        return context
+
+
+class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    group_required = u"Adm"
+    login_url = reverse_lazy('login')
+    model = Fornecedor
+    fields = ['nome_fornecedor',
+              'nome_fornecedor_redizido',
+              'cnpj_fornecedor',
+              'logradouro_fornecedor',
+              'numero_via_fornecedor',
+              'cidade_fornecedor',
+              'uf_fornecedor',
+              'contato_fornecedor',
+              'email_fornecedor',
+              'telefone_fornecedor'
+              ]
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-fornecedores')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["titulo_pagina"] = "Atualizar fornecedor"
+        context["titulo"] = 'Atualizar dados do fornecedor'
         context["botao"] = 'atualizar'
         return context
 
@@ -174,6 +230,13 @@ class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Produto
     template_name = 'cadastros/listas/produtos.html'
+
+
+class FornecedorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    group_required = [u"Adm", u"Padrão"]
+    login_url = reverse_lazy('login')
+    model = Fornecedor
+    template_name = 'cadastros/listas/fornecedores.html'
 
 
 def ProdutoDetalhes(request, pk):

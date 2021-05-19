@@ -6,10 +6,27 @@ from django.urls.base import reverse_lazy
 from usuarios.models import Usuario
 
 
-# Create your models here.
-# classe que define os atributos dos campos
-# conforme o atributo da classe também valida os campos
-# cada classe representa uma tabela na base de dados
+class Fornecedor(models.Model):
+    nome_fornecedor = models.CharField(
+        verbose_name='Nome do fornecedor', max_length=50)
+    nome_fornecedor_redizido = models.CharField(
+        verbose_name='Nome reduzido', max_length=50)
+    cnpj_fornecedor = models.CharField(max_length=18, verbose_name='CNPJ')
+    logradouro_fornecedor = models.CharField(
+        verbose_name='Logradouro', max_length=50)
+    numero_via_fornecedor = models.IntegerField(verbose_name='Número da via')
+    cidade_fornecedor = models.CharField(verbose_name='Cidade', max_length=50)
+    uf_fornecedor = models.CharField(verbose_name='UF', max_length=2)
+    contato_fornecedor = models.CharField(verbose_name='Contato do fornecedor', max_length=255)
+    email_fornecedor = models.EmailField(verbose_name='E-mail', max_length=254)
+    telefone_fornecedor = models.CharField(
+        max_length=15, verbose_name='Telefone')
+
+    def __str__(self):
+        return "{}".format(self.nome_fornecedor_redizido)
+
+    def codigo_fornecedor_formatado(self):
+        return str(self.pk).zfill(6)
 
 
 class CorProduto(models.Model):
@@ -49,8 +66,8 @@ class Produto(models.Model):
     categoria = models.ForeignKey(
         'Categoria', on_delete=models.SET_NULL, null=True, blank=True)
     ncm = models.CharField(verbose_name='NCM', max_length=10)
-    fabricante = models.CharField(
-        verbose_name='Fabricante/Fornecedor', max_length=50)
+    fabricante = models.ForeignKey(
+        'Fornecedor', verbose_name='Fornecedor', on_delete=models.CASCADE, null=True, blank=True)
     localizacao = models.CharField(
         verbose_name='Localização no Estoque', max_length=11)
     estoque_minimo = models.PositiveIntegerField(verbose_name='Estoque mínimo')
@@ -70,7 +87,7 @@ class Produto(models.Model):
             'produto': self.nome_produto,
             'estoque': self.quantidade_disponivel,
             'preco_unitario': self.preco_unitario,
-            'fabricante': self.fabricante,
+            'fabricante': self.fabricante.nome_fornecedor_redizido
         }
 
     def codigo_produto_formatado(self):

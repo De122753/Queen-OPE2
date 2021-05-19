@@ -86,7 +86,7 @@ $(document).on('change', '.clProduto', function() {
             // Estoque inicial
             $('#' + estoque_inicial).val(estoque);
             $('#' + campo).val('');
-            $('#' + campo3).val(preco);
+            $('#' + campo3).val(preco.toFixed(2));
             $('#' + campo4).val(fab);
 
 
