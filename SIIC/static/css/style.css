@@ -208,3 +208,25 @@ body {
 .fa-arrow-alt-circle-right {
     color: #dddddd;
 }
+
+#total_geral {
+    display: table;
+    width: 100%;
+    background-color: gainsboro;
+    color: darkslategray;
+}
+
+#id_main-nf_arquivo {
+    border-color: white;
+    vertical-align: auto;
+    border: 0rem;
+    padding-top: 0.2rem;
+}
+
+#form_entrada {
+    margin-bottom: 2rem;
+}
+
+#form_saida {
+    margin-bottom: 2rem;
+}
