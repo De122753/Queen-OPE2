@@ -34,7 +34,7 @@ class Estoque(TimeStampedModel):
         null=False, blank=False, verbose_name='Nota Fiscal')
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
     nf_arquivo = models.FileField(
-        upload_to='notas_fiscais/', null=True, blank=True)
+        upload_to='notas_fiscais/')
 
     class Meta:
         ordering = ('-created',)
@@ -104,8 +104,3 @@ class EstoqueItens(models.Model):
         self.tt = list(self.tt.values())[0]
         self.tt = round(self.tt, 2)
         return str(self.tt)
-
-    # def categoria(self):
-    #     self.cat = Categoria.objects.filter(categoria=self.categoria).values()
-    #     self.cat = list(self.cat.values())[0]
-    #     return str(self.cat)

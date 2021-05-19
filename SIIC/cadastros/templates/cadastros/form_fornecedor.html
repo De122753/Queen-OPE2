@@ -62,15 +62,20 @@
 <script src={% static 'js/jquery.mask.min.js' %}></script>
 <script>
     $(document).ready(function () {
-        $('#id_ncm').mask('00-00-0000', {
-            placeholder: "número NCM"
+        $('#id_cnpj_fornecedor').mask('00.000.000/0000-00', {
+            placeholder: "número do CNPJ"
         });
-        $('#id_localizacao').mask('C00-P00-L00', {
-            placeholder: "localização no estoque"
-        });
-        $('#id_preco_unitario').mask('  0000.00', {placeholder: "R$", reverse: true});
-        $('#id_peso').mask('0.000', {placeholder: "kg", reverse: true});
-    });
+        var SPMaskBehavior = function (val) {
+                    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+                    },
+                    spOptions = {
+                    onKeyPress: function(val, e, field, options) {
+                        field.mask(SPMaskBehavior.apply({}, arguments), options);
+                        }
+                    };
+
+                    $('#id_telefone_fornecedor').mask(SPMaskBehavior, spOptions);
+            });
 </script>
 {% comment %} Jquery {% endcomment %}
 {% endblock scripts %}

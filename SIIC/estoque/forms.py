@@ -7,7 +7,7 @@ from crispy_forms.layout import Submit
 class EstoqueForm(forms.ModelForm):
     class Meta:
         model = Estoque
-        fields = ('nf',)
+        fields = ('nf', 'nf_arquivo',)
 
 
 class EstoqueIntensForm(forms.ModelForm):
@@ -16,9 +16,9 @@ class EstoqueIntensForm(forms.ModelForm):
         fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante'
                   )  # '__all__'
 
-    # personalização do crispy form
+    # # personalização do crispy form
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.helper = FormHelper()
+    #     self.helper.form_method = 'post'

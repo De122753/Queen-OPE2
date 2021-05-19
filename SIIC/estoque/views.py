@@ -19,7 +19,7 @@ def estoque_entrada_list(request):
         'detalhes': 'detalhar-itens',
         'titulo': 'Movimentação - Entradas',
     }
-    return render(request, template_name, context)
+    return render(request, template_name, context,)
 
 
 def estoque_entrada_detalhes(request, pk):
@@ -60,7 +60,7 @@ def estoque_add(request, template_name, movimento, url):
     )
     if request.method == 'POST':
         form = EstoqueForm(
-            request.POST, instance=estoque_form, prefix='main')
+            request.POST, request.FILES, instance=estoque_form, prefix='main')
         formset = item_estoque_formset(
             request.POST, instance=estoque_form, prefix='estoque')
         if form.is_valid() and formset.is_valid():
