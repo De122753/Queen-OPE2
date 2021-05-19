@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'widget_tweaks',
     'crispy_forms',
+    'bootstrap_modal_forms',
     # nomedoapp.apps.Nomedoappconfig
 ]
 
