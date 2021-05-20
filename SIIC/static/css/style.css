@@ -85,7 +85,12 @@ i {
 }
 
 .red {
-    background-color: coral !important;
+    background-color: gold !important;
+}
+
+.grey {
+    background-color: lightgrey!important;
+    color: rgb(119, 117, 117);
 }
 
 .red:hover {

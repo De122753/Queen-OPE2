@@ -111,6 +111,9 @@ $(document).on('change', '.clQuantidade', function() {
     $('#' + campo).val(saldo)
     campo2 = $(this).attr('id').replace('quantidade', 'saldo-span')
         // Atrubui o saldo ao campo 'id_estoque-x-saldo-span'
+
+
+
     $('#' + campo2).text(saldo)
 });
 
