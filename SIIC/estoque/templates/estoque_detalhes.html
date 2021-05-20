@@ -6,9 +6,9 @@
 {% endblock titulo %}
 {% block conteudo %}
 
-<div class="container container-fluid">
+<div class="container">
     <h2 style="padding-top: 25px" align="center">{{titulo_detalhe}}</h2>
-                        <div class="container container-fluid" id="bloco_botoes_detalhes">
+                        <div class="container" id="bloco_botoes_detalhes">
                                 <a id="botao_lista_entradas" href="{% url url_list %}" class="btn btn-info"><i><i
                                             class="fa fa-arrow-left" aria-hidden="true"></i>
                                     </i>{{botao_listas}}</a>
@@ -17,44 +17,43 @@
                                             class="fa fa-plus" aria-hidden="true"></i>
                                     </i>Adicionar itens</a>
                         </div>
+                        <hr>
 
-            <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col col-sm-5">
+                        <div class="row">
+                            <div class="col col-sm-6">
                         <div class="row">
 
                         </div>
-                    <hr>
-                    <h1 style="margin-left: 30px; margin-top: 10px; margin-bottom: 10px;" class="float-left">
-                        ITEM: {{object}}
-                    </h1>
-                    <div class="container container-fluid" style="background-color: #FAFCFF; border-radius: 5px;">
-                        <table class="table table-sm table-user-information table-responsive">
-                            <tbody>
-                                <tr>
-                                    <th>Nota fiscal: </th>
-                                    <td>{{object.nota_formatada}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Data da criação: </th>
-                                    <td>{{object.created}}</td>
-                                </tr>
-                                </tr>
-                                <tr>
-                                    <th>Funcionário responsável: </th>
-                                    <td>{{object.funcionario}}</td>
-                                </tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            <h1 style="margin-left: 30px; margin-top: 10px; margin-bottom: 10px;" class="float-left">
+                                ITEM: {{object}}
+                            </h1>
+                            <div class="container" style="background-color: #FAFCFF; border-radius: 5px;">
+                                <table class="table table-sm table-user-information table-responsive">
+                                    <tbody>
+                                        <tr>
+                                            <th>Nota fiscal: </th>
+                                            <td>{{object.nota_formatada}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Data da criação: </th>
+                                            <td>{{object.created}}</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <th>Funcionário responsável: </th>
+                                            <td>{{object.funcionario}}</td>
+                                        </tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                 </div>
-                <div class="col col-sm-5" id="resumo">
+                <div class="col col-sm-6" id="resumo">
 
                 </div>
             </div>
             <div class="row">
-                <div class="container col-sm-10">
+                <div class="container col-sm-12">
                     <table class="table table-sm table-striped" id='tabela_de_itens'>
                         <thead>
                             <tr>
@@ -103,6 +102,8 @@
             </div>
         </div>
     </div>
+                                <hr>
+
 </div>
 
 {% endblock conteudo %}
