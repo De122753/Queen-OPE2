@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300&family=Julius+Sans+One&family=Jura:wght@300&family=Roboto&display=swap');
 span.required:after {
     content: "*";
     color: red;
@@ -86,6 +87,7 @@ i {
 
 .red {
     background-color: gold !important;
+    font-family: 'Darker Grotesque', sans-serif;
 }
 
 .grey {
@@ -100,6 +102,7 @@ i {
 
 body {
     background-color: #dddddd;
+    font-family: 'Jura', sans-serif;
 }
 
 
@@ -112,6 +115,7 @@ body {
     border-radius: 6px;
     width: 18rem;
     height: 30rem;
+    font-family: 'Darker Grotesque', sans-serif;
 }
 
 .imagem_card {
@@ -132,6 +136,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #card-titulo-estoque {
@@ -140,6 +145,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #card-titulo-exportacao {
@@ -148,6 +154,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #card-titulo-relatorios {
@@ -156,6 +163,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 .card-top {
