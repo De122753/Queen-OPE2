@@ -49,7 +49,6 @@
         .navbar {
             position: sticky !important;
             top: 0 !important;
-            <<<<<<< HEAD t:  !important;
         }
 
         #logo_small {
@@ -107,14 +106,14 @@
                         <a class="dropdown-item" href="{% url 'registrar' %}">Cadastro de usuários</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Cadastro de produto</a>
-                        <hr>
+                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-fornecedor' %}">Cadastro de fornecedor</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a>
+                        {% comment %} <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
+                        <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
+                        <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a> {% endcomment %}
                     </div>
                 </li>
                 {% else %}

@@ -74,7 +74,7 @@ def estoque_add(request, template_name, movimento, url):
     else:
         form = EstoqueForm(instance=estoque_form, prefix='main')
         formset = item_estoque_formset(instance=estoque_form, prefix='estoque')
-    context = {'form': form, 'formset': formset}
+    context = {'form': form, 'formset': formset, 'titulo': 'Adicionar itens'}
     return context
 
 

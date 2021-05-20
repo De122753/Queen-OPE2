@@ -13,7 +13,7 @@ class EstoqueForm(forms.ModelForm):
 class EstoqueIntensForm(forms.ModelForm):
     class Meta:
         model = EstoqueItens
-        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante'
+        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante',
                   )  # '__all__'
 
     # # personalização do crispy form

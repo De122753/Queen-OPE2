@@ -81,7 +81,8 @@ class EstoqueItens(models.Model):
     preco_unit = models.DecimalField(
         max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
     valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0)
-    fabricante = models.CharField(max_length=50, verbose_name='', blank=True, null=True)
+    fabricante = models.CharField(
+        max_length=50, verbose_name='', blank=True, null=True)
 
     class Meta:
         ordering = ('pk',)
