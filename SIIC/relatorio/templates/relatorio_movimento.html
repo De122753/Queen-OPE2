@@ -7,47 +7,83 @@
 <script>
     function mostrarResultado(){
         document.getElementById('resultado').style.display = '';
+        document.getElementById('imprimirPdf').style.display = '';
     }
 </script>
 
 <div class="container">
     <p>   
     </p>
-    <h2 align="center">Relatório de Movimentação do Estoque</h1>
+    <h2 align="center">RELATÓRIO FINANCEIRO DE PRODUTOS</h2>
     <br><br>
  
 <!--Inicio das janelas de data e botão pesquisar-->
-    <div class='col-sm-6'  style="padding: 10px;">
+    <div class='col-sm-12'  style="padding: 10px;">
         <label style="margin-left: 10px" for="date">De:</label>
-        <input type="date" id="data_ini">
+        <input type="date" id="data_ini" style="border-color: blue; padding: 3px; border-style:solid;">
         <label style="margin-left: 10px" for="date">De:</label>
-        <input type="date" id="data_fim">
+        <input type="date" id="data_fim" style="border-color: blue; padding: 3px; border-style:solid;">
         <input type="submit" class="btn btn-primary" value="Pesquisar" 
                id="consultar" onclick="mostrarResultado()">
-        
+        <input  type="submit" class="btn btn-primary" value="Imprimir PDF" 
+                id="imprimirPdf" onclick="" style="margin-left: 370px; display: none;">
     </div>
 <!--Fim das janelas de data e botão pesquisar-->
 
 <!--Inicio da Tabela do Relatório -->  
-    <div class="conteiner">
-        <table class="table table-striped" >
+    <div class="conteiner" id="resultado" style="display: none;">
+        <div style="background-color: white;">
+        </br>
+            <h3 align="center" style="background-color: rgba(14, 197, 91, 0.644); color: white; ">Resumo Financeiro das Movimentações dos Produtos</h3>
+        </br>    
+            <table class="table" style="border-color: black; margin: auto; padding-top: 40px;" id='resumo'>
+                <thead>
+                    <tr>
+                        <th scope="col" style="color: rgb(206, 116, 7); border: black;"><h4>TIPO DE MOVIMENTO</h4></th>
+                        <th scope="col" style="color: blue; border: black;" ><h4>QTD DE PRODUTOS</h4></th>
+                        <th scope="col" style="color: rgb(255, 17, 0); border: black;" ><h4>TOTAL FINANCEIRO</h4></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for campo in campos_total %}
+                    <tr>
+                        <th scope="row" style="font-size:20px;">{{campo.MOVIMENTO}}</th>
+                        <th scope="row" style="font-size:20px;">{{campo.QUANTIDADE}}</th>
+                        <th scope="row" style="font-size:20px;">R$ {{campo.TOTAL}}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>
+            </p>
+            </br>
+            <div class='col-sm-6' style="left: 70%;">
+                        RESULTADO FINANCEIRO DO PERÍODO: 
+                        <h2 style="color: rgba(255, 94, 0, 0.87);">R$ {{campos_resumo}}</h2>
+            </div>
+        </br>
+        </br>
+        </div>
+        
+        <table class="table table-striped" id="analitico">
+            <h3 align="center" style="background-color: rgb(9, 180, 100); color: white; ">Analítico - Movimentações dos Produtos</h3>
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Funcionário</th>
-                    <th scope="col">Tipo de Movimento</th>
-                    <th scope="col">Nota Fiscal</th>
-                    <th scope="col">Data Movimento</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">DATA MOVIMENTO</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">NOME PRODUTO</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">QTD PRODUTO</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">TIPO MOVIMENTO</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">TOTAL PRODUTO (R$)</th>
                 </tr>
             </thead>
-            <tbody id="resultado" style="display: none;">
-                {% for campo in campos_relatorio %}
+            <tbody >
+                {% for campo1 in campos_relatorio %}
                 <tr>
-                    <th scope="row">{{campo.id}}</th>
-                    <th scope="row">{{campo.funcionario}}</th>
-                    <th scope="row">{{campo.movimento}}</th>               
-                    <th scope="row">{{campo.nf}}</th>
-                    <th scope="row">{{campo.created}}</th>
+                    <th scope="row">{{campo1.CREATED}}</th>
+                    <th scope="row">{{campo1.NOME_PRODUTO}}</th>               
+                    <th scope="row">{{campo1.QUANTIDADE}}</th>
+                    <th scope="row">{{campo1.MOVIMENTO}}</th>
+                    <th scope="row">R$ {{campo1.TOTAL}}</th>
                 </tr>
                 {% endfor %}
             </tbody>
