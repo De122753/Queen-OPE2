@@ -2,7 +2,7 @@ from django.db.models.fields import FloatField
 from usuarios.models import Usuario
 from django.db import models
 from cadastros.models import Categoria, Produto
-from .manager import EstoqueEntradaManager, EstoqueSaidaManager
+from .manager import EstoqueEntradaManager, EstoqueSaidaManager, EstoqueBaixaManager
 from django.db.models import Sum
 
 
@@ -13,6 +13,7 @@ from django.db.models import Sum
 MOVIMENTO = (
     ('e', 'entrada'),
     ('s', 'saida'),
+    ('b', 'baixa'),
 )
 
 
@@ -35,6 +36,8 @@ class Estoque(TimeStampedModel):
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
     nf_arquivo = models.FileField(
         upload_to='notas_fiscais/', verbose_name='Arquivo - Nota Fiscal')
+    justificativa_baixa = models.CharField(
+        verbose_name="Justificativa para baixa no estoque", max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ('-created',)
@@ -69,6 +72,15 @@ class EstoqueSaida(Estoque):
         proxy = True
         verbose_name = 'estoque saida'
         verbose_name_plural = 'estoque saida'
+
+
+class EstoqueBaixa(Estoque):
+    objects = EstoqueBaixaManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'estoque baixa'
+        verbose_name_plural = 'estoque baixa'
 
 
 class EstoqueItens(models.Model):

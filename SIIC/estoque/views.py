@@ -2,7 +2,7 @@ from django.db.models.expressions import Value
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
-from .models import Estoque, EstoqueItens, EstoqueEntrada, EstoqueSaida
+from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, EstoqueSaida
 from .forms import EstoqueIntensForm, EstoqueForm
 from cadastros.models import Produto
 from cadastros.forms import ProdutoForm
@@ -120,4 +120,39 @@ def estoque_saida_add(request):
     context = estoque_add(request, template_name, movimento, url)
     if context.get('pk'):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
+    return render(request, template_name, context)
+
+
+def estoque_baixa_add(request):
+    template_name = 'estoque_baixa_form.html'
+    movimento = 'b'
+    url = 'detalhar-itens-baixa'
+    context = estoque_add(request, template_name, movimento, url)
+    if context.get('pk'):
+        return HttpResponseRedirect(resolve_url(url, context.get('pk')))
+    return render(request, template_name, context)
+
+
+def estoque_baixa_detalhes(request, pk):
+    obj = EstoqueBaixa.objects.get(pk=pk)
+    template_name = 'estoque_detalhes.html'
+    context = {
+        'object': obj,
+        'url_list': 'estoque_baixa_list',
+        'botao_listas': 'Lista de baixas',
+        'titulo_detalhe': 'BAIXA - DETALHES DO ITEM'
+    }
+    return render(request, template_name, context)
+
+
+def estoque_baixa_list(request):
+    template_name = 'estoque_list.html'
+    objects = EstoqueBaixa.objects.all()
+    context = {
+        'object_list': objects,
+        'titulo_list': 'ESTOQUE - BAIXA DE ITENS',
+        'url_list_add': 'estoque_baixa_add',
+        'detalhes': 'detalhar-itens-baixa',
+        'titulo': 'Movimentação - Baixas',
+    }
     return render(request, template_name, context)
