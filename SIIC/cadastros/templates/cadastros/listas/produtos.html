@@ -12,7 +12,7 @@
 {% block conteudo %}
 
 <p>
-    <h2 align=center>ESTOQUE - RELAÇÃO DE PRODUTOS</h2>
+    <h3 align=center>ESTOQUE - RELAÇÃO DE PRODUTOS</h3>
 </p>
 
 <div class="container-fluid">
@@ -52,7 +52,8 @@
                     <td>{{Produto.codigo_produto_formatado}}</td>
                     <td>{{Produto.categoria}}</td>
                     <td>
-                        <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>
+                    {{Produto.nome_produto}}
+                    {% comment %} <a id="link_produto" href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a> {% endcomment %}
                     </td>
                     <td align="left">{{Produto.fabricante}}</td>
                     <td align="center">{{Produto.tamanho_produto}}</td>
@@ -63,8 +64,8 @@
                     <td>
                         <a href="{% url 'detalhar-produto' Produto.pk %}" class="btn btn-info btn-sm"
                             title="Detalhes"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                        <a href="{% url 'editar-produto' Produto.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
-                                class="fas fa-edit" aria-hidden="true"></i></a>
+                        <a href="{% url 'editar-produto' Produto.pk %}" class="btn btn-secondary btn-sm" title="Editar"><i
+                                class="fas fa-pen-square" aria-hidden="true"></i></a>
                         {% comment %} <a href="{% url 'excluir-produto' Produto.pk %}" class="btn btn-danger btn-sm"
                             title="Excluir"><i class="fas fa-trash-alt" aria-hidden="true"></i></a> {% endcomment %}
                     </td>
@@ -83,11 +84,17 @@
             $(document).ready(function () {
                 $('#tabela_listar_produtos').DataTable({
                     retrieve: true,
+
                     "createdRow": function (row, data, dataIndex) {
-                        if (data[8] <= Number(data[7])) {
-                            $(row).addClass('red');
+                        if (data[8] <= 0) {
+                            $(row).addClass('grey');
+                        } else {
+                            if ((data[8] > 0) && (data[8] <= Number(data[7]))) {
+                                $(row).addClass('red');
+                            }
                         }
                     },
+
                     "aaSorting": [],
                     "pageLength": 10,
                     "language": {

@@ -14,7 +14,7 @@ def estoque_entrada_list(request):
     objects = EstoqueEntrada.objects.all()
     context = {
         'object_list': objects,
-        'titulo_list': 'ENTRADA DE ITENS NO ESTOQUE',
+        'titulo_list': 'ESTOQUE - ENTRADA DE ITENS',
         'url_list_add': 'estoque_entrada_add',
         'detalhes': 'detalhar-itens',
         'titulo': 'Movimentação - Entradas',
@@ -74,7 +74,7 @@ def estoque_add(request, template_name, movimento, url):
     else:
         form = EstoqueForm(instance=estoque_form, prefix='main')
         formset = item_estoque_formset(instance=estoque_form, prefix='estoque')
-    context = {'form': form, 'formset': formset}
+    context = {'form': form, 'formset': formset, 'titulo': 'Adicionar itens'}
     return context
 
 
@@ -93,7 +93,7 @@ def estoque_saida_list(request):
     objects = EstoqueSaida.objects.all()
     context = {
         'object_list': objects,
-        'titulo_list': 'SAIDA DE ITENS DO ESTOQUE',
+        'titulo_list': 'ESTOQUE - SAÍDA DE ITENS',
         'url_list_add': 'estoque_saida_add',
         'detalhes': 'detalhar-itens-saida',
         'titulo': 'Movimentação - Saidas',

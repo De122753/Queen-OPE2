@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300&family=Julius+Sans+One&family=Jura:wght@300&family=Roboto&display=swap');
 span.required:after {
     content: "*";
     color: red;
+}
+
+#titulo_index {
+    font-family: 'Roboto', sans-serif;
 }
 
 .form-control {
@@ -85,13 +90,20 @@ i {
 }
 
 .red {
-    background-color: coral !important;
+    background-color: gold !important;
 }
 
-.red:hover {
-    background-color: tomato !important;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.grey {
+    background-color: #EE3B3B!important;
+    color: white;
 }
+
+
+/* .red:hover {
+    background-color: goldenrod!important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    color: white;
+} */
 
 body {
     background-color: #dddddd;
@@ -127,6 +139,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #card-titulo-estoque {
@@ -135,6 +148,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #card-titulo-exportacao {
@@ -143,6 +157,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #card-titulo-relatorios {
@@ -151,6 +166,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 .card-top {
@@ -229,4 +245,12 @@ body {
 
 #form_saida {
     margin-bottom: 2rem;
+}
+
+#resumo {
+    padding-top: 0rem;
+}
+
+#bloco_botoes_detalhes {
+    text-align: center;
 }

@@ -1,10 +1,13 @@
+from django.core.checks import messages
 from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 from usuarios.models import Usuario
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.contrib.messages import constants
 # Create your views here.
 
 # lista de usuarios django
@@ -12,6 +15,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from .models import CorProduto, TamanhoProduto, Produto, Categoria, Fornecedor
+from .forms import CorForm
 
 # Controle de login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,7 +30,7 @@ class CorCreate(LoginRequiredMixin, CreateView):
     model = CorProduto
     fields = ['cor_produto']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
         form.instance.usuario_pedido = self.request.user
@@ -42,12 +46,26 @@ class CorCreate(LoginRequiredMixin, CreateView):
         return context
 
 
+def salva_cor(request):
+    cor_produto = request.POST.get('cor_produto')
+    count = CorProduto.objects.filter(cor_produto=cor_produto).count()  # contar cores
+    if count > 0:
+        # messages.error(request, 'Já cadastrada.')
+        messages.add_message(request, constants.SUCCESS, 'Cor já cadastrada no sistema!')
+        return redirect('cadastrar-produto')
+    else:
+        form = CorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastrar-produto')
+
+
 class CategoriaCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Categoria
     fields = ['categoria']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
         form.instance.usuario_pedido = self.request.user
@@ -68,7 +86,7 @@ class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
     model = TamanhoProduto
     fields = ['tamanho_produto']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
         form.instance.usuario_pedido = self.request.user

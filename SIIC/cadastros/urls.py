@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import UsuarioUpdate, ProdutoUpdate
 from .views import UsuarioDelete, ProdutoDelete
-from .views import UsuarioList, CorCreate, TamanhoProdutoCreate, ProdutoCreate, ProdutoList, ProdutoDetalhes, produto_json, CategoriaCreate, FornecedorCreate, FornecedorList, FornecedorUpdate
+from .views import UsuarioList, CorCreate, TamanhoProdutoCreate, ProdutoCreate, ProdutoList, ProdutoDetalhes, produto_json, CategoriaCreate, FornecedorCreate, FornecedorList, FornecedorUpdate, salva_cor
 
 # from .views import IndexView
 
@@ -14,6 +14,7 @@ urlpatterns = [
          FornecedorUpdate.as_view(), name='editar-fornecedor'),
     path('editar/produto/<int:pk>', ProdutoUpdate.as_view(), name='editar-produto'),
     path('cadastrar/cor', CorCreate.as_view(), name='cadastrar-cor'),
+    path('salva_cor', salva_cor, name='salva_cor'),
     path('cadastrar/categoria', CategoriaCreate.as_view(),
          name='cadastrar-categoria'),
     path('cadastrar/tamanho', TamanhoProdutoCreate.as_view(),

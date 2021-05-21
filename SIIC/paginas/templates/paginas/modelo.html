@@ -24,6 +24,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"></script>
+
     <!--Fim das classes do bootstrap-->
 
 
@@ -31,6 +33,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
+
 
     {% comment %} Importação do datatables CSS {% endcomment %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
@@ -47,7 +50,6 @@
         .navbar {
             position: sticky !important;
             top: 0 !important;
-            <<<<<<< HEAD t:  !important;
         }
 
         #logo_small {
@@ -105,14 +107,14 @@
                         <a class="dropdown-item" href="{% url 'registrar' %}">Cadastro de usuários</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Cadastro de produto</a>
-                        <hr>
+                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-fornecedor' %}">Cadastro de fornecedor</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a>
+                        {% comment %} <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
+                        <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
+                        <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a> {% endcomment %}
                     </div>
                 </li>
                 {% else %}
