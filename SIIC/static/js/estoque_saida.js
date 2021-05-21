@@ -99,7 +99,7 @@ $(document).on('change', '.clQuantidade', function() {
     // Aqui é feito o cálculo de soma do estoque
     saldo = Number(estoque) - Number(quantidade);
     if (saldo < 0) {
-        alert("O saldo do produto em estoque é insuficiente!");
+        alert("A quantidade de produtos em estoque é insuficiente!");
         return callback();
     } else {
         campo = $(this).attr('id').replace('quantidade', 'saldo')

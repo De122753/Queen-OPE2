@@ -12,7 +12,7 @@
 {% block conteudo %}
 
 <p>
-    <h2 align=center>ESTOQUE - RELAÇÃO DE PRODUTOS</h2>
+    <h3 align=center>ESTOQUE - RELAÇÃO DE PRODUTOS</h3>
 </p>
 
 <div class="container-fluid">
@@ -52,7 +52,8 @@
                     <td>{{Produto.codigo_produto_formatado}}</td>
                     <td>{{Produto.categoria}}</td>
                     <td>
-                        <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>
+                    {{Produto.nome_produto}}
+                    {% comment %} <a id="link_produto" href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a> {% endcomment %}
                     </td>
                     <td align="left">{{Produto.fabricante}}</td>
                     <td align="center">{{Produto.tamanho_produto}}</td>

@@ -14,7 +14,7 @@ def estoque_entrada_list(request):
     objects = EstoqueEntrada.objects.all()
     context = {
         'object_list': objects,
-        'titulo_list': 'ENTRADA DE ITENS NO ESTOQUE',
+        'titulo_list': 'ESTOQUE - ENTRADA DE ITENS',
         'url_list_add': 'estoque_entrada_add',
         'detalhes': 'detalhar-itens',
         'titulo': 'Movimentação - Entradas',
@@ -93,7 +93,7 @@ def estoque_saida_list(request):
     objects = EstoqueSaida.objects.all()
     context = {
         'object_list': objects,
-        'titulo_list': 'SAIDA DE ITENS DO ESTOQUE',
+        'titulo_list': 'ESTOQUE - SAÍDA DE ITENS',
         'url_list_add': 'estoque_saida_add',
         'detalhes': 'detalhar-itens-saida',
         'titulo': 'Movimentação - Saidas',

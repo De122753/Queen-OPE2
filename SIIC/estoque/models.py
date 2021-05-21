@@ -34,7 +34,7 @@ class Estoque(TimeStampedModel):
         null=False, blank=False, verbose_name='Nota Fiscal')
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
     nf_arquivo = models.FileField(
-        upload_to='notas_fiscais/')
+        upload_to='notas_fiscais/', verbose_name='Arquivo - Nota Fiscal')
 
     class Meta:
         ordering = ('-created',)

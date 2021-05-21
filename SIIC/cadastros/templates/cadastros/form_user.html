@@ -13,7 +13,6 @@
     <hr>
     <form class="container container-fluid" action="" method="POST">
         {% csrf_token %}
-        Formulario personalizado
             <div class="row">
                 <div class="form-group col-md-4 mb-0">
                     {{form.username|as_crispy_field}}
