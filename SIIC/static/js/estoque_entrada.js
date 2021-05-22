@@ -99,6 +99,11 @@ $(document).on('change', '.clProduto', function() {
 
 $(document).on('change', '.clQuantidade', function() {
     quantidade = $(this).val();
+    while (quantidade == 0) {
+        alert("Informe um número maior que 0!");
+        quantidade = $(this).val('');
+        return quantidade;
+    }
     // Aqui é feito o cálculo de soma do estoque
     saldo = Number(quantidade) + Number(estoque);
     campo = $(this).attr('id').replace('quantidade', 'saldo')
@@ -111,9 +116,6 @@ $(document).on('change', '.clQuantidade', function() {
     $('#' + campo).val(saldo)
     campo2 = $(this).attr('id').replace('quantidade', 'saldo-span')
         // Atrubui o saldo ao campo 'id_estoque-x-saldo-span'
-
-
-
     $('#' + campo2).text(saldo)
 });
 

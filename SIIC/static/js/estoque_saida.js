@@ -128,21 +128,3 @@ $('#form').bind('submit', false);
 $('button#submit').click(function() {
     $('#form').submit();
 });
-
-
-// $(document).on('change', '.clQuantidade', function() {
-//     quantidade = $(this).val();
-//     // Aqui é feito o cálculo de soma do estoque
-//     saldo = Number(estoque) - Number(quantidade);
-//     campo = $(this).attr('id').replace('quantidade', 'saldo')
-//     campo_estoque_inicial = $(this).attr('id').replace('quantidade', 'inicial')
-//     estoque_inicial = $('#' + campo_estoque_inicial).val()
-//     saldo = Number(estoque_inicial) - Number(quantidade)
-//         // Desabilita o 'Saldo'
-//     $('#' + campo).prop('type', 'hidden')
-//         // Atribui o saldo ao campo 'saldo'
-//     $('#' + campo).val(saldo)
-//     campo2 = $(this).attr('id').replace('quantidade', 'saldo-span')
-//         // Atrubui o saldo ao campo 'id_estoque-x-saldo-span'
-//     $('#' + campo2).text(saldo)
-// });
