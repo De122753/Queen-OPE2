@@ -96,6 +96,11 @@ $(document).on('change', '.clProduto', function() {
 
 $(document).on('change', '.clQuantidade', function() {
     quantidade = $(this).val();
+    while (quantidade == 0) {
+        alert("Informe um número maior que 0!");
+        quantidade = $(this).val('');
+        return quantidade;
+    }
     // Aqui é feito o cálculo de soma do estoque
     saldo = Number(estoque) - Number(quantidade);
     if (saldo < 0) {
