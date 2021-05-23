@@ -1,5 +1,5 @@
 from django import forms
-from .models import Estoque, EstoqueItens
+from .models import Estoque, EstoqueItens, MOVIMENTO
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
@@ -13,8 +13,9 @@ class EstoqueForm(forms.ModelForm):
 class EstoqueIntensForm(forms.ModelForm):
     class Meta:
         model = EstoqueItens
-        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante',
-                  )  # '__all__'
+        if MOVIMENTO == 'b':
+            fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante',)
+        fields = ('produto', 'quantidade', 'saldo', 'fabricante',)
 
     # # personalização do crispy form
 

@@ -1,4 +1,17 @@
 $(document).ready(function() {
+
+    var els = document.querySelectorAll("input.form-control");
+    for (var x = 0; x < els.length; x++) {
+        els[x].addEventListener("keypress", function(e) {
+            var k = e.which || e.keyCode;
+            if (k == 13) {
+                e.preventDefault();
+                var p = this.parentNode.parentNode.nextElementSibling.querySelector("input.form-control");
+                if (p) p.focus();
+            }
+        });
+    }
+
     // Insere classe no primeiro item de produto
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-preco_unit').addClass('clPreco');
