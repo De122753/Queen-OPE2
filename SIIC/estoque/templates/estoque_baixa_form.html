@@ -7,19 +7,19 @@
 {% block titulo %}
 <title>{{titulo}}</title>
 {% endblock titulo %}
-
 {% block css %}
 {% endblock css %}
 <P></P>
 <div class="container-fluid h-100">
     <div class="col-12" align="center">
         <h1 style="text-align: center;">BAIXA DE ITENS</h1>
-        <div class="row h-100 justify-content-center align-items-center">
-            <form enctype="multipart/form-data" method="POST" novalidate id="form_baixa">
+        <div class="row justify-content-center col-sm-6">
+            <form class="form" enctype="multipart/form-data" method="POST" novalidate id="form_baixa" >
                 {% csrf_token %}
-                <H5>ESTOQUE - BAIXA: </H5>
+                <h6 style="padding: 10px; background-color: #EE2C2C; color: white; border-radius: 0.5rem;">ESTOQUE -
+                    BAIXA:</h6>
                 <hr style="margin: 5px;">
-                <div class="form">
+                <div class="form" style="padding: 0px; float: none; margin:0 auto;">
                     {% for field in form.visible_fields %}
                     <div class="form-group {% if field.errors %} has-error {% endif%}">
                         <div class="input-group mb-1">
@@ -44,23 +44,36 @@
                     </div>
                 </div>
                 <hr>
-                <h5>PRODUTOS: </h5>
+                <span>
+                    <h6 style="padding: 10px; background-color: #EE2C2C; color: white; border-radius: 0.5rem;">PRODUTOS:
+                    </h6>
+                </span>
                 <hr>
-                <div id="estoque" class="form-inline justify-content-center" style="padding: 10px;">
-                    {% for item_estoque_form in formset %}
-                    <div class="inlineform">
-                        <div id="item-{{ forloop.counter0 }}" class="form-group">
-                            {{ item_estoque_form.produto|as_crispy_field }}
-                            {{ item_estoque_form.fabricante|as_crispy_field }}
-                            {{ item_estoque_form.preco_unit|as_crispy_field }}
-                            {{ item_estoque_form.quantidade|as_crispy_field }}
-                            {{ item_estoque_form.saldo|as_crispy_field }}
-                            <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
+                <div class="container" style="padding: 0px; float: none; margin:0 auto;">
+                    <div id="estoque" class="form-inline justify-content-center"
+                        style="padding: 10px; background-color: #FF6A6A; color: white; border: 0px; border-radius: 1rem;">
+                        {% for item_estoque_form in formset %}
+                        <hr style="border-color: white;">
+                        <div class="col">
+                            <div id="item-{{ forloop.counter0 }}" class="form-group text-center">
+                                <div class="row" style="float: none; margin:0 auto;">
+                                    {{ item_estoque_form.produto|as_crispy_field }}
+                                    {{ item_estoque_form.fabricante|as_crispy_field }}
+                                </div>
+                                <div class="row" style="float: none; margin:0 auto;">
+                                    {{ item_estoque_form.preco_unit|as_crispy_field }}
+                                    {{ item_estoque_form.quantidade|as_crispy_field }}
+                                </div>
+                                <div class="row" style="float: none; margin:0 auto;">
+                                    {{ item_estoque_form.saldo|as_crispy_field }}
+                                    <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
+                                </div>
+                            </div>
+                            <hr style="border-color: white;">
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-
                 <hr>
 
                 <div class="col-sm-12">
@@ -76,7 +89,7 @@
                                     <i class="fa fa-floppy-o"></i>
                                     Salvar
                                 </button>
-                                <a style="margin-left: 5px;" href="{% url 'estoque_saida_list' %}"
+                                <a style="margin-left: 5px;" href="{% url 'estoque_baixa_list' %}"
                                     class="btn btn-danger">
                                     <i class="fa fa-times" style="vertical-align: middle;"></i>
                                     <span style="margin-left: 5px;"> Cancelar </span>

@@ -10,7 +10,7 @@ urlpatterns = [
     path('estoque/listar_saidas', estoque_saida_list, name='estoque_saida_list'),
     path('estoque/listar_baixas', estoque_baixa_list, name='estoque_baixa_list'),
     path('item_detalhe/<int:pk>/', estoque_entrada_detalhes, name='detalhar-itens'),
-    path('item_detalhe/<int:pk>/', estoque_baixa_detalhes,
+    path('item_baixa_detalhe/<int:pk>/', estoque_baixa_detalhes,
          name='detalhar-itens-baixa'),
     path('item_saida_detalhe/<int:pk>/',
          estoque_saida_detalhes, name='detalhar-itens-saida'),

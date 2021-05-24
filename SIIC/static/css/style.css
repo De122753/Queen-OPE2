@@ -28,6 +28,7 @@ h5 {
     color: #F0F0EB;
     text-align: left;
     padding-left: 10px;
+    padding: 5px;
 }
 
 i {
@@ -81,8 +82,34 @@ i {
     width: 30%;
 }
 
-.clPreco {
+.div.clPreco {
     text-align: center;
+    font-size: 2rem !important;
+    width: 15rem !important;
+    margin-left: 10px;
+}
+
+.div.clQuantidade {
+    text-align: center;
+    color: red !important;
+    font-weight: bold !important;
+    font-size: 2rem !important;
+    width: 9rem !important;
+}
+
+.select2 {
+    text-align: center;
+    color: red !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    width: 33rem !important;
+}
+
+.lead.saldo {
+    text-align: center;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
 }
 
 #id_preco_unitario {
@@ -97,13 +124,6 @@ i {
     background-color: #EE3B3B!important;
     color: white;
 }
-
-
-/* .red:hover {
-    background-color: goldenrod!important;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    color: white;
-} */
 
 body {
     background-color: #dddddd;
@@ -253,4 +273,14 @@ body {
 
 #bloco_botoes_detalhes {
     text-align: center;
+}
+
+.form-inline {
+    margin-left: auto;
+    margin-right: auto
+}
+
+#box {
+    border-color: #768591;
+    border-style: dotted;
 }

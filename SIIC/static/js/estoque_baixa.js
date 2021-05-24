@@ -1,4 +1,17 @@
 $(document).ready(function() {
+
+    var els = document.querySelectorAll("input.form-control");
+    for (var x = 0; x < els.length; x++) {
+        els[x].addEventListener("keypress", function(e) {
+            var k = e.which || e.keyCode;
+            if (k == 13) {
+                e.preventDefault();
+                var p = this.parentNode.parentNode.nextElementSibling.querySelector("input.form-control");
+                if (p) p.focus();
+            }
+        });
+    }
+
     // Insere classe no primeiro item de produto
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-preco_unit').addClass('clPreco');
@@ -10,7 +23,7 @@ $(document).ready(function() {
     $('#id_estoque-0-fabricante').prop('type', 'hidden');
 
     // Cria um span para mostrar o saldo na tela.
-    $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
+    $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead saldo" style="marginm-left: 30px; padding-left: 30px; color: white; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-0-saldo"]').append('<input id="id_estoque-0-inicial" class="form-control" type="hidden" />')
     $('.clProduto').select2()
@@ -43,13 +56,11 @@ $('#add-item').click(function(ev) {
     $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
 
     // Cria um span para mostrar o saldo na tela.
-    $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
+    $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead saldo" style="marginm-left: 30px; padding-left: 30px; color: blue; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<input id="id_estoque-' + (count) + '-inicial" class="form-control" type="hidden" />')
         // Select2
     $('.clProduto').select2()
-
-
 
 });
 
@@ -96,6 +107,11 @@ $(document).on('change', '.clProduto', function() {
 
 $(document).on('change', '.clQuantidade', function() {
     quantidade = $(this).val();
+    while (quantidade == 0) {
+        alert("Informe um número maior que 0!");
+        quantidade = $(this).val('');
+        return quantidade;
+    }
     // Aqui é feito o cálculo de soma do estoque
     saldo = Number(estoque) - Number(quantidade);
     if (saldo < 0) {
@@ -123,21 +139,3 @@ $('#form').bind('submit', false);
 $('button#submit').click(function() {
     $('#form').submit();
 });
-
-
-// $(document).on('change', '.clQuantidade', function() {
-//     quantidade = $(this).val();
-//     // Aqui é feito o cálculo de soma do estoque
-//     saldo = Number(estoque) - Number(quantidade);
-//     campo = $(this).attr('id').replace('quantidade', 'saldo')
-//     campo_estoque_inicial = $(this).attr('id').replace('quantidade', 'inicial')
-//     estoque_inicial = $('#' + campo_estoque_inicial).val()
-//     saldo = Number(estoque_inicial) - Number(quantidade)
-//         // Desabilita o 'Saldo'
-//     $('#' + campo).prop('type', 'hidden')
-//         // Atribui o saldo ao campo 'saldo'
-//     $('#' + campo).val(saldo)
-//     campo2 = $(this).attr('id').replace('quantidade', 'saldo-span')
-//         // Atrubui o saldo ao campo 'id_estoque-x-saldo-span'
-//     $('#' + campo2).text(saldo)
-// });

@@ -35,9 +35,7 @@ class Estoque(TimeStampedModel):
         null=False, blank=False, verbose_name='Nota Fiscal')
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
     nf_arquivo = models.FileField(
-        upload_to='notas_fiscais/', verbose_name='Arquivo - Nota Fiscal')
-    justificativa_baixa = models.CharField(
-        verbose_name="Justificativa para baixa no estoque", max_length=255, blank=True, null=True)
+        upload_to='notas_fiscais/', verbose_name='NF. Arquivo')
 
     class Meta:
         ordering = ('-created',)
@@ -95,6 +93,8 @@ class EstoqueItens(models.Model):
     valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0)
     fabricante = models.CharField(
         max_length=50, verbose_name='', blank=True, null=True)
+    justificativa_baixa = models.CharField(
+        verbose_name="", max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ('pk',)
