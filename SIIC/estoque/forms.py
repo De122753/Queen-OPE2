@@ -1,5 +1,6 @@
 from django import forms
 from .models import Estoque, EstoqueItens, MOVIMENTO
+from django.core.exceptions import ValidationError
 
 
 class EstoqueForm(forms.ModelForm):
@@ -11,5 +12,4 @@ class EstoqueForm(forms.ModelForm):
 class EstoqueIntensForm(forms.ModelForm):
     class Meta:
         model = EstoqueItens
-        fields = ('produto', 'preco_unit',
-                  'quantidade', 'saldo', 'fabricante',)
+        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante',)

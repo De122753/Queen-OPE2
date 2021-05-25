@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     var els = document.querySelectorAll("input.form-control");
     for (var x = 0; x < els.length; x++) {
         els[x].addEventListener("keypress", function(e) {

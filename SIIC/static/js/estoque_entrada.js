@@ -12,6 +12,7 @@ $(document).ready(function() {
         });
     }
 
+
     // Insere classe no primeiro item de produto
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-preco_unit').addClass('clPreco');
@@ -77,7 +78,7 @@ let campo3
 let campo4
 
 $(document).on('change', '.clProduto', function() {
-    // preco_unit = $(this).val();
+
     let self = $(this)
     let pk = $(this).val()
     let url = '/produto/' + pk + '/json/'
@@ -101,8 +102,6 @@ $(document).on('change', '.clProduto', function() {
             $('#' + campo).val('');
             $('#' + campo3).val(preco.toFixed(2));
             $('#' + campo4).val(fab);
-
-
         },
         error: function(xhr) {
             // body...
@@ -133,8 +132,8 @@ $(document).on('change', '.clQuantidade', function() {
 });
 
 
-$('#form').bind('submit', false);
+// $('#form').bind('submit', false);
 
-$('button#submit').click(function() {
-    $('#form').submit();
-});
+// $('button#submit').click(function() {
+//     $('#form').submit();
+// });

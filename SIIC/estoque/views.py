@@ -146,7 +146,7 @@ def estoque_baixa_detalhes(request, pk):
 
 
 def estoque_baixa_list(request):
-    template_name = 'estoque_list.html'
+    template_name = 'estoque_list_baixa.html'
     objects = EstoqueBaixa.objects.all()
     context = {
         'object_list': objects,

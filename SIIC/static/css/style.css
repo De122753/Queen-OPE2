@@ -44,8 +44,8 @@ i {
 }
 
 #estoque {
-    background-color: #F0F0EB;
-    border: 0.2rem solid lightgrey;
+    background-color: #F5F5F5;
+    border: 0.1rem solid lightgrey;
 }
 
 #total_geral {
@@ -60,6 +60,8 @@ i {
 
 .form-inline {
     display: inline-block !important;
+    margin-left: auto;
+    margin-right: auto
 }
 
 .asteriskField {
@@ -82,19 +84,14 @@ i {
     width: 30%;
 }
 
-.div.clPreco {
+.clPreco {
     text-align: center;
-    font-size: 2rem !important;
-    width: 15rem !important;
     margin-left: 10px;
 }
 
-.div.clQuantidade {
+.clQuantidade {
     text-align: center;
-    color: red !important;
     font-weight: bold !important;
-    font-size: 2rem !important;
-    width: 9rem !important;
 }
 
 .select2 {
@@ -273,11 +270,6 @@ body {
 
 #bloco_botoes_detalhes {
     text-align: center;
-}
-
-.form-inline {
-    margin-left: auto;
-    margin-right: auto
 }
 
 #box {

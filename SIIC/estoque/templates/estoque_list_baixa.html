@@ -23,10 +23,12 @@
         <thead class="thead-light">
             <tr>
                 <th>Item</th>
-                <th>Produto</th>
-                <th>Nota Fiscal</th>
+                {% comment %} <th>Nota Fiscal</th> {% endcomment %}
                 <th>Data</th>
                 <th>Funcionário</th>
+                {% comment %} <th>Total</th> {% endcomment %}
+                <th>Detalhes</th>
+
             </tr>
         </thead>
         <tbody>
@@ -35,10 +37,24 @@
                 <td>
                     <a href="{% url detalhes object.pk%}">{{ object }}</a>
                 </td>
-                <th>{{object.produto}}</th>
-                <td>{{ object.nota_formatada }}</td>
+                {% comment %} <td>{{ object.nota_formatada }}</td> {% endcomment %}
                 <td>{{ object.created }}</td>
                 <td>{{ object.funcionario }}</td>
+                {% comment %} <td>{{ object.EstoqueItens.calcula_total_geral }}</td> {% endcomment %}
+                <td>
+                    <a href="{%url detalhes object.pk%}">
+                        <button type="button" class="btn btn-primary btn-sm">
+                            <span class="fa fa-info-circle"></span> Detalhes
+                        </button>
+                    </a>
+                </td>
+                {% comment %} <td>
+                    <a href="/static/uploads/{{object.nf_arquivo}}">
+                        <button type="button" class="btn btn-danger btn-sm">
+                            <span class="fa fa-file-pdf"></span> Nota fiscal
+                        </button>
+                    </a>
+                </td> {% endcomment %}
 
             </tr>
             {% endfor %}

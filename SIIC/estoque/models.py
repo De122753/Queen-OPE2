@@ -8,13 +8,14 @@ from django.db.models import Sum
 
 # Create your models here.
 
-# classe para obter data e hora da criação e modificação
 
 MOVIMENTO = (
     ('e', 'entrada'),
     ('s', 'saida'),
     ('b', 'baixa'),
 )
+
+# classe para obter data e hora da criação e modificação
 
 
 class TimeStampedModel(models.Model):
@@ -29,13 +30,15 @@ class TimeStampedModel(models.Model):
 
 
 class Estoque(TimeStampedModel):
-    funcionario = models.ForeignKey(
-        Usuario, verbose_name="Usuário", on_delete=models.CASCADE, blank=True)
-    nf = models.PositiveIntegerField(
-        null=False, blank=False, verbose_name='Nota Fiscal')
+    funcionario = models.ForeignKey(Usuario, verbose_name="Usuário", on_delete=models.CASCADE, blank=True)
+    nf = models.PositiveIntegerField(verbose_name='Nota Fiscal', null=True, blank=True)
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
-    nf_arquivo = models.FileField(
-        upload_to='notas_fiscais/', verbose_name='NF. Arquivo')
+    nf_arquivo = models.FileField(upload_to='notas_fiscais/', verbose_name='NF. Arquivo', null=True, blank=True)
+
+    # def clean(self):
+    #     super(Estoque, self).clean()
+    #     if self.movimento == 'b' and not self.nf and not self.nota_formatada and not self.nf_arquivo:
+    #         raise ValidationError('Preenchimento obrigatório')
 
     class Meta:
         ordering = ('-created',)
@@ -48,7 +51,7 @@ class Estoque(TimeStampedModel):
     def nota_formatada(self):
         if self.nf:
             return str(self.nf).zfill(6)
-        return '---'
+        return '000000'
 
 
 class EstoqueEntrada(Estoque):
@@ -82,19 +85,14 @@ class EstoqueBaixa(Estoque):
 
 
 class EstoqueItens(models.Model):
-    estoque = models.ForeignKey(
-        Estoque, on_delete=models.CASCADE, related_name='estoques')
-    produto = models.ForeignKey(
-        Produto, on_delete=models.SET_NULL, verbose_name='Produto: ', null=True)
+    estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE, related_name='estoques')
+    produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, verbose_name='Produto: ', null=True)
     quantidade = models.PositiveIntegerField(verbose_name='Qtd.: ')
     saldo = models.PositiveIntegerField(verbose_name='Estoque: ')
-    preco_unit = models.DecimalField(
-        max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
+    preco_unit = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
     valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0)
-    fabricante = models.CharField(
-        max_length=50, verbose_name='', blank=True, null=True)
-    justificativa_baixa = models.CharField(
-        verbose_name="", max_length=255, blank=True, null=True)
+    fabricante = models.CharField(max_length=50, verbose_name='', blank=True, null=True)
+    justificativa_baixa = models.CharField(verbose_name="", max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ('pk',)
@@ -112,8 +110,7 @@ class EstoqueItens(models.Model):
     # Total geral
     @property
     def calcula_total_geral(self, *args, **kwargs):
-        self.tt = EstoqueItens.objects.filter(estoque=self.estoque).values(
-        ).aggregate(Sum('valor_item', output_field=FloatField()))
+        self.tt = EstoqueItens.objects.filter(estoque=self.estoque).values().aggregate(Sum('valor_item', output_field=FloatField()))
         self.tt = list(self.tt.values())[0]
         self.tt = round(self.tt, 2)
         return str(self.tt)

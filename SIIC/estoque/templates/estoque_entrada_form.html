@@ -16,13 +16,13 @@
     <div class="col-12" align="center">
         <h1 style="text-align: center;">ENTRADA DE ITENS</h1>
         <div class="row h-100 justify-content-center align-items-center">
-            <form action="" enctype="multipart/form-data" method="POST" novalidate id="form_entrada" onkeydown="return !(event.keyCode==13)">
+            <form enctype="multipart/form-data" method="POST" novalidate id="form_entrada" onkeydown="return !(event.keyCode==13)" onsubmit='valida()'>
                 {% csrf_token %}
                 <H5>ESTOQUE - ENTRADA: </H5>
                 <hr style="margin: 5px;">
                 <div class="form">
                     {% for field in form.visible_fields %}
-                    <div class="form-group {% if field.errors %} has-error {% endif%}"     >
+                    <div class="form-group {% if field.errors %} has-error {% endif%}">
                         <div class="input-group mb-1">
                             <label style=" margin: 5px; width: 20%;" class="label label-primary"
                                 for="{{ field.id_for_label}}">
@@ -73,7 +73,7 @@
                     <div class="row float-right">
                         <div class="col-sm-12" style="margin-top: 50px;">
                             <div class="form-inline buttons">
-                                <button class="btn btn-primary" value="Save">
+                                <button class="btn btn-primary" value="Save" id="enviar">
                                     <i class="fa fa-floppy-o"></i>
                                     Salvar
                                 </button>
@@ -102,4 +102,20 @@
     </div>
 </script>
 
+{% comment %} VALIDAÇÃO {% endcomment %}
+<script>
+$('#enviar').click(function valida(){
+if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Preencha o campo Nota Fiscal');
+    document.getElementById('id_main-nf').focus();
+    return false;
+    }
+if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Arquivo da nota fiscal não inserido');
+    document.getElementById('id_main-nf_arquivo').focus();
+    return false;
+    }
+return true
+})
+</script>
 {% endblock scripts %}
