@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block conteudo %}
-
+<P></P>
 <div class="container" style="padding-top: 20px">
-    <h3>Entrada de itens no estoque
+    <h3>{{titulo_list}}
         <span class="float-right">
-            <a href="{%url 'estoque_entrada_add' %}">
+            <a href="{%url url_list_add %}">
                 <button type="button" class="btn btn-primary">
                     <span class="fa fa-plus"></span> Adicionar itens
                 </button>
@@ -23,20 +23,26 @@
                 <th>Nota Fiscal</th>
                 <th>Data</th>
                 <th>Funcionário</th>
-                <th>Info</th>
+                {% comment %} <th>Total do item</th> {% endcomment %}
+                <th>Detalhes</th>
             </tr>
         </thead>
         <tbody>
             {% for object in object_list %}
             <tr>
                 <td>
-                    <a href="{% url 'detalhar-itens' object.pk%}">{{ object }}</a>
+                    <a href="{% url detalhes object.pk%}">{{ object }}</a>
                 </td>
                 <td>{{ object.nota_formatada }}</td>
                 <td>{{ object.created }}</td>
                 <td>{{ object.funcionario }}</td>
+{% comment %} 
+                    {% for obj in object.estoques.all %}
+                    <td>R$ {{obj.valor_item_total}}</td>
+                    {% endfor %} {% endcomment %}
+
                 <td>
-                    <a href="{%url 'detalhar-itens' object.pk%}">
+                    <a href="{%url detalhes object.pk%}">
                         <button type="button" class="btn btn-info">
                             <span class="fa fa-plus-circle"></span> Detalhes
                         </button>

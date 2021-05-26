@@ -12,7 +12,7 @@
     <H4 class="container"align=center>{{titulo}}</H4>
     <p class="lead" align=center>{{subtitulo}}</p>
     <hr>
-        <form class="container container-fluid" action="" method="POST">
+        <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
         <h3>{{request.Pedido}}</h3>
             {% csrf_token %} <!--autenticador-->
             {{ form|crispy }} <!--formulário exibido como parágrafo-->

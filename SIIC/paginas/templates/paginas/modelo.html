@@ -25,7 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!--Fim das classes do bootstrap-->
-    
+
 
     {% comment %} FONTAWESOME {% endcomment %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
@@ -35,6 +35,7 @@
     {% comment %} Importação do datatables CSS {% endcomment %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -46,14 +47,38 @@
         .navbar {
             position: sticky !important;
             top: 0 !important;
+            <<<<<<< HEAD t:  !important;
+        }
+
+        #logo_small {
+            position: absolute;
+            max-width: 6%;
+            height: auto;
+            border-radius: 10px;
+            float: left;
+        }
+
+        img:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+
+        #linha_v {
+            height: 1rem;
+            border-left: 1px solid grey;
         }
     </style>
 
     <nav class="navbar  navbar-expand-sm bg-dark navbar-dark navbar-fixed-top"
         style="position: relative; z-index: 999;">
-        <!-- REMOVIDO O BOTÃO MENU: edit fsato
-        <a class="navbar-brand" href="#">Menu</a>
-        -->
+        {% if request.user.is_authenticated %} <img id="logo_small" src="{% static 'img/LogoSmalFashion.jpg' %}"
+            class="img img-fluid" width="100" height="30" alt="Logotipo" style='#'>
+
+        <div class="col-sm-1"></div> {% else%}
+        {% endif%}
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">SIIC</a>
+        </div>
+        <hr id="linha_v" width="2" size="100" color="white">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -84,6 +109,8 @@
                         <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a>
                     </div>
 
                 </li>
@@ -101,8 +128,6 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'listar-usuarios' %}">Lista de usuários</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'listar-pedidos' %}">Lista de pedidos</a>
                     </div>
                 </li>
                 {% else %}
@@ -116,10 +141,12 @@
                         <a class="dropdown-item" href="{% url 'listar-produtos' %}">Relação de produtos</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'estoque_entrada_list' %}">Entradas</a>
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'estoque_saida_list' %}">Saídas</a>
                     </div>
                 </li>
                 {% else %}
-                {% endif%}
+                {% endif %}
                 {% if request.user.is_authenticated %}
                 <!--Menu para relatórios: edit fsato a partir daqui-->
                 <li class="nav-item dropdown">
@@ -130,13 +157,14 @@
                         <a class="dropdown-item" href="/relatorio/">Movimentos</a>
                     </div>
                 </li>
-                <!--Menu para relatórios: edit fsato até aqui-->
                 {% else %}
                 {% endif %}
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
                 </li>
-
+                {% else %}
+                {% endif %}
             </ul>
         </div>
 
@@ -207,24 +235,31 @@
 
         {% if request.user.is_authenticated %}
         {% block rodape_nome %}
+        {% endblock rodape_nome %}
+        {% block rodape %}
+        <div id="rodape" class="bg-secondary text-center container-fluid text-light">
+            Rodapé
+        </div>
+        <footer class="footer fixed-botton">
+            <div class="jumbotron jumbotron-fluid text-center jumbotron-fixed-botton">
+                <div class="row">
+                    <div class="col-sm-4 text-justify"></div>
+                    <div class="col-sm-4 text-justify"></div>
+                    <div class="col-sm-4 text-justify"></div>
+                </div>
+            </div>
+        </footer>
         <div class="bg-dark text-left container-fluid text-light">
             &copy; Todos os Direitos Reservados
         </div>
-        {% endblock rodape_nome %}
-
+        {% endblock rodape %}
         {% else %}
         {% endif %}
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
-        {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script> {% endcomment %}
-        {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js">
-        </script> {% endcomment %}
-        {% comment %} <script src="{% static 'js/bootstrap.min.js' %}"></script> {% endcomment %}
-        {% comment %} Importação do datatables {% endcomment %}
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         {% block scripts %}{% endblock scripts %}
         {% block js %}{% endblock js %}

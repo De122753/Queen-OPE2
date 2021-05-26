@@ -3,14 +3,26 @@ $(document).ready(function() {
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-quantidade').addClass('clQuantidade');
     // Desabilita o primeiro campo 'Saldo'
-    $('#id_estoque-0-saldo').prop('type', 'hidden')
-        // Cria um span para mostrar o saldo na tela.
+    $('#id_estoque-0-saldo').prop('type', 'hidden');
+    //$('#id_estoque-0-DELETE').prop('type', 'hidden');
+    // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-0-saldo"]').append('<input id="id_estoque-0-inicial" class="form-control" type="hidden" />')
         // Select2
     $('.clProduto').select2()
+
 });
+
+
+// $(function() {
+//     $('.inlineform').formset({
+//         prefix: '{{ item_estoque_form.prefix }}',
+//         deleteText: 'Remover',
+//         addText: 'Adicionar outro',
+//     });
+// })
+
 
 $('#add-item').click(function(ev) {
     ev.preventDefault();
@@ -23,7 +35,8 @@ $('#add-item').click(function(ev) {
     $('#id_estoque-TOTAL_FORMS').attr('value', count + 1);
 
     // Desabilita o campo 'Saldo'
-    $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden')
+    $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden');
+    //$('#id_estoque-' + (count) + '-DELETE').prop('type', 'hidden');
 
     // some animate to scroll to view our new form
     $('html, body').animate({
@@ -39,6 +52,9 @@ $('#add-item').click(function(ev) {
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<input id="id_estoque-' + (count) + '-inicial" class="form-control" type="hidden" />')
         // Select2
     $('.clProduto').select2()
+
+
+
 });
 
 let estoque
