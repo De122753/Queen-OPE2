@@ -104,6 +104,17 @@
 
 {% comment %} VALIDAÇÃO {% endcomment %}
 <script>
+{% comment %} Jquery não aceitar caracteres especiais em campos numéricos {% endcomment %}
+function isValid(str) {
+    return !/[~`!@#$%\^&*()+=\-\[\]\\';/{}|\\":<>\?]/g.test(str);
+}
+
+$('.numberinput').keypress(function(event) {
+    var character = String.fromCharCode(event.keyCode);
+    return isValid(character);     
+});
+{% comment %} --------------- {% endcomment %}
+
 $('#enviar').click(function valida(){
 if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
     alert('Preencha o campo Nota Fiscal');
