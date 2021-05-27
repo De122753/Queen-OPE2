@@ -25,12 +25,10 @@
                     <p class="card-text">Cadastros diversos.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'registrar' %}"> Cadastro de usuários</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'cadastrar-produto' %}"> Cadastro de produtos</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-fornecedor' %}"> Cadastro de
-                            fornecedores</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'registrar' %}"> Cadastro de usuários</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-produto' %}"> Cadastro de produtos</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-fornecedor' %}"> Cadastro de fornecedores</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="#"></a></li>
                 </ul>
             </div>
         </div>
@@ -48,12 +46,11 @@
                     <p class="card-text">Gerenciamento e monitoramento do estoque.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'listar-produtos' %}"> Estoque - Produtos</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'estoque_entrada_list' %}"> Movimentação - Entrada</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'estoque_saida_list' %}"> Movimentação - Saída</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'listar-produtos' %}"> Estoque - Produtos</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_entrada_list' %}"> Movimentação - Entrada</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_saida_list' %}"> Movimentação - Saída</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_baixa_list' %}"> Movimentação - Baixa</a></li>
+
                 </ul>
             </div>
         </div>
@@ -71,12 +68,11 @@
                     <p class="card-text">Emissão de relatórios e listas diversas.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'relatorio_movimento' %}"> Rel. - Movimentação</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'listar-usuarios' %}"> Lista de usuários </a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'listar-fornecedores' %}"> Lista de fornecedores </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'relatorio_movimento' %}"> Rel. - Movimentação</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'listar-usuarios' %}"> Lista de usuários </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'listar-fornecedores' %}"> Lista de fornecedores </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="#"></a></li>
+
                 </ul>
             </div>
         </div>
@@ -100,6 +96,8 @@
                         </a></li>
                     <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .PDF
                         </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="#"></a></li>
+
                 </ul>
             </div>
         </div>
