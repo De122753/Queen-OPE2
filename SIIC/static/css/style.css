@@ -133,16 +133,20 @@ body {
     padding: 1rem;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background-color: white;
-    border-radius: 6px;
+    border-radius: 2px;
     width: 18rem;
-    height: 35rem;
+    height: 34rem;
+}
+
+.card-title {
+    padding: 0.5em;
 }
 
 .imagem_card {
     border-radius: 0.5rem;
     background-color: #F0F0EB;
     width: 100%;
-    height: 100%;
+    height: 75%;
 }
 
 .imglogin {
@@ -238,7 +242,8 @@ body {
     padding: 0.5rem;
 }
 
-.fa-arrow-alt-circle-right {
+.fa-arrow-alt-circle-right,
+.fa-grip-lines {
     color: #dddddd;
 }
 
