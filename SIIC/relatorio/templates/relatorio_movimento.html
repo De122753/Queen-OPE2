@@ -9,6 +9,7 @@
         document.getElementById('resultado').style.display = '';
         document.getElementById('imprimirPdf').style.display = '';
     }
+    
 </script>
 
 <div class="container">
@@ -31,12 +32,12 @@
 <!--Fim das janelas de data e botão pesquisar-->
 
 <!--Inicio da Tabela do Relatório -->  
-    <div class="conteiner" id="resultado" style="display: none;">
+    <div class="conteiner" id="resultado" style="display: none; margin:auto">
         <div style="background-color: white;">
         </br>
             <h3 align="center" style="background-color: rgba(14, 197, 91, 0.644); color: white; ">Resumo Financeiro das Movimentações dos Produtos</h3>
         </br>    
-            <table class="table" style="border-color: black; margin: auto; padding-top: 40px;" id='resumo'>
+            <table class="table" style="border-color: black; padding-top: 40px;" id='resumo'>
                 <thead>
                     <tr>
                         <th scope="col" style="color: rgb(206, 116, 7); border: black;"><h4>TIPO DE MOVIMENTO</h4></th>
@@ -57,16 +58,18 @@
             <p>
             </p>
             </br>
-            <div class='col-sm-6' style="left: 70%;">
-                        RESULTADO FINANCEIRO DO PERÍODO: 
-                        <h2 style="color: rgba(255, 94, 0, 0.87);">R$ {{campos_resumo}}</h2>
+            
+            <div class='col-sm-6' style="left: 70%;">RESULTADO FINANCEIRO DO PERÍODO: 
+                {% for campo in campos_resumo %}
+                    <h2  style="color: rgba(255, 94, 0, 0.87); border: black;">R$ {{campo.RESULT}}</h2>
+                {% endfor %}
             </div>
         </br>
         </br>
         </div>
         
         <table class="table table-striped" id="analitico">
-            <h3 align="center" style="background-color: rgb(9, 180, 100); color: white; ">Analítico - Movimentações dos Produtos</h3>
+            <h3 align="center" style="background-color: rgb(9, 180, 100); color: white; ">Movimentações dos Produtos</h3>
             <thead>
                 <tr>
                     <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">DATA MOVIMENTO</th>

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 import relatorio.forms as r
 from reportlab.pdfgen import canvas
-from .models import TOTAL_PRODUTOS, TOTALIZADOR, RESUMO_FINANC
+from .models import TOTAL_PRODUTOS, TOTALIZADOR, RESULTADO_FINANC
 
 
 # Retorna a pagina do relatorio de movimetno e dados do DB
@@ -10,8 +10,8 @@ def relatorio_movimento(request):
     template_name = 'relatorio_movimento.html'
     campos_produtos = TOTAL_PRODUTOS.objects.all()
     campos_resultado = TOTALIZADOR.objects.all()
-    campos_resumo = '-57.236,00'
-    context = {'campos_total': campos_resultado,'campos_relatorio': campos_produtos, 'campos_resumo':campos_resumo}
+    campos_resumo = RESULTADO_FINANC.objects.all()
+    context = {'campos_total': campos_resultado,'campos_relatorio': campos_produtos, 'campos_resumo': campos_resumo}
     return render(request, template_name, context)
 
 def pdf(request):

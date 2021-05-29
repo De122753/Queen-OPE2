@@ -23,13 +23,13 @@ class TOTALIZADOR(models.Model):
         db_table = 'TOTALIZADOR'
     
 
-
-class RESUMO_FINANC(models.Model):
-    VALOR = models.DecimalField(max_digits=10, decimal_places=2)
+class RESULTADO_FINANC(models.Model):
+    ID = models.PositiveIntegerField()
+    RESULT = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         managed = False
-        db_table = 'RESUMO_FINANC'
+        db_table = 'RESULTADO_FINANC'
 
 # class Report(models.Model):
 
