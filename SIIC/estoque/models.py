@@ -87,7 +87,7 @@ class EstoqueItens(models.Model):
     quantidade = models.PositiveIntegerField(verbose_name='Qtd.: ')
     saldo = models.PositiveIntegerField(verbose_name='Estoque: ')
     preco_unit = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
-    valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name='Total R$')
+    valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name='Total(R$)')
     fabricante = models.CharField(max_length=50, verbose_name='', blank=True, null=True,)
     justificativa_baixa = models.CharField(verbose_name="", max_length=255, blank=True, null=True)
 
@@ -119,7 +119,7 @@ class DetailedDataTable(tables.Table):
     movimento = tables.Column(verbose_name='Movimento', accessor='estoque.movimento')
     funcionario = tables.Column(verbose_name='Funcionario', accessor='estoque.funcionario')
     fabricante = tables.Column(verbose_name='Fabricante', accessor='fabricante')
-    created = tables.Column(verbose_name='Data', accessor='estoque.created')
+    created = tables.Column(verbose_name='Data e hora', accessor='estoque.created')
 
     class Meta:
         model = EstoqueItens
@@ -128,8 +128,8 @@ class DetailedDataTable(tables.Table):
                   'quantidade', 'preco_unit', 'valor_item', 'fabricante', 'movimento', 'funcionario', 'created',)
         attrs = {
             "id": "tbl_lista_completa",
-            "class": "table table-sm  thead-dark table-active table-striped",
-            "style": "font-size: 12px;"
+            "class": "table table-sm table-light table-striped",
+            "style": "font-size: 12px; overflow-y: hidden;"
         }  # atrib HTML
 
     def render_estoue_funcionario(self, value, record):

@@ -8,11 +8,12 @@
 {% block conteudo %}
 
 <P></P>
-<span class='text-center'><h4>RELAÇÃO DE MOVIMENTAÇÃO DO ESTOQUE</h4></span>
+<span class='text-center'>
+    <h4>RELAÇÃO DE MOVIMENTAÇÃO DO ESTOQUE</h4>
+</span>
 <hr>
-<div class="container-xl" style="padding-top: 20px">
-
-         {% render_table table %}
+<div class="table-responsive" style="padding: 20px">
+    {% render_table table %}
 </div>
 
 
@@ -24,7 +25,7 @@
         $('#tbl_lista_completa').DataTable({
             retrieve: true,
             "aaSorting": [],
-            "pageLength": 50,
+            "pageLength": 25,
             "language": {
                 "decimal": "",
                 "emptyTable": "Sem dados disponíveis",
