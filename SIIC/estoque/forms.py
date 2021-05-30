@@ -1,7 +1,6 @@
 from django import forms
-from .models import Estoque, EstoqueItens
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from .models import Estoque, EstoqueItens, MOVIMENTO
+from django.core.exceptions import ValidationError
 
 
 class EstoqueForm(forms.ModelForm):
@@ -13,12 +12,4 @@ class EstoqueForm(forms.ModelForm):
 class EstoqueIntensForm(forms.ModelForm):
     class Meta:
         model = EstoqueItens
-        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante',
-                  )  # '__all__'
-
-    # # personalização do crispy form
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.helper = FormHelper()
-    #     self.helper.form_method = 'post'
+        fields = ('produto', 'preco_unit', 'quantidade', 'saldo', 'fabricante',)

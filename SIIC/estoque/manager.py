@@ -11,3 +11,9 @@ class EstoqueSaidaManager(models.Manager):
 
     def get_queryset(self):
         return super(EstoqueSaidaManager, self).get_queryset().filter(movimento='s')
+
+
+class EstoqueBaixaManager(models.Manager):
+
+    def get_queryset(self):
+        return super(EstoqueBaixaManager, self).get_queryset().filter(movimento='b')

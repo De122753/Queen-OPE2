@@ -1,0 +1,145 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load bootstrap %}
+{% load crispy_forms_tags %}
+{% block conteudo %}
+{% block titulo %}
+<title>{{titulo}}</title>
+{% endblock titulo %}
+{% block css %}
+{% endblock css %}
+<P></P>
+<div class="container-fluid h-100">
+    <div class="col-12" align="center">
+        <h1 style="text-align: center;">BAIXA DE ITENS</h1>
+        <div class="row justify-content-center col-sm-6">
+            <form class="form" enctype="multipart/form-data" method="POST" novalidate id="form_baixa">
+                {% csrf_token %}
+                <h6 hidden style="padding: 10px; background-color: #EE2C2C; color: white; border-radius: 0.5rem;">ESTOQUE -
+                    BAIXA:</h6>
+                <hr hidden style="margin: 5px;">
+                <div class="form" style="padding: 0px; float: none; margin:0 auto;">
+                    {% for field in form.visible_fields %}
+                    <div hidden class="form-group {% if field.errors %} has-error {% endif%}">
+                        <div class="input-group mb-1">
+                            <label style=" margin: 5px; width: 20%;" class="label label-primary"
+                                for="{{ field.id_for_label }}">
+                                <span class="input-group-text" id="basic-addon1">
+                                    {% if field.field.required %}
+                                    <span style="margin-left: 2px;" class="required">{{ field.label }}</span>
+                                    {% else %}
+                                    <span style="margin-left: 10px;">{{ field.label }}</span>
+                                    {% endif %}
+                                </span>
+                            </label>
+                            <span id="seta_nota"><i class="fas fa-chevron-right"></i></span>
+                            <span style="margin-left: 5px;">{% render_field field class="form-control" %}</span>
+                            {% for error in field.errors %}
+                            <span class="text-muted" style="margin: auto; color: red !important;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                        {{ formset.management_form}}
+                    </div>
+                </div>
+                <hr>
+                <span>
+                    <h6 style="padding: 10px; background-color: #EE2C2C; color: white; border-radius: 0.5rem;">PRODUTOS:
+                    </h6>
+                </span>
+                <hr>
+                <div class="container" style="padding: 0px; float: none; margin:0 auto;">
+                    <div id="estoque" class="form-inline justify-content-center"
+                        style="padding: 10px; background-color: #FF6A6A; color: white; border: 0px; border-radius: 1rem;">
+                        {% for item_estoque_form in formset %}
+                        <hr style="border-color: white;">
+                        <div class="col">
+                            <div id="item-{{ forloop.counter0 }}" class="form-group text-center">
+                                <div class="row" style="float: none; margin:0 auto;">
+                                    {{ item_estoque_form.produto|as_crispy_field }}
+                                    {{ item_estoque_form.fabricante|as_crispy_field }}
+                                </div>
+                                <div class="row" style="float: none; margin:0 auto;">
+                                    {{ item_estoque_form.preco_unit|as_crispy_field }}
+                                    {{ item_estoque_form.quantidade|as_crispy_field }}
+                                </div>
+                                <div class="row" style="float: none; margin:0 auto;">
+                                    {{ item_estoque_form.saldo|as_crispy_field }}
+                                    <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
+                                </div>
+                            </div>
+                            <hr style="border-color: white;">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr>
+
+                <div class="col-sm-12">
+                    <div class="row float-left">
+                        <span id="add-item" class="btn btn-info" style="margin-top: 10px;">
+                            <i class="fa fa-plus"></i> Adicionar
+                        </span>
+                    </div>
+                    <div class="row float-right">
+                        <div class="col-sm-12" style="margin-top: 50px;">
+                            <div class="form-inline buttons">
+                                <button class="btn btn-primary" value="Save">
+                                    <i class="fa fa-floppy-o"></i>
+                                    Salvar
+                                </button>
+                                <a style="margin-left: 5px;" href="{% url 'estoque_baixa_list' %}"
+                                    class="btn btn-danger">
+                                    <i class="fa fa-times" style="vertical-align: middle;"></i>
+                                    <span style="margin-left: 5px;"> Cancelar </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock conteudo %}
+{% block scripts %}
+
+{% comment %} Link JS externo {% endcomment %}
+
+<script src="{% static 'js/estoque_baixa.js' %}"></script>
+<script type="text/html" id="item-estoque">
+    <div id="item-__prefix__" class="form-group">
+        {{ formset.empty_form|crispy }}
+    </div>
+</script>
+
+{% comment %} VALIDAÇÃO {% endcomment %}
+<script>
+{% comment %} Jquery não aceitar caracteres especiais em campos numéricos {% endcomment %}
+function isValid(str) {
+    return !/[~`!@#$%\^&*()+=\-\[\]\\';/{}|\\":<>\?]/g.test(str);
+}
+
+$('.numberinput').keypress(function(event) {
+    var character = String.fromCharCode(event.keyCode);
+    return isValid(character);     
+});
+{% comment %} --------------- {% endcomment %}
+
+$('#enviar').click(function valida(){
+if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Preencha o campo Nota Fiscal');
+    document.getElementById('id_main-nf').focus();
+    return false;
+    }
+if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Arquivo da nota fiscal não inserido');
+    document.getElementById('id_main-nf_arquivo').focus();
+    return false;
+    }
+return true
+})
+</script>
+
+{% endblock scripts %}

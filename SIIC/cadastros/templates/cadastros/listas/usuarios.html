@@ -12,7 +12,7 @@
 {% block conteudo %}
 
 <p>
-    <h2 align=center>Lista de usuários cadastrados no SIIC</h2>
+    <h3 align=center>RELAÇÃO DE USUÁRIOS CADASTRADOS</h3>
 </p>
 
 <div class="container-fluid">
@@ -50,8 +50,8 @@
                     <td>
                         <a href="{% url 'editar-usuario' Usuario.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
                                 class="fas fa-edit" aria-hidden="true"></i></a>
-                        <a href="{% url 'excluir-usuario' Usuario.pk %}" class="btn btn-danger btn-sm"
-                            title="Excluir"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                        {% comment %} <a href="{% url 'excluir-usuario' Usuario.pk %}" class="btn btn-danger btn-sm"
+                            title="Excluir"><i class="fas fa-trash-alt" aria-hidden="true"></i></a> {% endcomment %}
                     </td>
                 </tr>
                 {% empty %}

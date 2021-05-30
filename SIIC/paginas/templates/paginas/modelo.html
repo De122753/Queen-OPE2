@@ -34,6 +34,7 @@
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
 
+
     {% comment %} Importação do datatables CSS {% endcomment %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -143,6 +144,8 @@
                         <a class="dropdown-item" href="{% url 'estoque_entrada_list' %}">Movimentação - Entradas</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'estoque_saida_list' %}">Movimentação - Saídas</a>
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'estoque_baixa_list' %}">Movimentação - Baixas</a>
                     </div>
                 </li>
                 {% else %}

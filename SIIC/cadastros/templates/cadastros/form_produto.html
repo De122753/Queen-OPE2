@@ -8,8 +8,10 @@
 
 {% block conteudo %}
 <div class="jumbotron jumbotron-fluid bg-light">
-    <H4 class="container" align=center>Cadastro de produtos no SIIC</H4>
-    <p class="lead" align=center>Cadastro de produtos</p>
+    <H4 class="container" align=center>Cadastro de produtos</H4>
+    <p class="lead" align=center>Cadastro dos produtos no SIIC - Sistema Integrado de Inventário e Controle
+
+</p>
     <hr>
     <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -35,7 +37,7 @@
             <div class="form-group col-sm-2 mb-0">
                 {{form.peso|as_crispy_field}}
             </div>
-            <div class="form-group col-sm-2 mb-0">
+            <div id="tamanho" class="form-group col-sm-2 mb-0">
                 {{form.tamanho_produto|as_crispy_field}}
             </div>
             <div class="form-group col-sm-1 mb-0" style="margin-top: 2.5rem; max-width: 20px; padding: 0px; margin-right: 7px;">
@@ -43,7 +45,7 @@
                     <i class="fa fa-plus"></i></i>
                 </button>
             </div>
-            <div class="form-group col-sm-3 mb-0">
+            <div id="cor" class="form-group col-sm-3 mb-0">
                 {{form.cor_produto|as_crispy_field}}
             </div>
             <div class="form-group col-sm-1 mb-0" style="margin-top: 2.5rem; max-width: 20px; padding: 0px; margin-right: 7px">
@@ -51,7 +53,7 @@
                     <i class="fa fa-plus"></i></i>
                 </button>
             </div>
-            <div class="form-group col-sm-4 mb-0">
+            <div id="categoria" class="form-group col-sm-4 mb-0">
                 {{form.categoria|as_crispy_field}}
             </div>
             <div class="form-group col-sm-1 mb-0" style="margin-top: 2.5rem; max-width: 30px; padding: 0px;">
@@ -86,10 +88,9 @@
     </form>
 
         <!-- Modal cor -->
-    <form name="form_add_cor"  id="form_add_cor" method="post" action="{% url 'cadastrar-cor' %}">
+    <form name="form_add_cor"  id="form_add_cor" method="post" action="{% url 'cadastrar-cor' %}" >
      {% csrf_token %}
-        <div class="modal fade" id="add_cor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="add_cor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -105,14 +106,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupPrepend2">Nova cor: </span>
                                 </div>
-                                <input type="text" style="margin: 0px;" class="form-control" id="cor_produto" name="cor_produto"
-                                    placeholder="Nova cor de produto" aria-describedby="inputGroupPrepend2" required>
+                                <input type="text" style="margin: 0px;" class="form-control" id="cor_produto" name="cor_produto" placeholder="Nova cor de produto" aria-describedby="inputGroupPrepend2" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button id="salva_cor" type="submit" class="btn btn-primary">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -206,6 +206,14 @@
         $('#id_preco_unitario').mask('  0000.00', {placeholder: "R$", reverse: true});
         $('#id_peso').mask('0.000', {placeholder: "kg", reverse: true});
     });
+
+</script>
+
+<script>
+
+$('form_add_cor').on('submit', function() {
+  return false;
+});
 </script>
 
 {% endblock scripts %}

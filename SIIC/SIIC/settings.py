@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'bootstrap_modal_forms',
+    'django_tables2',
     # nomedoapp.apps.Nomedoappconfig
 ]
 

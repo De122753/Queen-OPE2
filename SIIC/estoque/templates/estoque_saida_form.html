@@ -7,7 +7,6 @@
 {% block titulo %}
 <title>{{titulo}}</title>
 {% endblock titulo %}
-
 {% block css %}
 {% endblock css %}
 <P></P>
@@ -25,9 +24,9 @@
                         <div class="input-group mb-1">
                             <label style=" margin: 5px; width: 20%;" class="label label-primary"
                                 for="{{ field.id_for_label }}">
-                                <span class="input-group-text" id="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1" required>
                                     {% if field.field.required %}
-                                    <span style="margin-left: 2px;" class="required">{{ field.label }}</span>
+                                    <span style="margin-left: 2px;" class="required" required>{{ field.label }}</span>
                                     {% else %}
                                     <span style="margin-left: 10px;">{{ field.label }}</span>
                                     {% endif %}
@@ -36,7 +35,7 @@
                             <span id="seta_nota"><i class="fas fa-chevron-right"></i></span>
                             <span style="margin-left: 5px;">{% render_field field class="form-control" %}</span>
                             {% for error in field.errors %}
-                            <span class="text-muted">{{ error}}</span>
+                            <span class="text-muted" required>{{ error.as_required }}</span>
                             {% endfor %}
                         </div>
                         {% endfor %}
@@ -60,24 +59,19 @@
                     </div>
                     {% endfor %}
                 </div>
-
                 <hr>
-
                 <div class="col-sm-12">
                     <div class="row float-left">
-                        <span id="add-item" class="btn btn-info" style="margin-top: 10px;">
-                            <i class="fa fa-plus"></i> Adicionar
-                        </span>
+                        <span id="add-item" class="btn btn-info" style="margin-top: 10px;"><i class="fa fa-plus"></i> Adicionar</span>  
                     </div>
                     <div class="row float-right">
                         <div class="col-sm-12" style="margin-top: 50px;">
                             <div class="form-inline buttons">
-                                <button class="btn btn-primary" value="Save">
+                                <button class="btn btn-primary" value="Save" id="enviar">
                                     <i class="fa fa-floppy-o"></i>
                                     Salvar
                                 </button>
-                                <a style="margin-left: 5px;" href="{% url 'estoque_saida_list' %}"
-                                    class="btn btn-danger">
+                                <a style="margin-left: 5px;" href="{% url 'estoque_saida_list' %}"class="btn btn-danger">
                                     <i class="fa fa-times" style="vertical-align: middle;"></i>
                                     <span style="margin-left: 5px;"> Cancelar </span>
                                 </a>
@@ -92,6 +86,7 @@
 {% endblock conteudo %}
 {% block scripts %}
 
+
 {% comment %} Link JS externo {% endcomment %}
 
 <script src="{% static 'js/estoque_saida.js' %}"></script>
@@ -102,4 +97,48 @@
 </script>
 
 
+{% comment %} VALIDAÇÃO {% endcomment %}
+<script>
+$('#enviar').click(function valida(){
+if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Preencha o campo Nota Fiscal');
+    document.getElementById('id_main-nf').focus();
+    return false;
+    }
+if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Arquivo da nota fiscal não inserido');
+    document.getElementById('id_main-nf_arquivo').focus();
+    return false;
+    }
+return true
+})
+</script>
+
+{% comment %} VALIDAÇÃO {% endcomment %}
+<script>
+{% comment %} Jquery não aceitar caracteres especiais em campos numéricos {% endcomment %}
+function isValid(str) {
+    return !/[~`!@#$%\^&*()+=\-\[\]\\';/{}|\\":<>\?]/g.test(str);
+}
+
+$('.numberinput').keypress(function(event) {
+    var character = String.fromCharCode(event.keyCode);
+    return isValid(character);     
+});
+{% comment %} --------------- {% endcomment %}
+
+$('#enviar').click(function valida(){
+if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Preencha o campo Nota Fiscal');
+    document.getElementById('id_main-nf').focus();
+    return false;
+    }
+if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Arquivo da nota fiscal não inserido');
+    document.getElementById('id_main-nf_arquivo').focus();
+    return false;
+    }
+return true
+})
+</script>
 {% endblock scripts %}

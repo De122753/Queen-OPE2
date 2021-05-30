@@ -1,13 +1,28 @@
 $(document).ready(function() {
+
+    var els = document.querySelectorAll("input.form-control");
+    for (var x = 0; x < els.length; x++) {
+        els[x].addEventListener("keypress", function(e) {
+            var k = e.which || e.keyCode;
+            if (k == 13) {
+                e.preventDefault();
+                var p = this.parentNode.parentNode.nextElementSibling.querySelector("input.form-control");
+                if (p) p.focus();
+            }
+        });
+    }
+
     // Insere classe no primeiro item de produto
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-preco_unit').addClass('clPreco');
     $('#id_estoque-0-quantidade').addClass('clQuantidade');
 
+
     // Desabilita o primeiro campo 'Saldo'
     $('#id_estoque-0-saldo').prop('type', 'hidden');
     // Desabilita o primeiro campo 'Fabricante'
     $('#id_estoque-0-fabricante').prop('type', 'hidden');
+    $('#id_estoque-0-justificativa_baixa').prop('type', 'hidden');
 
     // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
@@ -30,6 +45,7 @@ $('#add-item').click(function(ev) {
     // Desabilita o campo 'Saldo'
     $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden');
     $('#id_estoque-' + (count) + '-fabricante').prop('type', 'hidden');
+    $('#id_estoque-' + (count) + '-justificativa_baixa').prop('type', 'hidden');
 
     //$('#id_estoque-' + (count) + '-DELETE').prop('type', 'hidden');
 
@@ -96,10 +112,15 @@ $(document).on('change', '.clProduto', function() {
 
 $(document).on('change', '.clQuantidade', function() {
     quantidade = $(this).val();
+    while (quantidade <= 0) {
+        alert("Informe um número maior que 0!");
+        quantidade = $(this).val('');
+        return quantidade;
+    }
     // Aqui é feito o cálculo de soma do estoque
     saldo = Number(estoque) - Number(quantidade);
     if (saldo < 0) {
-        alert("A quantidade informada resulta em valor negativo, verifique as informações e preencha novamente o campo QTD!");
+        alert("A quantidade de produtos em estoque é insuficiente!");
         return callback();
     } else {
         campo = $(this).attr('id').replace('quantidade', 'saldo')
@@ -123,21 +144,3 @@ $('#form').bind('submit', false);
 $('button#submit').click(function() {
     $('#form').submit();
 });
-
-
-// $(document).on('change', '.clQuantidade', function() {
-//     quantidade = $(this).val();
-//     // Aqui é feito o cálculo de soma do estoque
-//     saldo = Number(estoque) - Number(quantidade);
-//     campo = $(this).attr('id').replace('quantidade', 'saldo')
-//     campo_estoque_inicial = $(this).attr('id').replace('quantidade', 'inicial')
-//     estoque_inicial = $('#' + campo_estoque_inicial).val()
-//     saldo = Number(estoque_inicial) - Number(quantidade)
-//         // Desabilita o 'Saldo'
-//     $('#' + campo).prop('type', 'hidden')
-//         // Atribui o saldo ao campo 'saldo'
-//     $('#' + campo).val(saldo)
-//     campo2 = $(this).attr('id').replace('quantidade', 'saldo-span')
-//         // Atrubui o saldo ao campo 'id_estoque-x-saldo-span'
-//     $('#' + campo2).text(saldo)
-// });
