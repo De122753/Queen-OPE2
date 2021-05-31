@@ -120,17 +120,21 @@ class DetailedDataTable(tables.Table):
     funcionario = tables.Column(verbose_name='Funcionario', accessor='estoque.funcionario')
     fabricante = tables.Column(verbose_name='Fabricante', accessor='fabricante')
     created = tables.Column(verbose_name='Data e hora', accessor='estoque.created')
-
+    
     class Meta:
         model = EstoqueItens
-        template_name = "django_tables2/bootstrap-responsive.html"
+        template_name = "django_tables2/bootstrap4.html"
         fields = ('estoque', 'nf', 'produto',
                   'quantidade', 'preco_unit', 'valor_item', 'fabricante', 'movimento', 'funcionario', 'created',)
         attrs = {
             "id": "tbl_lista_completa",
             "class": "table table-sm table-light table-striped",
-            "style": "font-size: 12px; overflow-y: hidden;"
+            "style": "font-size: 12px;"
+
         }  # atrib HTML
+
+    def get_caption_display(self):
+        return False
 
     def render_estoue_funcionario(self, value, record):
         return Estoque.objects.get(id=value).nf

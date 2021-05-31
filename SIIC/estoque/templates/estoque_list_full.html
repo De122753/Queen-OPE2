@@ -1,16 +1,20 @@
 {% extends 'paginas/modelo.html' %}
 {% load static %}
 {% load render_table from django_tables2 %}
+{% load django_tables2%}
 {% block titulo %}
-
 <title>Relação completa</title>
 {% endblock titulo %}
 {% block conteudo %}
 
-<P></P>
+<div style="margin: 15px;" class="container-fluir text-center">
+        <span  class="btn btn-success text-center"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
+</div>
+
 <span class='text-center'>
     <h4>RELAÇÃO DE MOVIMENTAÇÃO DO ESTOQUE</h4>
 </span>
+
 <hr>
 <div class="table-responsive" style="padding: 20px">
     {% render_table table %}
@@ -24,8 +28,10 @@
     $(document).ready(function () {
         $('#tbl_lista_completa').DataTable({
             retrieve: true,
+            paginate: true,
+            info: true,
             "aaSorting": [],
-            "pageLength": 25,
+            "pageLength": 10,
             "language": {
                 "decimal": "",
                 "emptyTable": "Sem dados disponíveis",
@@ -37,7 +43,7 @@
                 "lengthMenu": "Mostrar _MENU_ registros",
                 "loadingRecords": "A carregar dados...",
                 "processing": "A processar...",
-                "search": "Procurar:",
+                "search": "Localizar:",
                 "zeroRecords": "Não foram encontrados resultados",
                 "paginate": {
                     "first": "Primeiro",
