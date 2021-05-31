@@ -1,12 +1,24 @@
+from django.db.models import query
 from django.db.models.expressions import Value
+from django.db.models.query import QuerySet
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
-from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, EstoqueSaida
+from django_tables2.config import RequestConfig
+from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, EstoqueSaida, DetailedDataTable
 from .forms import EstoqueIntensForm, EstoqueForm
 from cadastros.models import Produto
 from cadastros.forms import ProdutoForm
 from django.forms import forms
+from django.views import generic
+from django.urls import reverse_lazy
+from django.views.generic.list import ListView
+import django_tables2 as tables
+from django_tables2.export.export import TableExport
+from django_tables2.export import ExportMixin
+from django_tables2 import SingleTableView, LazyPaginator, paginators
+
+import time
 
 
 def estoque_entrada_list(request):
@@ -155,4 +167,22 @@ def estoque_baixa_list(request):
         'detalhes': 'detalhar-itens-baixa',
         'titulo': 'Movimentação - Baixas',
     }
+    return render(request, template_name, context)
+
+# tabela detalhada com exportação
+
+
+def tabela_completa(request):
+    template_name = 'estoque_list_full.html'
+    qa = EstoqueItens.objects.all().order_by('estoque')
+    table = DetailedDataTable(qa)
+    context = {
+        'table': table,
+    }
+
+    RequestConfig(request, paginate=False).configure(table)
+    export_format = request.GET.get("_export", None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table)
+        return exporter.response("Movimentação_do_estoque{}.{}".format(time.strftime("%Y%m%d-%H%M%S"), export_format))
     return render(request, template_name, context)

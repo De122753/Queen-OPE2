@@ -4,6 +4,8 @@ from django.db import models
 from cadastros.models import Categoria, Produto
 from .manager import EstoqueEntradaManager, EstoqueSaidaManager, EstoqueBaixaManager
 from django.db.models import Sum
+import django_tables2 as tables
+from django.db.models.functions import Length
 
 
 # Create your models here.
@@ -34,11 +36,6 @@ class Estoque(TimeStampedModel):
     nf = models.PositiveIntegerField(verbose_name='Nota Fiscal', null=True, blank=True)
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
     nf_arquivo = models.FileField(upload_to='notas_fiscais/', verbose_name='NF. Arquivo', null=True, blank=True)
-
-    # def clean(self):
-    #     super(Estoque, self).clean()
-    #     if self.movimento == 'b' and not self.nf and not self.nota_formatada and not self.nf_arquivo:
-    #         raise ValidationError('Preenchimento obrigatório')
 
     class Meta:
         ordering = ('-created',)
@@ -90,8 +87,8 @@ class EstoqueItens(models.Model):
     quantidade = models.PositiveIntegerField(verbose_name='Qtd.: ')
     saldo = models.PositiveIntegerField(verbose_name='Estoque: ')
     preco_unit = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, verbose_name='R$/Unid.')
-    valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0)
-    fabricante = models.CharField(max_length=50, verbose_name='', blank=True, null=True)
+    valor_item = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name='Total(R$)')
+    fabricante = models.CharField(max_length=50, verbose_name='', blank=True, null=True,)
     justificativa_baixa = models.CharField(verbose_name="", max_length=255, blank=True, null=True)
 
     class Meta:
@@ -114,3 +111,39 @@ class EstoqueItens(models.Model):
         self.tt = list(self.tt.values())[0]
         self.tt = round(self.tt, 2)
         return str(self.tt)
+
+
+# tabela completa
+class DetailedDataTable(tables.Table):
+    nf = tables.Column(verbose_name='NF', accessor='estoque.nf')
+    movimento = tables.Column(verbose_name='Movimento', accessor='estoque.movimento')
+    funcionario = tables.Column(verbose_name='Funcionario', accessor='estoque.funcionario')
+    fabricante = tables.Column(verbose_name='Fabricante', accessor='fabricante')
+    created = tables.Column(verbose_name='Data e hora', accessor='estoque.created')
+    
+    class Meta:
+        model = EstoqueItens
+        template_name = "django_tables2/bootstrap4.html"
+        fields = ('estoque', 'nf', 'produto',
+                  'quantidade', 'preco_unit', 'valor_item', 'fabricante', 'movimento', 'funcionario', 'created',)
+        attrs = {
+            "id": "tbl_lista_completa",
+            "class": "table table-sm table-light table-striped",
+            "style": "font-size: 12px;"
+
+        }  # atrib HTML
+
+    def get_caption_display(self):
+        return False
+
+    def render_estoue_funcionario(self, value, record):
+        return Estoque.objects.get(id=value).nf
+
+    def render_estoue_funcionario(self, value, record):
+        return Estoque.objects.get(id=value).movimento
+
+    def render_estoque_movimento(self, value, record):
+        return Estoque.objects.get(id=value).funcionario
+
+    def render_estoque_movimento(self, value, record):
+        return Estoque.objects.get(id=value).created
