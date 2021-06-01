@@ -7,7 +7,7 @@
 {% endblock titulo %}
 
 {% block conteudo %}
-<div class="jumbotron jumbotron-fluid bg-light">
+<div class="jumbotron jumbotron-fluid bg-light" style="margin: 10px; border-radius: 7px">
     <H4 class="container" align=center>Cadastro de produtos</H4>
     <p class="lead" align=center>Cadastro dos produtos no SIIC - Sistema Integrado de Inventário e Controle
 
@@ -198,10 +198,10 @@
 <script>
     $(document).ready(function () {
         $('#id_ncm').mask('00-00-00-0-0', {
-            placeholder: "número NCM"
+            placeholder: "00-00-0000"
         });
         $('#id_localizacao').mask('C00-P00-L00', {
-            placeholder: "localização no estoque"
+            placeholder: "C00-P00-L00"
         });
         $('#id_preco_unitario').mask('  0000.00', {placeholder: "R$", reverse: true});
         $('#id_peso').mask('0.000', {placeholder: "kg", reverse: true});

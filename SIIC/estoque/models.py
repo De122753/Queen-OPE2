@@ -42,7 +42,7 @@ class Estoque(TimeStampedModel):
     def __str__(self):
         if self.nf:
             return '{}.{}.{}'.format(self.pk, self.nf, self.created.strftime('%d%m%Y'))
-        return '{}.0000.{}'.format(self.pk, self.created.strftime('%d%m%Y'))
+        return '{}.0.{}'.format(self.pk, self.created.strftime('%d%m%Y'))
 
     def nota_formatada(self):
         if self.nf:
@@ -81,7 +81,7 @@ class EstoqueBaixa(Estoque):
 
 
 class EstoqueItens(models.Model):
-    estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE, related_name='estoques')
+    estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE, verbose_name='Item', related_name='estoques')
     produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, verbose_name='Produto: ', null=True)
     quantidade = models.PositiveIntegerField(verbose_name='Qtd.: ')
     saldo = models.PositiveIntegerField(verbose_name='Estoque: ')
@@ -146,4 +146,3 @@ class DetailedDataTable(tables.Table):
 
     def render_estoque_created(self, value, record):
         return Estoque.objects.get(id=value).created
-

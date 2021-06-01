@@ -281,3 +281,7 @@ body {
     border-color: #768591;
     border-style: dotted;
 }
+
+.jumbotron {
+    background-color: transparent !important;
+}
