@@ -2,27 +2,56 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load django_tables2%}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
 {% block titulo %}
 <title>Relação completa</title>
 {% endblock titulo %}
 {% block conteudo %}
 
-<div style="margin: 15px;" class="container-fluir text-center">
-        <span  class="btn btn-success text-center"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
+<div class="container col-sm-12 text-center" style="padding: 10px;">
+        <h4>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h4>
 </div>
-
-<span class='text-center'>
-    <h4>RELAÇÃO DE MOVIMENTAÇÃO DO ESTOQUE</h4>
-</span>
-
-<hr>
+<div class="container">
+    <span class="btn btn-success float-left"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
+    <form>
+    <div class="form-row float-right">
+        <div class="col-auto">
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+            <div class="input-group-text">Data inicio: </div>
+            </div>
+            <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="start_date">
+        </div>
+        </div>
+        <div class="col-auto">
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+            <div class="input-group-text">Data fim: </div>
+            </div>
+            <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="end_date">
+        </div>
+        </div>
+        <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-2">OK</button>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="container text-center">
+</div>
 <div class="table-responsive" style="padding: 20px">
+<hr>
+    {% comment %} {% if filter %}
+        <form action="" method="get" class="form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        {% bootstrap_button 'Filtrar' %}
+        </form>
+    {% endif %} {% endcomment %}
     {% render_table table %}
 </div>
-
-
 {% endblock conteudo %}
-
 {% block scripts %}
 <script>
     $(document).ready(function () {

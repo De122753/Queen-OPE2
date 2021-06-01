@@ -47,10 +47,12 @@ INSTALLED_APPS = [
     'relatorio.apps.RelatorioConfig',
 
     'bootstrapform',
+    'bootstrap4',
     'widget_tweaks',
     'crispy_forms',
     'bootstrap_modal_forms',
     'django_tables2',
+    'django_filters',
     # nomedoapp.apps.Nomedoappconfig
 ]
 

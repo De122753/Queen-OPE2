@@ -1,6 +1,4 @@
-from django.db.models import query
-from django.db.models.expressions import Value
-from django.db.models.query import QuerySet
+
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
@@ -8,17 +6,11 @@ from django_tables2.config import RequestConfig
 from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, EstoqueSaida, DetailedDataTable
 from .forms import EstoqueIntensForm, EstoqueForm
 from cadastros.models import Produto
-from cadastros.forms import ProdutoForm
-from django.forms import forms
-from django.views import generic
-from django.urls import reverse_lazy
-from django.views.generic.list import ListView
-import django_tables2 as tables
 from django_tables2.export.export import TableExport
-from django_tables2.export import ExportMixin
-from django_tables2 import SingleTableView, LazyPaginator, paginators
-
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
 import time
+import django_filters
 
 
 def estoque_entrada_list(request):
@@ -174,8 +166,15 @@ def estoque_baixa_list(request):
 
 def tabela_completa(request):
     template_name = 'estoque_list_full.html'
-    qa = EstoqueItens.objects.all().order_by('estoque')
-    table = DetailedDataTable(qa)
+    queryset = EstoqueItens.objects.all().order_by('estoque')
+    table = DetailedDataTable(queryset)
+
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    if start_date and end_date:
+        print(start_date, end_date)
+        queryset = Estoque.objects.filter(created__range=[start_date, end_date])
+        
     context = {
         'table': table,
     }
@@ -186,3 +185,18 @@ def tabela_completa(request):
         exporter = TableExport(export_format, table)
         return exporter.response("Movimentação_do_estoque{}.{}".format(time.strftime("%Y%m%d-%H%M%S"), export_format))
     return render(request, template_name, context)
+
+
+# # filtro por classes
+
+# class EstoqueFiltro(django_filters.FilterSet):
+#     class Meta:
+#         model = Estoque
+#         fields = ['created']
+
+
+# class TabelaDetalhada(SingleTableMixin, FilterView):
+#     table_class = DetailedDataTable
+#     model = Estoque
+#     template_name = 'estoque_list_full.html'
+#     filterset_class = EstoqueFiltro

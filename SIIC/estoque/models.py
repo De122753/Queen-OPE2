@@ -21,11 +21,9 @@ MOVIMENTO = (
 
 
 class TimeStampedModel(models.Model):
-    created = models.DateTimeField(
-        'criado em', auto_now=False, auto_now_add=True)
+    created = models.DateTimeField('criado em', auto_now=False, auto_now_add=True)
 
-    modified = models.DateTimeField(
-        'modificado em', auto_now=True, auto_now_add=False)
+    modified = models.DateTimeField('modificado em', auto_now=True, auto_now_add=False)
 
     class Meta:
         abstract = True
@@ -119,13 +117,13 @@ class DetailedDataTable(tables.Table):
     movimento = tables.Column(verbose_name='Movimento', accessor='estoque.movimento')
     funcionario = tables.Column(verbose_name='Funcionario', accessor='estoque.funcionario')
     fabricante = tables.Column(verbose_name='Fabricante', accessor='fabricante')
-    created = tables.Column(verbose_name='Data e hora', accessor='estoque.created')
-    
+    created = tables.Column(verbose_name='Data/hora', accessor='estoque.created')
+
     class Meta:
-        model = EstoqueItens
+        model = Estoque
         template_name = "django_tables2/bootstrap4.html"
-        fields = ('estoque', 'nf', 'produto',
-                  'quantidade', 'preco_unit', 'valor_item', 'fabricante', 'movimento', 'funcionario', 'created',)
+        fields = ('estoque', 'nf', 'produto', 'fabricante',
+                  'quantidade', 'preco_unit', 'valor_item', 'movimento', 'funcionario', 'created',)
         attrs = {
             "id": "tbl_lista_completa",
             "class": "table table-sm table-light table-striped",
@@ -145,5 +143,5 @@ class DetailedDataTable(tables.Table):
     def render_estoque_movimento(self, value, record):
         return Estoque.objects.get(id=value).funcionario
 
-    def render_estoque_movimento(self, value, record):
+    def render_estoque_created(self, value, record):
         return Estoque.objects.get(id=value).created
