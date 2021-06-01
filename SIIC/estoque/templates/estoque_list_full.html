@@ -13,9 +13,9 @@
 <div class="container col-sm-12 text-center" style="padding: 10px;">
         <h4>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h4>
 </div>
-<div class="container">
-    <span class="btn btn-success float-left"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
-    <form>
+<div class="container text-center">
+    <span class="btn btn-success"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
+    {% comment %} <form>
     <div class="form-row float-right">
         <div class="col-auto">
         <div class="input-group mb-2">
@@ -37,7 +37,7 @@
         <button type="submit" class="btn btn-primary mb-2">OK</button>
         </div>
     </div>
-    </form>
+    </form> {% endcomment %}
 </div>
 <div class="container text-center">
 </div>
