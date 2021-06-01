@@ -28,6 +28,7 @@ h5 {
     color: #F0F0EB;
     text-align: left;
     padding-left: 10px;
+    padding: 5px;
 }
 
 i {
@@ -43,8 +44,8 @@ i {
 }
 
 #estoque {
-    background-color: #F0F0EB;
-    border: 0.2rem solid lightgrey;
+    background-color: #F5F5F5;
+    border: 0.1rem solid lightgrey;
 }
 
 #total_geral {
@@ -59,6 +60,8 @@ i {
 
 .form-inline {
     display: inline-block !important;
+    margin-left: auto;
+    margin-right: auto
 }
 
 .asteriskField {
@@ -83,6 +86,27 @@ i {
 
 .clPreco {
     text-align: center;
+    margin-left: 10px;
+}
+
+.clQuantidade {
+    text-align: center;
+    font-weight: bold !important;
+}
+
+.select2 {
+    text-align: center;
+    color: red !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    width: 33rem !important;
+}
+
+.lead.saldo {
+    text-align: center;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
 }
 
 #id_preco_unitario {
@@ -98,13 +122,6 @@ i {
     color: white;
 }
 
-
-/* .red:hover {
-    background-color: goldenrod!important;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    color: white;
-} */
-
 body {
     background-color: #dddddd;
 }
@@ -116,16 +133,20 @@ body {
     padding: 1rem;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background-color: white;
-    border-radius: 6px;
+    border-radius: 2px;
     width: 18rem;
-    height: 30rem;
+    height: 34rem;
+}
+
+.card-title {
+    padding: 0.5em;
 }
 
 .imagem_card {
     border-radius: 0.5rem;
     background-color: #F0F0EB;
     width: 100%;
-    height: 100%;
+    height: 75%;
 }
 
 .imglogin {
@@ -221,7 +242,8 @@ body {
     padding: 0.5rem;
 }
 
-.fa-arrow-alt-circle-right {
+.fa-arrow-alt-circle-right,
+.fa-grip-lines {
     color: #dddddd;
 }
 
@@ -253,4 +275,9 @@ body {
 
 #bloco_botoes_detalhes {
     text-align: center;
+}
+
+#box {
+    border-color: #768591;
+    border-style: dotted;
 }

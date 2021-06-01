@@ -8,6 +8,7 @@ from usuarios.models import Usuario
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.messages import constants
+
 # Create your views here.
 
 # lista de usuarios django

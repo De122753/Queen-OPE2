@@ -1,5 +1,6 @@
 {% extends 'paginas/modelo.html' %}
 {% load static %}
+{% load django_tables2%}
 {% block titulo %}
 <title>Home</title>
 {% endblock %}
@@ -25,12 +26,10 @@
                     <p class="card-text">Cadastros diversos.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'registrar' %}"> Cadastro de usuários</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'cadastrar-produto' %}"> Cadastro de produtos</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-fornecedor' %}"> Cadastro de
-                            fornecedores</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'registrar' %}"> Cadastro de usuários</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-produto' %}"> Cadastro de produtos</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-fornecedor' %}"> Cadastro de fornecedores</a></li>
+                    <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
                 </ul>
             </div>
         </div>
@@ -39,8 +38,7 @@
         <div class="col col-sm-3">
             <div class="card">
                 <div class="imagem_card">
-                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_estoque.jpg' %}"
-                        alt="Card image cap">
+                    <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_estoque.jpg' %}" alt="Card image cap">
                     <p></p>
                     <h6 class="card-title" id="card-titulo-estoque">ESTOQUE</h6>
                 </div>
@@ -48,12 +46,11 @@
                     <p class="card-text">Gerenciamento e monitoramento do estoque.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'listar-produtos' %}"> Estoque - Produtos</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'estoque_entrada_list' %}"> Movimentação - Entrada</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'estoque_saida_list' %}"> Movimentação - Saída</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'listar-produtos' %}"> Estoque - Produtos</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_entrada_list' %}"> Movimentação - Entrada</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_saida_list' %}"> Movimentação - Saída</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_baixa_list' %}"> Movimentação - Baixa</a></li>
+
                 </ul>
             </div>
         </div>
@@ -71,12 +68,11 @@
                     <p class="card-text">Emissão de relatórios e listas diversas.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'relatorio_movimento' %}"> Rel. - Movimentação</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'listar-usuarios' %}"> Lista de usuários </a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a
-                            href="{% url 'listar-fornecedores' %}"> Lista de fornecedores </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'relatorio_movimento' %}"> Rel. - Movimentação</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'listar-usuarios' %}"> Lista de usuários </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'listar-fornecedores' %}"> Lista de fornecedores </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_itens_detalhados' %}"> Detalhamento dos itens</a></li>
+
                 </ul>
             </div>
         </div>
@@ -88,18 +84,16 @@
                     <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_exportacao4.jpeg' %}"
                         alt="Card image cap">
                     <p></p>
-                    <h6 class="card-title" id="card-titulo-exportacao">EXPORTAÇÕES</h6>
+                    <h6 class="card-title" id="card-titulo-exportacao">FERRAMENTAS</h6>
                 </div>
                 <div class="card-corpo">
                     <p class="card-text">Exportação dos relatórios de movimentação do estoque.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .XLSX
-                        </a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .CSV
-                        </a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href=""> Exportar .PDF
-                        </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_itens_detalhados' %}"> Exportar .CSV </a></li>
+                    <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
+                    <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
+                    <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
                 </ul>
             </div>
         </div>
