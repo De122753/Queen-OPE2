@@ -173,8 +173,9 @@ def tabela_completa(request):
     end_date = request.GET.get('end_date')
     if start_date and end_date:
         print(start_date, end_date)
-        queryset = Estoque.objects.filter(created__range=[start_date, end_date])
-        
+        table = Estoque.objects.filter(created__range=[start_date, end_date])
+        return table
+
     context = {
         'table': table,
     }

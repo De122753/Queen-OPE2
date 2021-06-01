@@ -6,6 +6,7 @@ from .manager import EstoqueEntradaManager, EstoqueSaidaManager, EstoqueBaixaMan
 from django.db.models import Sum
 import django_tables2 as tables
 from django.db.models.functions import Length
+import django_filters
 
 
 # Create your models here.
@@ -31,9 +32,9 @@ class TimeStampedModel(models.Model):
 
 class Estoque(TimeStampedModel):
     funcionario = models.ForeignKey(Usuario, verbose_name="Usuário", on_delete=models.CASCADE, blank=True)
-    nf = models.PositiveIntegerField(verbose_name='Nota Fiscal', null=True, blank=True)
+    nf = models.PositiveIntegerField(verbose_name='Nota Fiscal *', null=True, blank=True)
     movimento = models.CharField(max_length=1, choices=MOVIMENTO)
-    nf_arquivo = models.FileField(upload_to='notas_fiscais/', verbose_name='NF. Arquivo', null=True, blank=True)
+    nf_arquivo = models.FileField(upload_to='notas_fiscais/', verbose_name='NF. Arquivo *', null=True, blank=True)
 
     class Meta:
         ordering = ('-created',)
@@ -117,10 +118,10 @@ class DetailedDataTable(tables.Table):
     movimento = tables.Column(verbose_name='Movimento', accessor='estoque.movimento')
     funcionario = tables.Column(verbose_name='Funcionario', accessor='estoque.funcionario')
     fabricante = tables.Column(verbose_name='Fabricante', accessor='fabricante')
-    created = tables.Column(verbose_name='Data/hora', accessor='estoque.created')
+    created = tables.Column(verbose_name='Data/hora', accessor='estoque.created', order_by='estoque.created')
 
     class Meta:
-        model = Estoque
+        model = EstoqueItens
         template_name = "django_tables2/bootstrap4.html"
         fields = ('estoque', 'nf', 'produto', 'fabricante',
                   'quantidade', 'preco_unit', 'valor_item', 'movimento', 'funcionario', 'created',)
@@ -145,3 +146,4 @@ class DetailedDataTable(tables.Table):
 
     def render_estoque_created(self, value, record):
         return Estoque.objects.get(id=value).created
+
