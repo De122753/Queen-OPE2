@@ -58,6 +58,10 @@ class PerfilUpdate(LoginRequiredMixin, UpdateView):
         self.object = get_object_or_404(Usuario, username=self.request.user)
         return self.object
 
+    def form_valid(self, form):
+        messages.success(self.request, "Perfil atulizado com sucesso!")
+        return super().form_valid(form)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["titulo_pagina"] = "Atualizar perfil"
