@@ -1,6 +1,6 @@
 from django import forms
 from estoque.models import Estoque
-from relatorio.models import TOTAL_PRODUTOS, TOTALIZADOR
+from relatorio.models import TOTAL_PRODUTOS
 
 #class NameForm(forms.Form):
 #    name = forms.CharField(label='Name', max_length=100, help_text='inserir nome', initial='Name')

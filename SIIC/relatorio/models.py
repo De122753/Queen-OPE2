@@ -11,7 +11,7 @@ class TOTAL_PRODUTOS(models.Model):
     class Meta:
         managed = False
         db_table = 'TOTAL_PRODUTOS'
-
+"""
 class TOTALIZADOR(models.Model):
     ID = models.PositiveIntegerField()
     MOVIMENTO = models.CharField(max_length=50)
@@ -30,7 +30,7 @@ class RESULTADO_FINANC(models.Model):
     class Meta:
         managed = False
         db_table = 'RESULTADO_FINANC'
-
+"""
 # class Report(models.Model):
 
 #     title = models.CharField('Título', max_length=100)
