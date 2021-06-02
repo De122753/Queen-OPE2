@@ -80,8 +80,9 @@
         {% if request.user.is_authenticated %}
             <a style="padding: 0px;" class="nav-link" href="{% url 'inicio' %}"><img id="logo_small" src="{% static 'img/LogoSmalFashion.jpg' %}" alt="Logotipo"></a>
         {% comment %} <div class="col-sm-1"></div> {% else%} {% endcomment %}
-        {% endif%}
             <a style="padding-left: 100px;" class="navbar-brand" href="{% url 'inicio' %}">SIIC</a>
+        {% endif%}
+
         </div>
         <hr id="linha_v" width="2" size="100" color="white">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -155,7 +156,7 @@
                         Relatórios
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/relatorio/">Movimentos</a>  
+                        <a class="dropdown-item" href="/relatorio/">Relatório de movimentação</a>  
                         <hr>
                         <a class="dropdown-item" href="{% url 'estoque_itens_detalhados' %}">Movimentação - Detalhamento</a>
                     </div>
