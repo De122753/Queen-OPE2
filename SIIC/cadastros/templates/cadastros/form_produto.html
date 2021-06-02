@@ -7,14 +7,18 @@
 {% endblock titulo %}
 
 {% block conteudo %}
+
 <div class="jumbotron jumbotron-fluid bg-light" style="margin: 10px; border-radius: 7px">
     <H4 class="container" align=center>Cadastro de produtos</H4>
     <p class="lead" align=center>Cadastro dos produtos no SIIC - Sistema Integrado de Inventário e Controle
 
+
 </p>
     <hr>
     <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
+    
         {% csrf_token %}
+
         <div class="row">
             <div class="form-group col-md-8 mb-0">
                 {{form.nome_produto|as_crispy_field}}

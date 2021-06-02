@@ -8,6 +8,9 @@
 
 
 {% block conteudo %}
+
+{% include 'paginas/messages.html' %}
+
 <div class="jumbotron jumbotron-fluid bg-light" style="margin: 10px; border-radius: 7px">
     <H4 class="container" align=center>{{titulo}}</H4>
     <p class="lead" align=center>{{subtitulo}}</p>
@@ -15,6 +18,7 @@
     <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
         <h3>{{request.Pedido}}</h3>
         {% csrf_token %}
+
         <!--autenticador-->
         {{ form|crispy }}
         <!--formulário exibido como parágrafo-->

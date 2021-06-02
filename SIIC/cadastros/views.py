@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from usuarios.models import Usuario
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.messages import constants
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 
@@ -52,7 +52,7 @@ def salva_cor(request):
     count = CorProduto.objects.filter(cor_produto=cor_produto).count()  # contar cores
     if count > 0:
         # messages.error(request, 'Já cadastrada.')
-        messages.add_message(request, constants.SUCCESS, 'Cor já cadastrada no sistema!')
+        messages.add_message(request, messages.SUCCESS, 'Cor já cadastrada no sistema!')
         return redirect('cadastrar-produto')
     else:
         form = CorForm(request.POST)
@@ -103,7 +103,7 @@ class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-class ProdutoCreate(LoginRequiredMixin, CreateView):
+class ProdutoCreate(LoginRequiredMixin, CreateView, SuccessMessageMixin):
     login_url = reverse_lazy('Login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
@@ -112,8 +112,14 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('inicio')
 
     def form_valid(self, form):
-        url = super().form_valid(form)
-        return url
+        messages.success(self.request, "Cadastro do produto realizado com sucesso!")
+        return super().form_valid(form)
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            calculated_field=self.object.calculated_field,
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -142,8 +148,8 @@ class FornecedorCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('inicio')
 
     def form_valid(self, form):
-        url = super().form_valid(form)
-        return url
+        messages.success(self.request, "Fornecedor cadastrado com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -163,6 +169,10 @@ class UsuarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     fields = ['username', 'email', 'nome_completo', 'cpf', 'telefone']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-usuarios')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -190,6 +200,10 @@ class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-fornecedores')
 
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["titulo_pagina"] = "Atualizar fornecedor"
@@ -198,7 +212,7 @@ class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return context
 
 
-class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     group_required = [u"Adm", u"Padrão"]
     login_url = reverse_lazy('login')
     model = Produto
@@ -206,6 +220,10 @@ class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
               'tamanho_produto', 'cor_produto', 'quantidade_disponivel', 'categoria', 'peso', 'ncm', 'fabricante', 'localizacao', 'estoque_minimo', 'foto']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produtos')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
