@@ -1,19 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300&family=Julius+Sans+One&family=Jura:wght@300&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 span.required:after {
     content: "*";
     color: red;
 }
 
 #titulo_index {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .form-control {
-    margin: 5px;
+    margin: 7px;
 }
 
 .form-group {
     vertical-align: auto;
+}
+
+.select2.select2-container {
+    margin-right: 10px;
 }
 
 .checkbox {
@@ -60,8 +64,7 @@ i {
 
 .form-inline {
     display: inline-block !important;
-    margin-left: auto;
-    margin-right: auto
+    margin: auto;
 }
 
 .asteriskField {
@@ -86,12 +89,17 @@ i {
 
 .clPreco {
     text-align: center;
-    margin-left: 10px;
+    margin: 5px;
+    padding: 0px !important;
+    width: 8rem !important;
 }
 
 .clQuantidade {
     text-align: center;
+    margin: 5px;
+    padding: 0px !important;
     font-weight: bold !important;
+    width: 7rem !important;
 }
 
 .select2 {
@@ -160,7 +168,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #card-titulo-estoque {
@@ -169,7 +177,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #card-titulo-exportacao {
@@ -178,7 +186,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #card-titulo-relatorios {
@@ -187,7 +195,7 @@ body {
     color: whitesmoke;
     width: 70%;
     border-radius: 5em;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .card-top {
@@ -280,4 +288,37 @@ body {
 #box {
     border-color: #768591;
     border-style: dotted;
+}
+
+.jumbotron {
+    background-color: transparent !important;
+}
+
+.invalid-feedback {
+    position: absolute;
+}
+
+
+/* SOBRE */
+
+.main-title {
+    padding: 2%;
+    margin: 0 0 65px 0;
+    font-size=40px;
+    text-align: center;
+}
+
+.main-title {
+    text-align: center;
+    margin: auto;
+}
+
+.about-title {
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#texto_sobre {
+    text-align: justify;
 }

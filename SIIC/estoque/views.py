@@ -11,7 +11,8 @@ from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 import time
 import django_filters
-
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 def estoque_entrada_list(request):
     template_name = 'estoque_list.html'

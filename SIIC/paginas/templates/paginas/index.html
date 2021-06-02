@@ -1,15 +1,14 @@
 {% extends 'paginas/modelo.html' %}
 {% load static %}
-{% load django_tables2%}
+{% load django_tables2 %}
 {% block titulo %}
 <title>Home</title>
 {% endblock %}
 
 {% block conteudo %}
-
 <div class="container-fluid bg-gradient p-3">
 <div class="row justify-content-md-center">
-<h4 class="font-weight-light text-monospace" id="titulo_index" >SIIC - SISTEMA INTEGRADO DE INVENTÁRIO E CONTROLE</h4> 
+<h4 class="font-weight-light text-monospace" id="titulo_index">SIIC - SISTEMA INTEGRADO DE INVENTÁRIO E CONTROLE</h4> 
 </div>
 <hr>
     <div class="row m-auto" align="center">
@@ -26,9 +25,9 @@
                     <p class="card-text">Cadastros diversos.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'registrar' %}"> Cadastro de usuários</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-produto' %}"> Cadastro de produtos</a></li>
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-fornecedor' %}"> Cadastro de fornecedores</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'registrar' %}"> Cadastro de usuário</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-produto' %}"> Cadastro de produto</a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'cadastrar-fornecedor' %}"> Cadastro de fornecedor</a></li>
                     <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
                 </ul>
             </div>
@@ -84,13 +83,13 @@
                     <img style="height: 11rem" class="card-img-top" src="{% static 'img/Index_exportacao4.jpeg' %}"
                         alt="Card image cap">
                     <p></p>
-                    <h6 class="card-title" id="card-titulo-exportacao">FERRAMENTAS</h6>
+                    <h6 class="card-title" id="card-titulo-exportacao">DIVERSOS</h6>
                 </div>
                 <div class="card-corpo">
-                    <p class="card-text">Exportação dos relatórios de movimentação do estoque.</p>
+                    <p class="card-text">Outras funcionalidade e ferramentas.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_itens_detalhados' %}"> Exportar .CSV </a></li>
+                    <li class="list-group-item"><i class="fas fa-arrow-alt-circle-right"></i><a href="{% url 'estoque_itens_detalhados' %}"> Exportar CSV </a></li>
                     <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
                     <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
                     <li class="list-group-item"><i class="fas fa-grip-lines"></i><a href="#"></a></li>
