@@ -1,0 +1,83 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>Cadastros</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+<div class="jumbotron jumbotron-fluid" style="margin: 10px; border-radius: 7px">
+    <H4 class="container" align=center>Cadastro de fornecedores</H4>
+    <p class="lead" align=center>Cadastro dos fornecedores/fabricantes no SIIC - Sistema Integrado de Inventário e Controle
+
+</p>
+    <hr>
+    <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-8 mb-0">
+                {{form.nome_fornecedor|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{form.nome_fornecedor_redizido|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4 mb-0">
+                {{form.contato_fornecedor|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{form.cnpj_fornecedor|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{form.cidade_fornecedor|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{form.uf_fornecedor|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-8 mb-0">
+                {{form.logradouro_fornecedor|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{form.numero_via_fornecedor|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4 mb-0">
+                {{form.telefone_fornecedor|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-8 mb-0">
+                {{form.email_fornecedor|as_crispy_field}}
+            </div>
+        </div>
+        <p align=left>*Campo com preenchimento obrigatório</p>
+        <button class="btn btn-primary" type="submit">Cadastar</button>
+    </form>
+    <hr>
+</div>
+{% endblock conteudo %}
+{% block scripts %}
+{% comment %} Jquery_mascaras {% endcomment %}
+<script src={% static 'js/jquery.mask.min.js' %}></script>
+<script>
+    $(document).ready(function () {
+        $('#id_cnpj_fornecedor').mask('00.000.000/0000-00', {
+            placeholder: "número do CNPJ"
+        });
+        var SPMaskBehavior = function (val) {
+                    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+                    },
+                    spOptions = {
+                    onKeyPress: function(val, e, field, options) {
+                        field.mask(SPMaskBehavior.apply({}, arguments), options);
+                        }
+                    };
+
+                    $('#id_telefone_fornecedor').mask(SPMaskBehavior, spOptions);
+            });
+</script>
+{% comment %} Jquery {% endcomment %}
+{% endblock scripts %}

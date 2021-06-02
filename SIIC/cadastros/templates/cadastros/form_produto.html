@@ -7,58 +7,217 @@
 {% endblock titulo %}
 
 {% block conteudo %}
-<div class="jumbotron jumbotron-fluid bg-light">
-    <H4 class="container" align=center>Cadastro de produtos no SIIC</H4>
-    <p class="lead" align=center>Cadastro de produtos</p>
+
+<div class="jumbotron jumbotron-fluid bg-light" style="margin: 10px; border-radius: 7px">
+    <H4 class="container" align=center>Cadastro de produtos</H4>
+    <p class="lead" align=center>Cadastro dos produtos no SIIC - Sistema Integrado de Inventário e Controle
+
+
+</p>
     <hr>
-    <form class="container container-fluid" action="" method="POST">
+    <form class="container container-fluid" action="" method="POST" enctype="multipart/form-data">
+    
         {% csrf_token %}
-            <div class="row">
-                <div class="form-group col-md-8 mb-0">
-                    {{form.nome_produto|as_crispy_field}}
-                </div>
-                <div class="form-group col-md-4 mb-0">
-                    {{form.preco_unitario|as_crispy_field}}
-                </div>
+
+        <div class="row">
+            <div class="form-group col-md-8 mb-0">
+                {{form.nome_produto|as_crispy_field}}
             </div>
-                    {{form.descricao_produto|as_crispy_field}}
-            <div class="row">
-                <div class="form-group col-md-4 mb-0">
-                    {{form.tamanho_produto|as_crispy_field}}
-                </div>
-                <div class="form-group col-md-4 mb-0">
-                    {{form.cor_produto|as_crispy_field}}
-                </div>
-                <div class="form-group col-md-4 mb-0">
-                    {{form.quantidade_disponivel|as_crispy_field}}
-                </div>               
+            <div class="form-group col-md-4 mb-0">
+                {{form.preco_unitario|as_crispy_field}}
             </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-8 mb-0 " style="width: 100%;">
+                {{form.descricao_produto|as_crispy_field}}
+            </div> 
+            <div class="form-group col-sm-4 mb-0 " style="width: 100%;">
+                {{form.fabricante|as_crispy_field}}
+            </div>        
+        </div>
+        <div class="row">
+
+            <div class="form-group col-sm-2 mb-0">
+                {{form.peso|as_crispy_field}}
+            </div>
+            <div id="tamanho" class="form-group col-sm-2 mb-0">
+                {{form.tamanho_produto|as_crispy_field}}
+            </div>
+            <div class="form-group col-sm-1 mb-0" style="margin-top: 2.5rem; max-width: 20px; padding: 0px; margin-right: 7px;">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add_tamanho">
+                    <i class="fa fa-plus"></i></i>
+                </button>
+            </div>
+            <div id="cor" class="form-group col-sm-3 mb-0">
+                {{form.cor_produto|as_crispy_field}}
+            </div>
+            <div class="form-group col-sm-1 mb-0" style="margin-top: 2.5rem; max-width: 20px; padding: 0px; margin-right: 7px">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add_cor">
+                    <i class="fa fa-plus"></i></i>
+                </button>
+            </div>
+            <div id="categoria" class="form-group col-sm-4 mb-0">
+                {{form.categoria|as_crispy_field}}
+            </div>
+            <div class="form-group col-sm-1 mb-0" style="margin-top: 2.5rem; max-width: 30px; padding: 0px;">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add_categoria">
+                    <i class="fa fa-plus"></i></i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3 mb-0">
+                {{form.ncm|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{form.localizacao|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{form.quantidade_disponivel|as_crispy_field}}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{form.estoque_minimo|as_crispy_field}}
+            </div>
+        </div>
+        <div class="lign-center">
+            {{form.foto|as_crispy_field}}
+        </div>
         {% comment %} {{ form|crispy }} {% endcomment %}
         <!--formulário exibido como parágrafo-->
         <p align=left>*Campo com preenchimento obrigatório</p>
         <button class="btn btn-primary" type="submit">Cadastar</button>
+
+</div>
     </form>
+
+        <!-- Modal cor -->
+    <form name="form_add_cor"  id="form_add_cor" method="post" action="{% url 'cadastrar-cor' %}" >
+     {% csrf_token %}
+        <div class="modal fade" id="add_cor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Adiciona cor</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 mb-3">
+                            <label for="cor_produto">Cor</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend2">Nova cor: </span>
+                                </div>
+                                <input type="text" style="margin: 0px;" class="form-control" id="cor_produto" name="cor_produto" placeholder="Nova cor de produto" aria-describedby="inputGroupPrepend2" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button id="salva_cor" type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+        <!-- Modal tamanho -->
+    <form name="form_add_tamanho"  id="form_add_tamanho" method="post" action="{% url 'cadastrar-tamanho' %}">
+     {% csrf_token %}
+        <div class="modal fade" id="add_tamanho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Adiciona tamanho</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 mb-3">
+                            <label for="tamanho_produto">Tamanho</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend2">Novo tamanho: </span>
+                                </div>
+                                <input type="text" style="margin: 0px;" class="form-control" id="tamanho_produto" name="tamanho_produto"
+                                    placeholder="Novo tamanho de produto" aria-describedby="inputGroupPrepend2" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+        <!-- Modal categoria -->
+    <form name="form_add_categoria"  id="form_add_categoria" method="post" action="{% url 'cadastrar-categoria' %}">
+     {% csrf_token %}
+        <div class="modal fade" id="add_categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Adiciona categoria</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 mb-3">
+                            <label for="categoria">Categoria</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend2">Nova categoria: </span>
+                                </div>
+                                <input type="text" style="margin: 0px;" class="form-control" id="categoria" name="categoria"
+                                    placeholder="Nova categoria de produto" aria-describedby="inputGroupPrepend2" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <hr>
 </div>
 {% endblock conteudo %}
 {% block scripts %}
-    {% comment %} Jquery_mascaras {% endcomment %}
-    <script src={% static 'js/jquery.mask.min.js' %}></script>
-    <script>
-        $(document).ready(function(){
-             $('#id_cpf').mask('000.000.000-00');
-            $('#id_preco_unitario').mask('000.00,00', {placeholder: "R$ "});
-            var SPMaskBehavior = function (val) {
-            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-            },
-            spOptions = {
-            onKeyPress: function(val, e, field, options) {
-                field.mask(SPMaskBehavior.apply({}, arguments), options);
-                }
-            };
-
-            $('#id_telefone').mask(SPMaskBehavior, spOptions);
+{% comment %} Jquery_mascaras {% endcomment %}
+<script src={% static 'js/jquery.mask.min.js' %}></script>
+<script>
+    $(document).ready(function () {
+        $('#id_ncm').mask('00-00-00-0-0', {
+            placeholder: "00-00-0000"
         });
-    </script>
-    {% comment %} Jquery {% endcomment %}
+        $('#id_localizacao').mask('C00-P00-L00', {
+            placeholder: "C00-P00-L00"
+        });
+        $('#id_preco_unitario').mask('  0000.00', {placeholder: "R$", reverse: true});
+        $('#id_peso').mask('0.000', {placeholder: "kg", reverse: true});
+    });
+
+</script>
+
+<script>
+
+$('form_add_cor').on('submit', function() {
+  return false;
+});
+</script>
+
 {% endblock scripts %}

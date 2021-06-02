@@ -24,7 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'n=4wn6bffd-ak+4^tv@^e30yo41su5+uoi6d3+7w*syqblo=s)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # Aplicações locais
     'paginas.apps.PaginasConfig',
@@ -47,8 +47,12 @@ INSTALLED_APPS = [
     'relatorio.apps.RelatorioConfig',
 
     'bootstrapform',
+    'bootstrap4',
     'widget_tweaks',
     'crispy_forms',
+    'bootstrap_modal_forms',
+    'django_tables2',
+    'django_filters',
     # nomedoapp.apps.Nomedoappconfig
 ]
 
@@ -67,6 +71,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'SIIC.urls'
+
 
 TEMPLATES = [
     {
@@ -147,6 +152,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEBUG = True
+
+DECIMAL_SEPARATOR = ','
+
+THOUSAND_SEPARATOR = '.'
+
+USE_THOUSAND_SEPARATOR = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -156,6 +168,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+#UPLOAD DE ARQUIVOS DE MIDIA
+MEDIA_URL = "/uploads/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploads')
 # DATABASE_CONNECTION_POOLING = False
 
 

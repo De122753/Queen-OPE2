@@ -1,0 +1,93 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load django_tables2%}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>Relação completa</title>
+{% endblock titulo %}
+{% block conteudo %}
+
+<div class="container col-sm-12 text-center" style="padding: 10px;">
+        <h4>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h4>
+</div>
+<div class="container text-center">
+    <span class="btn btn-success"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
+    {% comment %} <form>
+    <div class="form-row float-right">
+        <div class="col-auto">
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+            <div class="input-group-text">Data inicio: </div>
+            </div>
+            <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="start_date">
+        </div>
+        </div>
+        <div class="col-auto">
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+            <div class="input-group-text">Data fim: </div>
+            </div>
+            <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="end_date">
+        </div>
+        </div>
+        <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-2">OK</button>
+        </div>
+    </div>
+    </form> {% endcomment %}
+</div>
+<div class="container text-center">
+</div>
+<div class="table-responsive" style="padding: 20px">
+<hr>
+    {% comment %} {% if filter %}
+        <form action="" method="get" class="form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        {% bootstrap_button 'Filtrar' %}
+        </form>
+    {% endif %} {% endcomment %}
+    {% render_table table %}
+</div>
+{% endblock conteudo %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#tbl_lista_completa').DataTable({
+            retrieve: true,
+            paginate: true,
+            info: true,
+            "aaSorting": [],
+            "pageLength": 10,
+            "language": {
+                "decimal": "",
+                "emptyTable": "Sem dados disponíveis",
+                "info": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+                "infoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "loadingRecords": "A carregar dados...",
+                "processing": "A processar...",
+                "search": "Localizar:",
+                "zeroRecords": "Não foram encontrados resultados",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Seguinte",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": ordem crescente",
+                    "sortDescending": ": ordem decrescente"
+                }
+
+            }
+
+        });
+    });
+</script>
+{% endblock scripts %}
