@@ -2,98 +2,130 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load bootstrap %}
-
+{% load crispy_forms_tags %}
+{% block titulo %}
+<title>{{titulo}}</title>
+{% endblock titulo %}
 {% block conteudo %}
+{% load l10n %}
 
 {% block css %}
-<style>
-    span.required:after {
-        content: "*";
-        color: red;
-    }
-
-    .form-control {
-        margin: 5px;
-    }
-</style>
 {% endblock css %}
-
-<h1 style="text-align: center;">Entrada de itens no estoque</h1>
-
-{% comment %} CONTEUDO {% endcomment %}
-<div class="container container-fluid">
-    <div class="row offset-md-1">
-
-        <form method="POST" novalidate style="padding-bottom: 20px;">
-            {% csrf_token %}
-            <legend style="border-bottom: 1px solid #e5e5e5;">Estoque Entrada: </legend>
-
-            <div class="form-inline col-sm-12 offset-md-1" align="center">
-                {% for field in form.visible_fields %}
-                <div class="form-group{% if field.errors %} has-error {% endif%}">
-                    <label for="{{ field.id_for_label }}">
-                        {% if field.field.required %}
-                        <span style="margin-left: 10px;" class="required">{{ field.label }}</span>
-                        {% else %}
-                        <span style="margin-left: 10px;">{{ field.label }}</span>
-                        {% endif %}
-                    </label>
-                    <span style="margin-left: 10px;">{% render_field field class="form-control" %}</span>
-                    {% for error in field.errors %}
-                    <span class="text-muted">{{ error }}</span>
-                    {% endfor %}
+<P></P>
+<div class="container-fluid w-100">
+    <div class="col-12" align="center">
+    <h3 class="titulos_listas" align=center>ESTOQUE - ENTRADA DE ITENS</h3>
+        <div class="row h-100 justify-content-center align-items-center">
+            <form enctype="multipart/form-data" method="POST" novalidate id="form_entrada" onkeydown="return !(event.keyCode==13)" onsubmit='valida()'>
+                {% csrf_token %}
+                <H5>ESTOQUE - ENTRADA: </H5>
+                <hr style="margin: 5px;">
+                <div class="form">
+                    {% for field in form.visible_fields %}
+                    <div class="form-group {% if field.errors %} has-error {% endif%}">
+                        <div class="input-group mb-1">
+                            <label style=" margin: 5px; width: 20%;" class="label label-primary"
+                                for="{{ field.id_for_label}}">
+                                <span class="input-group-text" id="basic-addon1">
+                                    {% if field.field.required %}
+                                    <span style="margin-left: 2px;" class="required">{{ field.label }}</span>
+                                    {% else %}
+                                    <span style="margin-left: 10px;">{{ field.label}}</span>
+                                    {% endif %}
+                                </span>
+                            </label>
+                            <span id="seta_nota"><i class="fas fa-chevron-right"></i></span>
+                            <span style="margin-left: 5px;">{% render_field field class="form-control" %}</span>
+                            {% for error in field.errors %}
+                            <span class="text-muted">{{ error}}</span>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                        {{ formset.management_form}}
+                    </div>
                 </div>
-                {% endfor %}
-                {{ formset.management_form }}
-            </div>
-
-
-            <legend style="border-bottom: 2px solid #e5e5e5;">Produtos: </legend>
-
-            <div align="center">
-                <div id="estoque" class="form-inline col-sm-12">
+                <hr>
+                <h5>PRODUTOS: </h5>
+                <hr>
+                <div id="estoque" class="form-inline justify-content-center" style="padding: 10px;">
                     {% for item_estoque_form in formset %}
-                    <div id="item-{{ forloop.counter0 }}" class="form-group">
-                        {{ item_estoque_form|bootstrap }}
+                    <div class="inlineform">
+                        <div id="item-{{ forloop.counter0 }}" class="form-group text-center">
+                            {{ item_estoque_form.produto|as_crispy_field }}
+                            {{ item_estoque_form.fabricante|as_crispy_field }}
+                            {{ item_estoque_form.preco_unit|as_crispy_field}}
+                            {{ item_estoque_form.quantidade|as_crispy_field }}
+                            {{ item_estoque_form.saldo|as_crispy_field }}
+                            <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="row float-left">
-                    <span id="add-item" class="btn btn-info" style="margin-top: 10px;">
-                        <i class="fa fa-plus"></i> Adicionar
-                    </span>
-                </div>
                 <hr>
-                <div class="row float-right">
-                    <div class="col-sm-12" style="margin-top: 50px;">
-                        <div class="form-inline buttons">
-                            <button class="btn btn-primary" value="Save">
-                                <i class="fa fa-floppy-o"></i>
-                                Salvar
-                            </button>
-                            <a style="margin-left: 10px;" href="{% url 'estoque_entrada_list' %}"
-                                class="btn btn-danger">
-                                <i class="fa fa-times"></i>
-                                Cancelar
-                            </a>
+                    <span class="floar-right" style="color: grey;">* Preenchimento obrigatório.</span>
+                <div class="col-sm-12">
+                    <div class="row float-left">
+                        <span id="add-item" class="btn btn-info" style="margin-top: 10px;">
+                            <i class="fa fa-plus"></i> Adicionar
+                        </span>
+                    </div>
+                    <div class="row float-right">
+                        <div class="col-sm-12" style="margin-top: 50px;">
+                            <div class="form-inline buttons">
+                                <button class="btn btn-primary" value="Save" id="enviar">
+                                    <i class="fa fa-floppy-o"></i>
+                                    Salvar
+                                </button>
+                                <a style="margin-left: 5px;" href="{% url 'estoque_entrada_list' %}"
+                                    class="btn btn-danger">
+                                    <i class="fa fa-times" style="vertical-align: middle;"></i>
+                                    <span style="margin-left: 5px;"> Cancelar </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock conteudo %}
-
 {% block scripts %}
+
 {% comment %} Link JS externo {% endcomment %}
+<script src={% static 'js/jquery.mask.min.js' %}></script>
 <script src="{% static 'js/estoque_entrada.js' %}"></script>
 <script type="text/html" id="item-estoque">
     <div id="item-__prefix__" class="form-group">
-        {{ formset.empty_form|bootstrap }}
+        {{ formset.empty_form|crispy }}
     </div>
+</script>
+
+{% comment %} VALIDAÇÃO {% endcomment %}
+<script>
+{% comment %} Jquery não aceitar caracteres especiais em campos numéricos {% endcomment %}
+function isValid(str) {
+    return !/[~`!@#$%\^&*()+=\-\[\]\\';/{}|\\":<>\?]/g.test(str);
+}
+
+$('.numberinput').keypress(function(event) {
+    var character = String.fromCharCode(event.keyCode);
+    return isValid(character);     
+});
+{% comment %} --------------- {% endcomment %}
+
+$('#enviar').click(function valida(){
+if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Preencha o campo Nota Fiscal');
+    document.getElementById('id_main-nf').focus();
+    return false;
+    }
+if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
+    alert('Arquivo da nota fiscal não inserido');
+    document.getElementById('id_main-nf_arquivo').focus();
+    return false;
+    }
+return true
+})
 </script>
 {% endblock scripts %}
