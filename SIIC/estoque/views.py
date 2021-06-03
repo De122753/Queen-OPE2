@@ -7,10 +7,7 @@ from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, Estoque
 from .forms import EstoqueIntensForm, EstoqueForm
 from cadastros.models import Produto
 from django_tables2.export.export import TableExport
-from django_filters.views import FilterView
-from django_tables2.views import SingleTableMixin
 import time
-import django_filters
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 

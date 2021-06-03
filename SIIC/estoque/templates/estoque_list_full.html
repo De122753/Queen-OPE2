@@ -63,7 +63,6 @@
                 orientation: 'landscape',
                 pageSize: 'LEGAL'
             },
-            
             {
                 extend: 'print',
                 customize: function ( win ) {
@@ -71,14 +70,14 @@
                         .css( 'font-size', '10pt' )
                         .prepend(
                         );
- 
                     $(win.document.body).find( 'table' )
                         .addClass( 'compact' )
                         .css( 'font-size', 'inherit' );
                 }
             },
             ],
-
+            responsive: true,
+            fixedHeader: true,
             retrieve: true,
             paginate: true,
             info: true,
