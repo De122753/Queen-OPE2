@@ -14,3 +14,15 @@ class Report(models.Model):
         verbose_name = 'Relatório'
         verbose_name_plural = 'Relatórios'
         ordering = ['-id']
+
+class TOTAL_PRODUTOS(models.Model):
+    ID = models.PositiveIntegerField()
+    CREATED = models.DateTimeField()
+    NOME_PRODUTO = models.CharField(max_length=50)
+    QUANTIDADE = models.PositiveIntegerField()
+    MOVIMENTO = models.CharField(max_length=50)
+    TOTAL = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        managed = False
+        db_table = 'TOTAL_PRODUTOS'
