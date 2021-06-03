@@ -10,12 +10,12 @@
 {% endblock titulo %}
 {% block conteudo %}
 
-<div class="container col-sm-12 text-center" style="padding: 10px;">
+<div class="container col-sm-12 text-center pb-0" style="padding-top: 10px;">
         <h6>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h6>
 </div>
-<div class="container text-center">
+{% comment %} <div class="container text-center">
     <span class="btn btn-success"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
-    {% comment %} <form>
+   <form>
     <div class="form-row float-right">
         <div class="col-auto">
         <div class="input-group mb-2">
@@ -37,12 +37,12 @@
         <button type="submit" class="btn btn-primary mb-2">OK</button>
         </div>
     </div>
-    </form> {% endcomment %}
-</div>
-<div class="container text-center">
-</div>
+    </form>
+</div> {% endcomment %}
+{% comment %} <div class="container text-center">
+</div> {% endcomment %}
 <div class="table-responsive" style="padding: 20px">
-<hr>
+<hr class="mt-0">
     {% comment %} {% if filter %}
         <form action="" method="get" class="form-inline">
         {% bootstrap_form filter.form layout='inline' %}
@@ -56,6 +56,29 @@
 <script>
     $(document).ready(function () {
         $('#tbl_lista_completa').DataTable({
+            dom: 'Blfrtip',
+            buttons: ['excel',
+                        {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            
+            {
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                        );
+ 
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            },
+            ],
+
             retrieve: true,
             paginate: true,
             info: true,

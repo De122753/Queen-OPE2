@@ -330,3 +330,8 @@ input[id$="-saldo"] {
 #texto_sobre {
     text-align: justify;
 }
+
+.dt-buttons {
+    position: absolute;
+    left: 45%;
+}
