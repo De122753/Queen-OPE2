@@ -17,6 +17,8 @@ $(document).ready(function() {
     $('#id_estoque-0-produto').addClass('clProduto');
     $('#id_estoque-0-preco_unit').addClass('clPreco');
     $('#id_estoque-0-quantidade').addClass('clQuantidade');
+    $('#id_estoque-0-fabricante').addClass('clFabricante');
+
 
     // Desabilita o primeiro campo 'Saldo'
     $('#id_estoque-0-saldo').prop('type', 'hidden');
@@ -56,6 +58,7 @@ $('#add-item').click(function(ev) {
     $('#id_estoque-' + (count) + '-produto').addClass('clProduto');
     $('#id_estoque-' + (count) + '-preco_unit').addClass('clPreco');
     $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
+    $('#id_estoque-' + (count) + '-fabricante').addClass('clFabricante');
 
     // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
