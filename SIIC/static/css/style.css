@@ -294,6 +294,18 @@ body {
     display: none !important;
 }
 
+input[id$="-fabricante"] {
+    display: none !important;
+}
+
+input[id$="-saldo"] {
+    display: none !important;
+}
+
+
+/* 
+#id_quantidade_disponivel {} */
+
 
 /* SOBRE */
 
