@@ -290,10 +290,6 @@ body {
     border-style: dotted;
 }
 
-.jumbotron {
-    background-color: transparent !important;
-}
-
 .invalid-feedback {
     display: none !important;
 }
