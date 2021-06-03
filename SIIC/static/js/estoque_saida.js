@@ -139,8 +139,8 @@ $(document).on('change', '.clQuantidade', function() {
 });
 
 
-$('#form').bind('submit', false);
+// $('#form').bind('submit', false);
 
-$('button#submit').click(function() {
-    $('#form').submit();
-});
+// $('button#submit').click(function() {
+//     $('#form').submit();
+// });
