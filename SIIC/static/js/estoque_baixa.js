@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     var els = document.querySelectorAll("input.form-control");
     for (var x = 0; x < els.length; x++) {
         els[x].addEventListener("keypress", function(e) {
@@ -16,13 +17,15 @@ $(document).ready(function() {
     $('#id_estoque-0-preco_unit').addClass('clPreco');
     $('#id_estoque-0-quantidade').addClass('clQuantidade');
 
+
     // Desabilita o primeiro campo 'Saldo'
     $('#id_estoque-0-saldo').prop('type', 'hidden');
     // Desabilita o primeiro campo 'Fabricante'
     $('#id_estoque-0-fabricante').prop('type', 'hidden');
+    $('#id_estoque-0-justificativa_baixa').prop('type', 'hidden');
 
     // Cria um span para mostrar o saldo na tela.
-    $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead saldo" style="marginm-left: 30px; padding-left: 30px; color: white; padding-right: 30px;"></span>')
+    $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-0-saldo"]').append('<input id="id_estoque-0-inicial" class="form-control" type="hidden" />')
     $('.clProduto').select2()
@@ -42,6 +45,7 @@ $('#add-item').click(function(ev) {
     // Desabilita o campo 'Saldo'
     $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden');
     $('#id_estoque-' + (count) + '-fabricante').prop('type', 'hidden');
+    $('#id_estoque-' + (count) + '-justificativa_baixa').prop('type', 'hidden');
 
     //$('#id_estoque-' + (count) + '-DELETE').prop('type', 'hidden');
 
@@ -55,11 +59,13 @@ $('#add-item').click(function(ev) {
     $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
 
     // Cria um span para mostrar o saldo na tela.
-    $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead saldo" style="marginm-left: 30px; padding-left: 30px; color: blue; padding-right: 30px;"></span>')
+    $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<input id="id_estoque-' + (count) + '-inicial" class="form-control" type="hidden" />')
         // Select2
     $('.clProduto').select2()
+
+
 
 });
 

@@ -9,7 +9,7 @@ class Report(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         verbose_name = 'Relatório'
         verbose_name_plural = 'Relatórios'
