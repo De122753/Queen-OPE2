@@ -21,7 +21,7 @@ class TOTAL_PRODUTOS(models.Model):
     NOME_PRODUTO = models.CharField(max_length=50)
     QUANTIDADE = models.PositiveIntegerField()
     MOVIMENTO = models.CharField(max_length=50)
-    TOTAL = models.DecimalField(max_digits=10, decimal_places=2)
+    TOTAL = models.FloatField()
 
     class Meta:
         managed = False
