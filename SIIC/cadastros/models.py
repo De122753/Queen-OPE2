@@ -43,7 +43,7 @@ class TamanhoProduto(models.Model):
 class Produto(models.Model):
     nome_produto = models.CharField(max_length=50, verbose_name='Nome do produto')
     descricao_produto = models.CharField(max_length=255, verbose_name='Descrição do produto', blank=True)
-    preco_unitario = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Preço unitário', blank=True, null=True)
+    preco_unitario = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Preço unitário')
     quantidade_disponivel = models.PositiveIntegerField(verbose_name='Quantidade disponível', default=0, null=True, blank=True)
     tamanho_produto = models.ForeignKey(TamanhoProduto, verbose_name="Tamanho", on_delete=models.CASCADE)
     cor_produto = models.ForeignKey(CorProduto, verbose_name="Cor do produto", on_delete=models.CASCADE)
