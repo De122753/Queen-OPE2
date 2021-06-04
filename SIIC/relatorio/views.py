@@ -2,13 +2,56 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 import relatorio.forms as r
 from reportlab.pdfgen import canvas
+from .models import TOTAL_PRODUTOS
+from django.db.models import Sum, OrderBy
+from django.contrib import messages
 
 # Retorna a pagina do relatorio de movimetno e dados do DB
 def relatorio_movimento(request):
-    template_name = 'relatorio_movimento.html'
-    campos = r.Estoque.objects.all()
-    context = {'campos_relatorio': campos}
-    return render(request, template_name, context)
+    
+    if request.method=='POST':
+        dataInicio = request.POST['dataInicio']
+        dataFim = request.POST['dataFim']
+
+        template_name = 'relatorio_movimento.html'
+        ##Primeiro resumo
+        qtd_entrada = list(TOTAL_PRODUTOS.objects.filter(CREATED__range=(dataInicio,dataFim),
+                                MOVIMENTO='ENTRADA').aggregate(Sum('QUANTIDADE')).values())[0]
+        
+        qtd_saida = list(TOTAL_PRODUTOS.objects.filter(CREATED__range=(dataInicio,dataFim),
+                                MOVIMENTO='SAIDA').aggregate(Sum('QUANTIDADE')).values())[0]
+
+        ##Segundo resumo
+        total_entrada = list(TOTAL_PRODUTOS.objects.filter(CREATED__range=(dataInicio,dataFim),
+                                MOVIMENTO='ENTRADA').aggregate(Sum('TOTAL')).values())[0]
+        total_saida = list(TOTAL_PRODUTOS.objects.filter(CREATED__range=(dataInicio,dataFim),
+                                MOVIMENTO='SAIDA').aggregate(Sum('TOTAL')).values())[0]
+        
+        if total_entrada == None:
+            template_name = 'relatorio_movimento.html'
+            return render(request,template_name,messages.warning(request, 'Não consta dados no período, por favor, selecione uma nova data.'))
+
+        campos_resumo = total_saida - total_entrada
+        
+        ##Tabela Movimentações dos Produtos - Analítico
+        campos_produtos = TOTAL_PRODUTOS.objects.filter(CREATED__range=(dataInicio,dataFim)).order_by('CREATED')
+        context = {
+
+            'campos_resumo': campos_resumo,
+            'campos_produtos': campos_produtos,
+            'total_entrada': total_entrada,
+            'total_saida': total_saida,
+            'qtd_entrada': qtd_entrada,
+            'qtd_saida': qtd_saida,
+            'dataInicio': dataInicio,
+            'dataFim': dataFim,
+            
+        }
+        return render(request, template_name, context)
+
+    else:
+        template_name = 'relatorio_movimento.html'
+        return render(request,template_name)
 
 def pdf(request):
     # Crie o objeto HttpResponse com o cabeçalho de PDF apropriado.
