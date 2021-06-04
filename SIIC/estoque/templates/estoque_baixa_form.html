@@ -108,11 +108,32 @@ $('.numberinput').keypress(function(event) {
 {% comment %} --------------- {% endcomment %}
 
 $('#enviar').click(function valida(){
-if(document.getElementByClass('numberinput form-control is-invalid clQuantidade').value==''||document.getElementByClass('numberinput form-control is-invalid clQuantidade').value==null){
-    alert('Preencha o campo Nota Fiscal');
-    document.getElementById('id_main-nf').focus();
+if(document.getElementById('id_estoque-0-quantidade').value==''||document.getElementById('id_estoque-0-quantidade').value==null){
+    alert('O campo quantidade está em branco!');
+    document.getElementById('id_estoque-0-quantidade').focus();
     return false;
     }
+if(document.getElementById('id_estoque-1-quantidade').value==''||document.getElementById('id_estoque-1-quantidade').value==null){
+    alert('O campo quantidade está em branco!');
+    document.getElementById('id_estoque-0-quantidade').focus();
+    return false;
+    }
+if(document.getElementById('id_estoque-2-quantidade').value==''||document.getElementById('id_estoque-2-quantidade').value==null){
+    alert('O campo quantidade está em branco!');
+    document.getElementById('id_estoque-0-quantidade').focus();
+    return false;
+    }
+if(document.getElementById('id_estoque-3-quantidade').value==''||document.getElementById('id_estoque-3-quantidade').value==null){
+    alert('O campo quantidade está em branco!');
+    document.getElementById('id_estoque-3-quantidade').focus();
+    return false;
+    }
+if(document.getElementById('id_estoque-4-quantidade').value==''||document.getElementById('id_estoque-4-quantidade').value==null){
+    alert('O campo quantidade está em branco!');
+    document.getElementById('id_estoque-4-quantidade').focus();
+    return false;
+    }
+return true
 })
 </script>
 {% endblock scripts %}

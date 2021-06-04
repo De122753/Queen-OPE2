@@ -65,8 +65,6 @@ $('#add-item').click(function(ev) {
         // Select2
     $('.clProduto').select2()
 
-
-
 });
 
 let estoque
@@ -141,6 +139,8 @@ $(document).on('change', '.clQuantidade', function() {
 
 // $('#form').bind('submit', false);
 
-// $('button#submit').click(function() {
-//     $('#form').submit();
-// });
+// function validar() {
+
+
+
+// }
