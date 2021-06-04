@@ -31,8 +31,6 @@
                     pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" style="padding: 3px; border-style:solid;">
                 <input type="submit" class="btn btn-primary" value="Pesquisar" 
                     id="consultar" onclick="resultado">
-                <input  type="submit" class="btn btn-primary" value="Imprimir PDF" 
-                    id="imprimirPdf" onclick="" style="margin-left: 250px;">
             </div>
         </form>
     </div>
@@ -43,6 +41,10 @@
 {% if dataInicio != None %}
     <div class="conteiner" id="resultado" margin:auto>
         <div style="background-color: white;">
+            <div align="center">
+                <input  type="submit" class="btn btn-primary" value="Imprimir PDF" 
+                id="imprimirPdf" onclick="" style="background-color: green;">
+            </div>
             <div align="center">
                 <p><h3>Período de {{dataInicio}} até {{dataFim}}</h3></p>
             </div>        
