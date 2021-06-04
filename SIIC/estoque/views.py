@@ -165,15 +165,6 @@ def estoque_baixa_list(request):
     }
     return render(request, template_name, context)
 
-# tabela detalhada com exportação
-
-
-# class TabelaCompletaListView(SingleTableMixin, FilterView):
-#     table_class = DetailedDataTable
-#     model = Estoque
-#     template_name = "estoque_list_full.html"
-#     filterset_class = ItensFilter
-
 
 def tabela_completa(request):
     template_name = 'estoque_list_full.html'
@@ -182,11 +173,12 @@ def tabela_completa(request):
     q = q2
     table = DetailedDataTable(q)
 
-    # start_date = request.GET.get('start_date')
-    # end_date = request.GET.get('end_date')
-    # if start_date and end_date:
-    #     print(start_date, end_date)
-    #     table = q.filter(created__range=[start_date, end_date])
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    if start_date and end_date:
+        print(start_date, end_date)
+        table = q.filter(created__range=[start_date, end_date])
+
     context = {'table': table, }
     RequestConfig(request, paginate=False).configure(table)
     return render(request, template_name, context)
@@ -205,3 +197,12 @@ def tabela_completa(request):
 #     model = Estoque
 #     template_name = 'estoque_list_full.html'
 #     filterset_class = EstoqueFiltro
+
+# tabela detalhada com exportação
+
+
+# class TabelaCompletaListView(SingleTableMixin, FilterView):
+#     table_class = DetailedDataTable
+#     model = Estoque
+#     template_name = "estoque_list_full.html"
+#     filterset_class = ItensFilter
