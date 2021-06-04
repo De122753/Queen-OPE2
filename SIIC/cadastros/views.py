@@ -42,7 +42,7 @@ class CorCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de cor"
         context["titulo"] = "Cadastrar nova cor de produto"
-        context["subtitulo"] = "Cadastro de cores"
+        context["subtitulo"] = "Cadastro de cor"
         context["botao"] = "Cadastrar"
         return context
 
@@ -75,9 +75,9 @@ class CategoriaCreate(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = "Cadastro de categorias"
+        context["titulo_pagina"] = "Cadastro de categoria"
         context["titulo"] = "Cadastrar nova categoria de produto"
-        context["subtitulo"] = "Cadastro de categorias"
+        context["subtitulo"] = "Cadastro de categoria"
         context["botao"] = "Cadastrar"
         return context
 
@@ -98,7 +98,7 @@ class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de tamanho"
         context["titulo"] = "Cadastrar novo tamanho de produto"
-        context["subtitulo"] = "Cadastro de tamanhos"
+        context["subtitulo"] = "Cadastro de tamanho"
         context["botao"] = "Cadastrar"
         return context
 
@@ -125,7 +125,7 @@ class ProdutoCreate(LoginRequiredMixin, CreateView, SuccessMessageMixin):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de produto"
         context['titulo'] = 'Cadastrar novo produto'
-        context['subtitulo'] = 'Cadastro de produtos'
+        context['subtitulo'] = 'Cadastro de produto'
         context['botao'] = 'Cadastrar'
         return context
 
@@ -208,7 +208,7 @@ class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context = super().get_context_data(*args, **kwargs)
         context["titulo_pagina"] = "Atualizar fornecedor"
         context["titulo"] = 'Atualizar dados do fornecedor'
-        context["botao"] = 'atualizar'
+        context["botao"] = 'Atualizar'
         return context
 
 

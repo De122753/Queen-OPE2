@@ -290,13 +290,21 @@ body {
     border-style: dotted;
 }
 
-.jumbotron {
-    background-color: transparent !important;
+.invalid-feedback {
+    display: none !important;
 }
 
-.invalid-feedback {
-    position: absolute;
+input[id$="-fabricante"] {
+    display: none !important;
 }
+
+input[id$="-saldo"] {
+    display: none !important;
+}
+
+
+/* 
+#id_quantidade_disponivel {} */
 
 
 /* SOBRE */
@@ -321,4 +329,9 @@ body {
 
 #texto_sobre {
     text-align: justify;
+}
+
+.dt-buttons {
+    position: absolute;
+    left: 45%;
 }

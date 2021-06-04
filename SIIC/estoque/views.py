@@ -1,18 +1,21 @@
 
+from django.db.models import query
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
+from django_tables2 import tables
 from django_tables2.config import RequestConfig
 from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, EstoqueSaida, DetailedDataTable
 from .forms import EstoqueIntensForm, EstoqueForm
 from cadastros.models import Produto
 from django_tables2.export.export import TableExport
-from django_filters.views import FilterView
-from django_tables2.views import SingleTableMixin
 import time
-import django_filters
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from .filters import ItensFilter
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
+
 
 def estoque_entrada_list(request):
     template_name = 'estoque_list.html'
@@ -165,27 +168,27 @@ def estoque_baixa_list(request):
 # tabela detalhada com exportação
 
 
+# class TabelaCompletaListView(SingleTableMixin, FilterView):
+#     table_class = DetailedDataTable
+#     model = Estoque
+#     template_name = "estoque_list_full.html"
+#     filterset_class = ItensFilter
+
+
 def tabela_completa(request):
     template_name = 'estoque_list_full.html'
-    queryset = EstoqueItens.objects.all().order_by('estoque')
-    table = DetailedDataTable(queryset)
+    q1 = Estoque.objects.all()
+    q2 = EstoqueItens.objects.all().order_by('estoque')
+    q = q2
+    table = DetailedDataTable(q)
 
-    start_date = request.GET.get('start_date')
-    end_date = request.GET.get('end_date')
-    if start_date and end_date:
-        print(start_date, end_date)
-        table = Estoque.objects.filter(created__range=[start_date, end_date])
-        return table
-
-    context = {
-        'table': table,
-    }
-
+    # start_date = request.GET.get('start_date')
+    # end_date = request.GET.get('end_date')
+    # if start_date and end_date:
+    #     print(start_date, end_date)
+    #     table = q.filter(created__range=[start_date, end_date])
+    context = {'table': table, }
     RequestConfig(request, paginate=False).configure(table)
-    export_format = request.GET.get("_export", None)
-    if TableExport.is_valid_format(export_format):
-        exporter = TableExport(export_format, table)
-        return exporter.response("Movimentação_do_estoque{}.{}".format(time.strftime("%Y%m%d-%H%M%S"), export_format))
     return render(request, template_name, context)
 
 

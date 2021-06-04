@@ -1,7 +1,9 @@
 from django.db import models
 from django.urls.conf import path
 # , estoque_entrada_add
-from .views import estoque_entrada_list, estoque_saida_list, estoque_entrada_detalhes, estoque_saida_detalhes, estoque_entrada_add, estoque_saida_add, estoque_baixa_detalhes, estoque_baixa_list, estoque_baixa_add, tabela_completa
+from .views import *
+
+# tabela_completa
 
 
 urlpatterns = [

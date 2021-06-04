@@ -43,7 +43,7 @@ class UsuarioCreate(GroupRequiredMixin, CreateView, SuccessMessageMixin):
         return context
 
     def form_valid(self, form):
-        messages.success(self.request, "Alteração realizada com sucesso!")
+        messages.success(self.request, "Cadastro realizado com sucesso!")
         return super().form_valid(form)
 
 

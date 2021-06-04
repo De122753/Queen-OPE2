@@ -10,45 +10,50 @@
 {% endblock titulo %}
 {% block conteudo %}
 
-<div class="container col-sm-12 text-center" style="padding: 10px;">
+<div class="container col-sm-12 text-center pb-0" style="padding-top: 10px;">
         <h6>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h6>
+        {{myFilter.form}}
 </div>
-<div class="container text-center">
-    <span class="btn btn-success"><a style="color: white;" href="{% export_url "csv" %}"><i class="fas fa-file-csv"></i> Exportar CSV</a></span>
-    {% comment %} <form>
-    <div class="form-row float-right">
-        <div class="col-auto">
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-            <div class="input-group-text">Data inicio: </div>
+
+    <div class="container text-center">
+    <form>
+        <div class="form-row float-right">
+            <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                <div class="input-group-text">Data inicio: </div>
+                </div>
+                <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="start_date">
             </div>
-            <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="start_date">
-        </div>
-        </div>
-        <div class="col-auto">
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-            <div class="input-group-text">Data fim: </div>
             </div>
-            <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="end_date">
+            <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                <div class="input-group-text">Data fim: </div>
+                </div>
+                <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="end_date">
+            </div>
+            </div>
+            <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">OK</button>
+            </div>
         </div>
-        </div>
-        <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-2">OK</button>
-        </div>
-    </div>
-    </form> {% endcomment %}
-</div>
-<div class="container text-center">
-</div>
-<div class="table-responsive" style="padding: 20px">
-<hr>
-    {% comment %} {% if filter %}
-        <form action="" method="get" class="form-inline">
-        {% bootstrap_form filter.form layout='inline' %}
-        {% bootstrap_button 'Filtrar' %}
         </form>
-    {% endif %} {% endcomment %}
+    </div>
+
+    {% comment %} <div class="container text-center">
+    </div> {% endcomment %}
+<div class="table-responsive" style="padding: 20px">
+<hr class="mt-0">
+{% comment %} 
+{% if filter %}
+<form action="" method="get" class="form form-inline">
+{% bootstrap_form filter.form layout='inline' %}
+{% bootstrap_button 'Filtro' %}
+</form>
+{% endif %} {% endcomment %}
+{% comment %} {% render_table table 'django_tables2/bootstrap.html' %} {% endcomment %}
+
     {% render_table table %}
 </div>
 {% endblock conteudo %}
@@ -56,6 +61,28 @@
 <script>
     $(document).ready(function () {
         $('#tbl_lista_completa').DataTable({
+            dom: 'Blfrtip',
+            buttons: ['excel',
+                        {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            {
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                        );
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            },
+            ],
+            responsive: true,
+            fixedHeader: true,
             retrieve: true,
             paginate: true,
             info: true,

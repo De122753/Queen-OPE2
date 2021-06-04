@@ -7,52 +7,124 @@
 <script>
     function mostrarResultado(){
         document.getElementById('resultado').style.display = '';
+        document.getElementById('imprimirPdf').style.display = '';
     }
+    
 </script>
 
 <div class="container">
     <p>   
     </p>
-    <h2 align="center">Relatório de Movimentação do Estoque</h1>
+    <h2 align="center">RELATÓRIO FINANCEIRO DE PRODUTOS</h2>
     <br><br>
  
-<!--Inicio das janelas de data e botão pesquisar-->
-    <div class='col-sm-6'  style="padding: 10px;">
-        <label style="margin-left: 10px" for="date">De:</label>
-        <input type="date" id="data_ini">
-        <label style="margin-left: 10px" for="date">De:</label>
-        <input type="date" id="data_fim">
-        <input type="submit" class="btn btn-primary" value="Pesquisar" 
-               id="consultar" onclick="mostrarResultado()">
-        
+<!--Inicio campo data e botão pesquisar-->
+    <div class='col-sm-12'  style="padding: 10px;">
+        <form method="POST">
+            <div>
+                {% csrf_token %}
+                <label style="margin-left: 10px" for="dataInicio">Data Inicial:</label>
+                    <input type="date" id="dataInicio" name="dataInicio" required value=""
+                    pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" style="padding: 3px; border-style:solid;">
+                <label style="margin-left: 10px" for="dataFim">Data Final:</label>
+                    <input type="date" id="dataFim" name="dataFim" required value=""
+                    pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" style="padding: 3px; border-style:solid;">
+                <input type="submit" class="btn btn-primary" value="Pesquisar" 
+                    id="consultar" onclick="resultado">
+                <input  type="submit" class="btn btn-primary" value="Imprimir PDF" 
+                    id="imprimirPdf" onclick="" style="margin-left: 250px;">
+            </div>
+        </form>
     </div>
-<!--Fim das janelas de data e botão pesquisar-->
+    <br><br><br>
+<!--Fim campo data e botão pesquisar-->
 
-<!--Inicio da Tabela do Relatório -->  
-    <div class="conteiner">
-        <table class="table table-striped" >
+<!--Inicio da Tabela do Relatório -->
+{% if dataInicio != None %}
+    <div class="conteiner" id="resultado" margin:auto>
+        <div style="background-color: white;">
+            <div align="center">
+                <p><h3>Período de {{dataInicio}} até {{dataFim}}</h3></p>
+            </div>        
+        </br>
+            <h3 align="center" style="background-color: #397475; color: white; ">Resumo Quantitativo e Financeiro das Movimentações dos Produtos</h3>
+         
+            <table class="table" style="border-color: black; padding-top: 40px;" id='resumo'>
+                <thead>
+                    <tr>
+                        <th scope="col" style="background-color:#47AAB5;color:white">TIPO DE MOVIMENTAÇÕES</th>
+                        <th scope="col" style="background-color:#47AAB5;color:white" >QTD DE PRODUTOS</th>
+                        <th scope="col" style="background-color:#47AAB5;color:white" >TOTAL FINANCEIRO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" style="font-size:20px;">ENTRADA</th>
+                        <th scope="row" style="font-size:20px;">{{qtd_entrada}}</th>
+                        <th scope="row" style="font-size:20px;">R$ {{total_entrada}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="font-size:20px;">SAÍDA</th>
+                        <th scope="row" style="font-size:20px;">{{qtd_saida}}</th>
+                        <th scope="row" style="font-size:20px;">R$ {{ total_saida}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="font-size:20px;">BAIXA</th>
+                        <th scope="row" style="font-size:20px;">{{qtd_baixa}}</th>
+                        <th scope="row" style="font-size:20px;">R$ {{ total_baixa}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+            </p>
+            </br>
+            
+            <div class='col-sm-6' style="left: 70%;">RESULTADO FINANCEIRO DO PERÍODO: 
+                
+                    <h2 id="totalizador" style="color: rgba(255, 94, 0, 0.87); border: black;">R$ {{campos_resumo}} {% if totalizador > 0 %}<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"  fill="rgb(0,128,0)" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+                    </svg>
+                    {%else%}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="rgb(255,0,0)" width="25" height="25" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                      </svg>
+                    {% endif %}
+                    </h2>
+            </div>
+        </br>
+        </br>
+        </div>
+        <table class="table table-striped" id="analitico">
+            <h3 align="center" style="background-color: rgb(9, 180, 100); color: white; ">Movimentações dos Produtos</h3>
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Funcionário</th>
-                    <th scope="col">Tipo de Movimento</th>
-                    <th scope="col">Nota Fiscal</th>
-                    <th scope="col">Data Movimento</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">DATA</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">NOME PRODUTO</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">QTD PRODUTO</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">TIPO MOVIMENTAÇÕES</th>
+                    <th scope="col" style="background-color: rgba(9, 180, 100, 0.726); color: white;">TOTAL PRODUTO (R$)</th>
                 </tr>
             </thead>
-            <tbody id="resultado" style="display: none;">
-                {% for campo in campos_relatorio %}
+            <tbody >
+                {% for campo1 in campos_produtos %}
                 <tr>
-                    <th scope="row">{{campo.id}}</th>
-                    <th scope="row">{{campo.funcionario}}</th>
-                    <th scope="row">{{campo.movimento}}</th>               
-                    <th scope="row">{{campo.nf}}</th>
-                    <th scope="row">{{campo.created}}</th>
+                    <th scope="row">{{campo1.CREATED}}</th>
+                    <th scope="row">{{campo1.NOME_PRODUTO}}</th>               
+                    <th scope="row">{{campo1.QUANTIDADE}}</th>
+                    <th scope="row">{{campo1.MOVIMENTO}}</th>
+                    <th scope="row">R$ {{campo1.TOTAL}}</th>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div>   
+        <br>
+            <br>
+                <br>
+            <br>
+        <br>
+ 
+    </div>
+    {% endif %}   
 </div>
 
 {% endblock conteudo %}

@@ -111,6 +111,7 @@ class EstoqueItens(models.Model):
         self.tt = round(self.tt, 2)
         return str(self.tt)
 
+    objects = Estoque()
 
 # tabela completa
 class DetailedDataTable(tables.Table):
@@ -118,7 +119,7 @@ class DetailedDataTable(tables.Table):
     movimento = tables.Column(verbose_name='Movimento', accessor='estoque.movimento')
     funcionario = tables.Column(verbose_name='Funcionario', accessor='estoque.funcionario')
     fabricante = tables.Column(verbose_name='Fabricante', accessor='fabricante')
-    created = tables.Column(verbose_name='Data/hora', accessor='estoque.created', order_by='estoque.created')
+    created = tables.Column(verbose_name='Data/hora', accessor='estoque.created')
     categoria = tables.Column(verbose_name='Categoria', accessor='produto.categoria')
 
     class Meta:

@@ -12,22 +12,19 @@
 <P></P>
 <div class="container-fluid h-100">
     <div class="col-12" align="center">
-    <h3 class="titulos_listas lead" align=center>ESTOQUE - BAIXA DE ITENS</h3>
-        <div class="row justify-content-center col-sm-6">
-            <form class="form" enctype="multipart/form-data" method="POST" novalidate id="form_baixa">
+    <h3 class="titulos_listas" align=center>ESTOQUE - BAIXA DE ITENS</h3>
+        <div class="row h-100 justify-content-center align-items-center">
+            <form enctype="multipart/form-data" method="POST" novalidate id="form_saida">
                 {% csrf_token %}
-                <h6 hidden style="padding: 10px; background-color: #EE2C2C; color: white; border-radius: 0.5rem;">ESTOQUE -
-                    BAIXA:</h6>
-                <hr hidden style="margin: 5px;">
-                <div class="form" style="padding: 0px; float: none; margin:0 auto;">
+                <H5 style="display:none">ESTOQUE - BAIXA: </H5>
+                <div class="form">
                     {% for field in form.visible_fields %}
-                    <div hidden class="form-group {% if field.errors %} has-error {% endif%}">
+                    <div class="form-group {% if field.errors %} has-error {% endif %}" style="display:none">
                         <div class="input-group mb-1">
-                            <label style=" margin: 5px; width: 20%;" class="label label-primary"
-                                for="{{ field.id_for_label }}">
-                                <span class="input-group-text" id="basic-addon1">
+                            <label style=" margin: 5px; width: 20%;" class="label label-primary" for="{{ field.id_for_label }}">
+                                <span class="input-group-text" id="basic-addon1" required>
                                     {% if field.field.required %}
-                                    <span style="margin-left: 2px;" class="required">{{ field.label }}</span>
+                                    <span style="margin-left: 2px;" class="required" required>{{ field.label }}</span>
                                     {% else %}
                                     <span style="margin-left: 10px;">{{ field.label }}</span>
                                     {% endif %}
@@ -36,7 +33,7 @@
                             <span id="seta_nota"><i class="fas fa-chevron-right"></i></span>
                             <span style="margin-left: 5px;">{% render_field field class="form-control" %}</span>
                             {% for error in field.errors %}
-                            <span class="text-muted" style="margin: auto; color: red !important;">{{ error }}</span>
+                            <span class="text-muted" required>{{ error.as_required }}</span>
                             {% endfor %}
                         </div>
                         {% endfor %}
@@ -44,53 +41,36 @@
                     </div>
                 </div>
                 <hr>
-                <span>
-                    <h6 style="padding: 5px; background-color: #696969; color: white; border-radius: 0.5rem;">PRODUTOS:
-                    </h6>
-                </span>
+                <h5>PRODUTOS: </h5>
                 <hr>
-                <div class="container" style="padding: 0px; float: none; margin:0 auto;">
-                    <div id="estoque" class="form-inline justify-content-center"
-                        style="padding: 10px; background-color: #8B8989; color: white; border: 0px; border-radius: 0.5rem;">
-                        {% for item_estoque_form in formset %}
-                        <hr style="border-color: white;">
-                        <div class="col">
-                            <div id="item-{{ forloop.counter0 }}" class="form-group text-center">
-                                <div class="row" style="float: none; margin:0 auto;">
-                                    {{ item_estoque_form.produto|as_crispy_field }}
-                                    {{ item_estoque_form.fabricante|as_crispy_field }}
-                                </div>
-                                <div class="row" style="float: none; margin:0 auto;">
-                                    {{ item_estoque_form.preco_unit|as_crispy_field }}
-                                    {{ item_estoque_form.quantidade|as_crispy_field }}
-                                </div>
-                                <div class="row" style="float: none; margin:0 auto;">
-                                    {{ item_estoque_form.saldo|as_crispy_field }}
-                                    <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
-                                </div>
-                            </div>
-                            <hr style="border-color: white;">
+                <div id="estoque" class="form-inline justify-content-center" style="padding: 10px;">
+                    {% for item_estoque_form in formset %}
+                    <div class="inlineform">
+                        <div id="item-{{ forloop.counter0 }}" class="form-group">
+                            {{ item_estoque_form.produto|as_crispy_field }}
+                            {{ item_estoque_form.fabricante|as_crispy_field }}
+                            {{ item_estoque_form.preco_unit|as_crispy_field }}
+                            {{ item_estoque_form.quantidade|as_crispy_field }}
+                            {{ item_estoque_form.saldo|as_crispy_field }}
+                            <span id="apagar_item">{{ item_estoque_form.DELETE|as_crispy_field }} </span>
                         </div>
-                        {% endfor %}
                     </div>
-                    <span class="float-right mb-1">* Preenchimento obrigatório</span>
-                    <p></p>
+                    {% endfor %}
                 </div>
+                <hr>
+                    <span class="floar-right" style="color: grey;">* Preenchimento obrigatório.</span>
                 <div class="col-sm-12">
                     <div class="row float-left">
-                        <span id="add-item" class="btn btn-info" style="margin-top: 10px;">
-                            <i class="fa fa-plus"></i> Adicionar
-                        </span>
+                        <span id="add-item" class="btn btn-info" style="margin-top: 10px;"><i class="fa fa-plus"></i> Adicionar</span>  
                     </div>
                     <div class="row float-right">
                         <div class="col-sm-12" style="margin-top: 50px;">
                             <div class="form-inline buttons">
-                                <button class="btn btn-primary" value="Save">
+                                <button class="btn btn-primary" value="Save" id="enviar">
                                     <i class="fa fa-floppy-o"></i>
                                     Salvar
                                 </button>
-                                <a style="margin-left: 5px;" href="{% url 'estoque_baixa_list' %}"
-                                    class="btn btn-danger">
+                                <a style="margin-left: 5px;" href="{% url 'estoque_saida_list' %}"class="btn btn-danger">
                                     <i class="fa fa-times" style="vertical-align: middle;"></i>
                                     <span style="margin-left: 5px;"> Cancelar </span>
                                 </a>
@@ -128,18 +108,11 @@ $('.numberinput').keypress(function(event) {
 {% comment %} --------------- {% endcomment %}
 
 $('#enviar').click(function valida(){
-if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
+if(document.getElementByClass('numberinput form-control is-invalid clQuantidade').value==''||document.getElementByClass('numberinput form-control is-invalid clQuantidade').value==null){
     alert('Preencha o campo Nota Fiscal');
     document.getElementById('id_main-nf').focus();
     return false;
     }
-if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
-    alert('Arquivo da nota fiscal não inserido');
-    document.getElementById('id_main-nf_arquivo').focus();
-    return false;
-    }
-return true
 })
 </script>
-
 {% endblock scripts %}

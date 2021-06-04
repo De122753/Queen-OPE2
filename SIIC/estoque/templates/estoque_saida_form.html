@@ -100,23 +100,6 @@
 
 {% comment %} VALIDAÇÃO {% endcomment %}
 <script>
-$('#enviar').click(function valida(){
-if(document.getElementById('id_main-nf').value==''||document.getElementById('id_main-nf').value==null){
-    alert('Preencha o campo Nota Fiscal');
-    document.getElementById('id_main-nf').focus();
-    return false;
-    }
-if(document.getElementById('id_main-nf_arquivo').value==''||document.getElementById('id_main-nf').value==null){
-    alert('Arquivo da nota fiscal não inserido');
-    document.getElementById('id_main-nf_arquivo').focus();
-    return false;
-    }
-return true
-})
-</script>
-
-{% comment %} VALIDAÇÃO {% endcomment %}
-<script>
 {% comment %} Jquery não aceitar caracteres especiais em campos numéricos {% endcomment %}
 function isValid(str) {
     return !/[~`!@#$%\^&*()+=\-\[\]\\';/{}|\\":<>\?]/g.test(str);
