@@ -5,14 +5,24 @@ from reportlab.pdfgen import canvas
 from .models import TOTAL_PRODUTOS
 from django.db.models import Sum, OrderBy
 from django.contrib import messages
+from easy_pdf.views import PDFTemplateView
+from datetime import timedelta, datetime, date
+
+
 
 
 # Retorna a pagina do relatorio de movimetno e dados do DB
 def relatorio_movimento(request):
     
     if request.method=='POST':
-        dataInicio = request.POST['dataInicio']
-        dataFim = request.POST['dataFim']
+        dtini = request.POST['dataInicio']
+        dtfim = request.POST['dataFim']
+        
+        dI = datetime.strptime(dtini, '%Y-%m-%d').date()
+        dF = datetime.strptime(dtfim, '%Y-%m-%d').date()
+
+        dataInicio = dI - timedelta(days = 1)
+        dataFim = dF + timedelta(days = 1)
 
         template_name = 'relatorio_movimento.html'
         ##Primeiro resumo
@@ -51,8 +61,8 @@ def relatorio_movimento(request):
             'qtd_entrada': qtd_entrada,
             'qtd_saida': qtd_saida,
             'qtd_baixa': qtd_baixa,
-            'dataInicio': dataInicio,
-            'dataFim': dataFim,
+            'dataInicio': dtini,
+            'dataFim': dtfim,
             
         }
         return render(request, template_name, context)
@@ -60,3 +70,8 @@ def relatorio_movimento(request):
     else:
         template_name = 'relatorio_movimento.html'
         return render(request,template_name)
+
+
+
+class HelloPDFView(PDFTemplateView):
+    template_name = "hello.html"

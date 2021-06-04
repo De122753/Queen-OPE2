@@ -42,8 +42,8 @@
     <div class="conteiner" id="resultado" margin:auto>
         <div style="background-color: white;">
             <div align="center">
-                <input  type="submit" class="btn btn-primary" value="Imprimir PDF" 
-                id="imprimirPdf" onclick="" style="background-color: green;">
+                <a class="btn btn-warning" type="submit" id="imprimirPdf" onclick="" style="background-color: green;color:white"
+                href="{% url 'templatepdf' %}">Imprimir PDF</a>
             </div>
             <div align="center">
                 <p><h3>Período de {{dataInicio}} até {{dataFim}}</h3></p>

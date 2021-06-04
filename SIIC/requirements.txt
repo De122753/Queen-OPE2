@@ -26,6 +26,14 @@ toml==0.10.2
 tornado==6.1
 virtualenv==20.4.3
 virtualenvwrapper-win==1.2.6
+##Adicionado Fabiano
 wcwidth==0.2.5
-reportlab==
 weasyprint==52.5
+pisa==3.0.33
+reportlab==3.5.67
+report==0.0.1
+app==0.0.1
+app.report==0.0.3
+xhtml2pdf==0.2.5
+django-easy-pdf==0.1.1
+django.utils.six==2.0
