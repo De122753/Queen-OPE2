@@ -102,7 +102,7 @@
 <script>
 {% comment %} Jquery não aceitar caracteres especiais em campos numéricos {% endcomment %}
 function isValid(str) {
-    return !/[~`!@#$%\^&*()+=\-\[\]\\';/{}|\\":<>\?]/g.test(str);
+    return !/[~`!@#$%\^&*()+=\-.\[\]\\';/{}|\\":<>\?]/g.test(str);
 }
 
 $('.numberinput').keypress(function(event) {
