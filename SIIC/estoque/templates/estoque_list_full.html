@@ -4,7 +4,6 @@
 {% load django_tables2%}
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
-
 {% block titulo %}
 <title>Relação completa</title>
 {% endblock titulo %}
@@ -14,46 +13,35 @@
         <h6>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h6>
         {% comment %} {{myFilter.form}} {% endcomment %}
 </div>
-
-    {% comment %} <div class="container text-center">
+<div class="col col-md-6 offset-md-3" style="position: flex !important; ">
     <form>
-        <div class="form-row float-right">
+        <div class="form-row float-none">
             <div class="col-auto">
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                <div class="input-group-text">Data inicio: </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Data inicio: </div>
+                    </div>
+                    <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date"
+                        name="start_date">
                 </div>
-                <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="start_date">
-            </div>
             </div>
             <div class="col-auto">
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                <div class="input-group-text">Data fim: </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Data fim: </div>
+                    </div>
+                    <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date"
+                        name="end_date">
                 </div>
-                <input class="form-control" id="inlineFormInputGroup" style="margin: 0px;" type="date" name="end_date">
-            </div>
             </div>
             <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-2">OK</button>
+                <button type="submit" class="btn btn-primary mb-2">OK</button>
             </div>
         </div>
-        </form>
-    </div> {% endcomment %}
-
-    {% comment %} <div class="container text-center">
-    </div> {% endcomment %}
-<div class="table-responsive" style="padding: 20px">
-<hr class="mt-0">
-{% comment %} 
-{% if filter %}
-<form action="" method="get" class="form form-inline">
-{% bootstrap_form filter.form layout='inline' %}
-{% bootstrap_button 'Filtro' %}
-</form>
-{% endif %} {% endcomment %}
-{% comment %} {% render_table table 'django_tables2/bootstrap.html' %} {% endcomment %}
-
+    </form>
+</div>
+<hr>
+<div class="col m-1">
     {% render_table table %}
 </div>
 {% endblock conteudo %}
