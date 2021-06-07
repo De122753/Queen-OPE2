@@ -7,101 +7,99 @@
 {% block conteudo %}
 
 <div class="container">
-    <h3 style="padding-top: 25px" class="titulos_listas" align=center>{{titulo_detalhe}}</h3>
-                        <div class="container" id="bloco_botoes_detalhes">
-                                <a id="botao_lista_entradas" href="{% url url_list %}" class="btn btn-info"><i><i
-                                            class="fa fa-arrow-left" aria-hidden="true"></i>
-                                    </i>{{botao_listas}}</a>
-                        </div>
-                        <hr>
+    <h3 style="padding-top: 25px" class="titulos_listas text-monospace" align=center>{{titulo_detalhe}}</h3>
+    <div class="container" id="bloco_botoes_detalhes">
+        <a id="botao_lista_entradas" href="{% url url_list %}" class="btn btn-info"><i><i class="fa fa-arrow-left"
+                    aria-hidden="true"></i>
+            </i>{{botao_listas}}</a>
+    </div>
+    <hr>
 
-                        <div class="row">
-                            <div class="col col-sm-6">
-                        <div class="row">
-
-                        </div>
-                            <h2 style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px;" class="float-left">
-                                ITEM: {{object}}
-                            </h2>
-                            <div class="container" style="background-color: #FAFCFF; border-radius: 5px;">
-                                <table class="table table-sm table-user-information table-responsive">
-                                    <tbody>
-                                        <tr>
-                                            <th>Nota fiscal: </th>
-                                            <td>{{object.nota_formatada}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Data da criação: </th>
-                                            <td>{{object.created}}</td>
-                                        </tr>
-                                        </tr>
-                                        <tr>
-                                            <th>Funcionário responsável: </th>
-                                            <td>{{object.funcionario}}</td>
-                                        </tr>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                </div>
-                <div class="col col-sm-6" id="resumo">
-
-                </div>
-            </div>
+    <div class="row">
+        <div class="col col-sm-6">
             <div class="row">
-                <div class="container col-sm-12">
-                    <table class="table table-sm table-striped" id='tabela_de_itens'>
-                        <thead>
-                            <tr>
-                                <th>Produto</th>
-                                <th>Fabricante</th>
-                                <th>Estoque</th>
-                                <th>Qtd. mov</th>
-                                <th>Preço unitário R$</th>
-                                <th>Total R$</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for obj in object.estoques.all %}
-                            <tr>
-                                <td>{{obj.produto}}</td>
-                                <td align="left">{{obj.fabricante}}</td>
-                                <td align="center">{{obj.saldo}}</td>
-                                <td align="center" class="tt">{{obj.quantidade}}</td>
-                                <td align="center">{{obj.preco_unit}}</td>
-                                <td align="center">{{obj.valor_item}}</td>
-                            </tr>
-                        </tbody>
-                        {% endfor %}
+
+            </div>
+            <h2 style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px;" class="float-left">
+                ITEM: {{object}}
+            </h2>
+            <div class="container" style="background-color: #FAFCFF; border-radius: 5px;">
+                <table class="table table-sm table-user-information table-responsive">
+                    <tbody>
                         <tr>
+                            <th>Nota fiscal: </th>
+                            <td>{{object.nota_formatada}}</td>
                         </tr>
-                    </table>
-
-                    {% for obj in object.estoques.all %}
-                    <div>
-                        {% if forloop.last %}
-                            <span id="total_geral" class="btn">
-                                <h4 class="font-weight-light text-monospace">Valor total em produtos movimentados: R$
-                                    {{obj.calcula_total_geral | floatformat:2 }}</h4>
-                                <hr>
-                                <h6 class="font-weight-light text-monospace">Quantidade de produtos movimentados: <span
-                                        id="tt_geral"></span>
-                                    <hr>
-                                    <h6 class="font-weight-light text-monospace">Quantidade de registros : <span
-                                        id="tt_linhas"></span></h6>
-                            </span>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-
-                </div>
+                        <tr>
+                            <th>Data da criação: </th>
+                            <td>{{object.created}}</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th>Funcionário responsável: </th>
+                            <td>{{object.funcionario}}</td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="col col-sm-6" id="resumo">
+
+        </div>
     </div>
-                                <hr>
+    <div class="row">
+        <div class="container col-sm-12">
+            <table class="table table-sm table-striped" id='tabela_de_itens'>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Fabricante</th>
+                        <th>Estoque</th>
+                        <th>Qtd. mov</th>
+                        <th>Preço unitário R$</th>
+                        <th>Total R$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in object.estoques.all %}
+                    <tr>
+                        <td>{{obj.produto}}</td>
+                        <td align="left">{{obj.fabricante}}</td>
+                        <td align="center">{{obj.saldo}}</td>
+                        <td align="center" class="tt">{{obj.quantidade}}</td>
+                        <td align="center">{{obj.preco_unit}}</td>
+                        <td align="center">{{obj.valor_item}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                <tr>
+                </tr>
+            </table>
 
+            {% for obj in object.estoques.all %}
+            <div>
+                {% if forloop.last %}
+                <span id="total_geral" class="btn">
+                    <h4 class="font-weight-light text-monospace">Valor total em produtos movimentados: R$
+                        {{obj.calcula_total_geral | floatformat:2 }}</h4>
+                    <hr>
+                    <h6 class="font-weight-light text-monospace">Quantidade de produtos movimentados: <span
+                            id="tt_geral"></span>
+                        <hr>
+                        <h6 class="font-weight-light text-monospace">Quantidade de registros : <span
+                                id="tt_linhas"></span></h6>
+                </span>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
 </div>
-
+</div>
+<hr>
+</div>
 {% endblock conteudo %}
 
 {% block scripts %}

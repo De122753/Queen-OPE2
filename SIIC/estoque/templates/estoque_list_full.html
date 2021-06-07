@@ -10,7 +10,7 @@
 {% block conteudo %}
 
 <div class="container col-sm-12 text-center pb-0" style="padding-top: 10px;">
-        <h6>DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h6>
+        <h6 class="text-monospace">DETALHAMENTO DA MOVIMENTAÇÃO DO ESTOQUE</h6>
         {% comment %} {{myFilter.form}} {% endcomment %}
 </div>
 <div class="col col-md-6 offset-md-3" style="position: flex !important; ">
@@ -69,6 +69,9 @@
                 }
             },
             ],
+
+            "columnDefs": [{ targets: [6, 7], className: 'text-right' }],
+
             responsive: true,
             fixedHeader: true,
             retrieve: true,
