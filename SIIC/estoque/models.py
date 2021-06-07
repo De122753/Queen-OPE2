@@ -123,7 +123,7 @@ class DetailedDataTable(tables.Table):
     categoria = tables.Column(verbose_name='Categoria', accessor='produto.categoria')
 
     class Meta:
-        model = EstoqueItens
+        model = Estoque
         template_name = "django_tables2/bootstrap4.html"
         fields = ('estoque', 'nf', 'produto', 'categoria', 'fabricante',
                   'quantidade', 'preco_unit', 'valor_item', 'movimento', 'funcionario', 'created',)

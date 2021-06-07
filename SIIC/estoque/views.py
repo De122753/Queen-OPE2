@@ -1,4 +1,5 @@
 
+from datetime import datetime, timedelta
 from django.db.models import query
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
@@ -15,6 +16,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .filters import ItensFilter
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
+from dateutil.parser import parse
 
 
 def estoque_entrada_list(request):
@@ -168,17 +170,20 @@ def estoque_baixa_list(request):
 
 def tabela_completa(request):
     template_name = 'estoque_list_full.html'
-    q1 = Estoque.objects.all()
-    q2 = EstoqueItens.objects.all().order_by('estoque')
-    q = q2
-    table = DetailedDataTable(q)
-
+    q = EstoqueItens.objects.select_related().filter(estoque__created__date__gte=datetime.now()).order_by('estoque')
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
+
     if start_date and end_date:
         print(start_date, end_date)
-        table = q.filter(created__range=[start_date, end_date])
+        q = EstoqueItens.objects.select_related().filter(estoque__created__date__range=[start_date, end_date]).order_by('estoque')
+        table = DetailedDataTable(q)
+        table = DetailedDataTable(q)
+        context = {'table': table, }
+        RequestConfig(request, paginate=False).configure(table)
+        return render(request, template_name, context)
 
+    table = DetailedDataTable(q)
     context = {'table': table, }
     RequestConfig(request, paginate=False).configure(table)
     return render(request, template_name, context)
