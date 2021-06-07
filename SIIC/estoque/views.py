@@ -1,22 +1,12 @@
 
-from datetime import datetime, timedelta
-from django.db.models import query
+from datetime import datetime
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
-from django_tables2 import tables
 from django_tables2.config import RequestConfig
 from .models import Estoque, EstoqueBaixa, EstoqueItens, EstoqueEntrada, EstoqueSaida, DetailedDataTable
 from .forms import EstoqueIntensForm, EstoqueForm
 from cadastros.models import Produto
-from django_tables2.export.export import TableExport
-import time
-from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
-from .filters import ItensFilter
-from django_filters.views import FilterView
-from django_tables2.views import SingleTableMixin
-from dateutil.parser import parse
 
 
 def estoque_entrada_list(request):
@@ -187,27 +177,3 @@ def tabela_completa(request):
     context = {'table': table, }
     RequestConfig(request, paginate=False).configure(table)
     return render(request, template_name, context)
-
-
-# # filtro por classes
-
-# class EstoqueFiltro(django_filters.FilterSet):
-#     class Meta:
-#         model = Estoque
-#         fields = ['created']
-
-
-# class TabelaDetalhada(SingleTableMixin, FilterView):
-#     table_class = DetailedDataTable
-#     model = Estoque
-#     template_name = 'estoque_list_full.html'
-#     filterset_class = EstoqueFiltro
-
-# tabela detalhada com exportação
-
-
-# class TabelaCompletaListView(SingleTableMixin, FilterView):
-#     table_class = DetailedDataTable
-#     model = Estoque
-#     template_name = "estoque_list_full.html"
-#     filterset_class = ItensFilter
