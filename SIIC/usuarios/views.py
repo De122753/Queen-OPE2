@@ -7,12 +7,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from braces.views import LoginRequiredMixin, GroupRequiredMixin
 from .models import Usuario
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 
 
-class UsuarioCreate(GroupRequiredMixin, CreateView):
+class UsuarioCreate(GroupRequiredMixin, CreateView, SuccessMessageMixin):
     group_required = u"Adm"
     login_url = reverse_lazy('login')
     template_name = "cadastros/form_user.html"
@@ -22,11 +23,12 @@ class UsuarioCreate(GroupRequiredMixin, CreateView):
     def form_valid(self, form):
         # cria o usuario no grupo correspondente
         grupo = get_object_or_404(Group, name="Padrão")
-        # antes do supero o objeto da classe não foi criado
+        # antes do super o objeto da classe não foi criado
         url = super().form_valid(form)
         # objeto criado
         self.object.groups.add(grupo)
         self.object.save()
+        messages.success(self.request, "Usuário cadastrado com sucesso!")
 
         # criando perfil
         # Perfil.objects.create(usuario=self.object)
@@ -40,6 +42,10 @@ class UsuarioCreate(GroupRequiredMixin, CreateView):
         context['titulo'] = 'Registro de novo usuário'
         return context
 
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
+
 
 class PerfilUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
@@ -51,6 +57,10 @@ class PerfilUpdate(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         self.object = get_object_or_404(Usuario, username=self.request.user)
         return self.object
+
+    def form_valid(self, form):
+        messages.success(self.request, "Perfil atulizado com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

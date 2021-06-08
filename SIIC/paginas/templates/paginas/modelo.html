@@ -24,22 +24,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"></script>
+
     <!--Fim das classes do bootstrap-->
-    
+
 
     {% comment %} FONTAWESOME {% endcomment %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
 
+
     {% comment %} Importação do datatables CSS {% endcomment %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
 <body>
-
     {% block menu %}
     <!-- Menu de navegação-->
     <style>
@@ -47,13 +50,41 @@
             position: sticky !important;
             top: 0 !important;
         }
+
+        #logo_small {
+            position: absolute;
+            max-width: 6%;
+            height: auto;
+            border-radius: 10px;
+            float: left;
+                _background: none;
+            filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='img/LogoSmalFashion.png', sizingMethod='scale');
+            position: -ms-page;
+        }
+
+        img:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+
+        #linha_v {
+            height: 1rem;
+            border-left: 1px solid grey;
+        }
     </style>
 
     <nav class="navbar  navbar-expand-sm bg-dark navbar-dark navbar-fixed-top"
         style="position: relative; z-index: 999;">
-        <!-- REMOVIDO O BOTÃO MENU: edit fsato
-        <a class="navbar-brand" href="#">Menu</a>
-        -->
+
+        <div class="navbar-header">
+
+        {% if request.user.is_authenticated %}
+            <a style="padding: 0px;" class="nav-link" href="{% url 'inicio' %}"><img id="logo_small" src="{% static 'img/LogoSmalFashion.jpg' %}" alt="Logotipo"></a>
+        {% comment %} <div class="col-sm-1"></div> {% else%} {% endcomment %}
+            <a style="padding-left: 100px;" class="navbar-brand" href="{% url 'inicio' %}">SIIC</a>
+        {% endif%}
+
+        </div>
+        <hr id="linha_v" width="2" size="100" color="white">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,32 +98,27 @@
                 </li>
                 {% else%}
                 {% endif%}
-
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
-
-
                     <a class="nav-link dropdown-toggle" href="#" id="Cadastros" data-toggle="dropdown">
                         Cadastros
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'registrar' %}">Cadastro de usuários</a>
+                        <a class="dropdown-item" href="{% url 'registrar' %}">Cadastro de usuário</a>
                         <hr>
                         <a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Cadastro de produto</a>
-                        <hr>
-
-                        <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
-                        <hr>
-                        <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
+                         <hr>
+                        <a class="dropdown-item" href="{% url 'cadastrar-fornecedor' %}">Cadastro de fornecedor</a>
+                        {% comment %} <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-cor' %}">Cadastro de cor</a>
+                        <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-tamanho' %}">Cadastro de tamanho</a>
+                        <hr> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Cadastro de categorias</a> {% endcomment %}
                     </div>
-
                 </li>
-
                 {% else %}
                 {% endif %}
-
-                <!--Dropdown LISTAS-->
-
                 {% if request.user.is_authenticated %}
                 </li>
                 <li class="nav-item dropdown">
@@ -102,7 +128,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'listar-usuarios' %}">Lista de usuários</a>
                         <hr>
-                        <a class="dropdown-item" href="{% url 'listar-pedidos' %}">Lista de pedidos</a>
+                        <a class="dropdown-item" href="{% url 'listar-fornecedores' %}">Lista de fornecedores</a>
                     </div>
                 </li>
                 {% else %}
@@ -113,34 +139,38 @@
                         Estoque
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'listar-produtos' %}">Relação de produtos</a>
+                        <a class="dropdown-item" href="{% url 'listar-produtos' %}">Estoque - Relação de produtos</a>
                         <hr>
-                        <a class="dropdown-item" href="{% url 'estoque_entrada_list' %}">Entradas</a>
+                        <a class="dropdown-item" href="{% url 'estoque_entrada_list' %}">Movimentação - Entradas</a>
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'estoque_saida_list' %}">Movimentação - Saídas</a>
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'estoque_baixa_list' %}">Movimentação - Baixas</a>
                     </div>
                 </li>
                 {% else %}
-                {% endif%}
+                {% endif %}
                 {% if request.user.is_authenticated %}
-                <!--Menu para relatórios: edit fsato a partir daqui-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="relatorio" data-toggle="dropdown">
                         Relatórios
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/relatorio/">Movimentos</a>
+                        <a class="dropdown-item" href="/relatorio/">Relatório de movimentação</a>  
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'estoque_itens_detalhados' %}">Movimentação - Detalhamento</a>
                     </div>
                 </li>
-                <!--Menu para relatórios: edit fsato até aqui-->
                 {% else %}
                 {% endif %}
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
                 </li>
-
+                {% else %}
+                {% endif %}
             </ul>
         </div>
-
-        {% comment %} Usuário logago {% endcomment %}
         {% if request.user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
@@ -180,20 +210,16 @@
         </ul>
         {% endif %}
     </nav>
+    {% include 'paginas/messages.html' %}
     {% endblock menu %}
-
     {% if request.user.is_authenticated %}
-    <!--Conteúdo da página-->
+
+    
     {% block conteudo %}
-    <div class="bg-secondary text-center">
-        Destaques da página
-    </div>
-    <div class="container container-fluid text-center">
-        <p>
-            Conteudo do site
-        </p>
-    </div>
+
     {% endblock conteudo %}
+
+
     {% else %}
     <div style="padding: 50px">
         <hr>
@@ -204,30 +230,314 @@
             </div>
         </div>
         {% endif %}
-
         {% if request.user.is_authenticated %}
         {% block rodape_nome %}
-        <div class="bg-dark text-left container-fluid text-light">
-            &copy; Todos os Direitos Reservados
-        </div>
         {% endblock rodape_nome %}
+        {% block rodape %}
+ 
+ <style>
 
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.footer {
+    background-size: cover;
+    margin:10px;
+    border-radius: 5px;
+    background-color: rgb(52,58,64);
+    font-family: 'Poppins', sans-serif !important;
+}
+#logo-insta{
+    margin-top: -1%;
+}
+#contatos{
+    font-size: 14px;
+}
+.first {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+}
+
+    .first h4 {
+        font-size: 20px;
+        letter-spacing: 3px;
+        position: relative;
+        margin-bottom: 20px;
+        font-size: 1.6em;
+        color: #fff;
+        padding-bottom: 0.5em;
+    }
+
+        .first h4::after {
+            content: '';
+            background: #66c83d;
+            width: 20%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+    .first p {
+        font-size: 14px;
+    }
+
+.second {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.second2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.second h4 {
+    font-size: 20px;
+    letter-spacing: 3px;
+    position: relative;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+    color: #fff;
+    padding-bottom: 0.5em;
+}
+
+    .second h4::after {
+        content: '';
+        background: #66c83d;
+        width: 20%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 40%;
+    }
+
+
+.second li {
+    list-style: none;
+    padding-bottom: 30px;
+}
+
+.second a, .second2 a {
+    color: rgb(206, 206, 206);
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+    .second a:hover, .second2 a:hover {
+        color: #fff;
+        transition: 0.2s;
+        text-shadow: 1px 1px 20px rgba(0,0,0,1);
+        text-decoration: none
+
+    }
+
+
+
+.third {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: rgb(206,206,206);
+    font-family: 'Poppins', sans-serif;
+    text-align: right;
+}
+
+
+    .third h4 {
+        font-size: 20px;
+        letter-spacing: 3px;
+        position: relative;
+        margin-bottom: 20px;
+        font-size: 1.6em;
+        color: #fff;
+        padding-bottom: 0.5em;
+    }
+
+
+        .third h4::after {
+            content: '';
+            background: #66c83d;
+            width: 20%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 80%;
+        }
+
+
+
+    .third li {
+        list-style: none;
+        padding-bottom: 15px;
+    }
+
+
+    .third a {
+        color: rgb(206, 206, 206);
+        text-decoration: none;
+        letter-spacing: 3px;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+
+        .third a:hover {
+            color: #fff;
+            transition: 0.2s;
+            text-shadow: 1px 1px 20px rgba(0,0,0,1);
+        }
+
+
+@media screen and (max-width:1000px) {
+    .first {
+        text-align: center;
+    }
+
+        .first h4::after {
+            left: 40%;
+        }
+}
+
+@media screen and (max-width:1000px) {
+    .third {
+        text-align: center;
+    }
+
+        .third h4::after {
+            left: 40% !important;
+        }
+}
+
+.margin {
+    margin-left: 20px;
+}
+
+.line {
+    height:2px;
+    background-color:rgb(206,206,206);
+    width:100%;
+}
+
+.container h1{
+    text-align:center;
+    margin-top:100px;
+    margin-bottom:100px;
+}
+
+.logo_queen{
+max-width: 20em;
+max-height: 5em;
+}
+                </style>
+                <!--Fim do script CSS-->
+
+                <!-- footer -->
+<footer>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="first" id="habilidades">
+                            <h4>Habilidades</h4>
+                                <p id="footer">Capacidade analítica</p>
+                                <p id="footer">Experiência</p>
+                                <p id="footer">Agilidade</p>
+                                <p id="footer">Comprometimento</p>
+                    </div>
+                </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="second">   
+                    <div>
+                                <div class="logo_queen">
+                                <legend><h6>Desenvolvido por</h6></legend>
+                                    <img src="{% static 'img/LogoQueen.jpg' %}" alt="Logo" style="width:70%; height: 85%">
+                                </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="third" id="contatos">
+                    <h4> Contatos</h4>
+                        <ul>
+                                <p id="footer"><i class="far fa-envelope"></i> queen.corporation@gmail.com</p>
+                                <p id="footer"><i class="fas fa-phone-square "></i> (11) 2925-7247</p>
+                                <p id="footer"><i class="fas fa-mobile "></i>  (11) 96742-7007</p>
+                                <p id="footer"><i class="fas fa-map-marker-alt"></i> Rua Fernando Sanábria, 229 - São Paulo-SP </p>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="line"></div>
+                    <div class="second2">
+                        <p>
+                            <a href="https://github.com/De122753/Queen-OPE2"target="_blank"> <i class="fab fa-github fa-2x margin"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</footer>
+        {% endblock rodape %}
         {% else %}
         {% endif %}
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> {% endcomment %}
+
+
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src={% static 'js/jquery.mask.min.js' %}></script>
+
+        {% comment %} datatables  {% endcomment %}
+
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
-        {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script> {% endcomment %}
-        {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js">
-        </script> {% endcomment %}
-        {% comment %} <script src="{% static 'js/bootstrap.min.js' %}"></script> {% endcomment %}
-        {% comment %} Importação do datatables {% endcomment %}
 
 
-        {% block scripts %}{% endblock scripts %}
+        <script src="//cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.7.0/js/buttons.bootstrap4.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+        <script src="///cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.bootstrap4.min.css">
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        {% block scripts %}
+        {% endblock scripts %}
         {% block js %}{% endblock js %}
-</body>
 
+            <script>
+                //Fechar mensagem
+                $(document).ready(function() {
+                    $("#success_msg").delay(3500).slideUp(200, function() {
+                    $(this).alert('close');
+                    });
+                });
+            </script>
+</body>
 </html>

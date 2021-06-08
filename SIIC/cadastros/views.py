@@ -1,17 +1,22 @@
+from django.core.checks import messages
 from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 from usuarios.models import Usuario
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+
 # Create your views here.
 
 # lista de usuarios django
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from .models import CorProduto, Pedido, StatusPedido, TipoMovimentacao, TamanhoProduto, Produto, Item
+from .models import CorProduto, TamanhoProduto, Produto, Categoria, Fornecedor
+from .forms import CorForm
 
 # Controle de login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,63 +26,12 @@ from braces.views import GroupRequiredMixin
 # ##################################### CREATE #################################
 
 
-class PedidoCreate(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
-    model = Pedido
-    fields = ['data_fechamento', 'nota_fiscal', 'pedido_ususario',
-              'status_pedido', 'tipo_movimentacao', 'frete', 'valor_pedido']
-    template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-pedidos')
-
-    # Metodo para registrar o usuário que realiza o pedido
-    def form_valid(self, form):
-        # referencia o usuário da clásse no models
-        form.instance.usuario_pedido = self.request.user
-        # antes do supero o objeto da classe não foi criado
-        url = super().form_valid(form)
-        # objeto criado
-        # Adicionar um texto ao campo
-        # self.object.valor += "[qualquercoisa]"
-        # self.object.save()
-        return url
-
-    # Efetua a substituição no HTML dos termos constantes nos argumentos
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = "Cadastro de pedidos"
-        context["titulo"] = "Novo pedido"
-        context["subtitulo"] = "Cadastro de pedidos para compra/venda de produdos"
-        context["botao"] = "Cadastrar"
-        return context
-
-
-class StatusCreate(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
-    model = StatusPedido
-    fields = ['status_pedido']
-    template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
-
-    def form_valid(self, form):
-        form.instance.usuario_pedido = self.request.user
-        url = super().form_valid(form)
-        return url
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = "Cadastro de status"
-        context["titulo"] = "Cadastrar novo status de pedidos"
-        context["subtitulo"] = "Cadastro de status"
-        context["botao"] = "Cadastrar"
-        return context
-
-
 class CorCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = CorProduto
     fields = ['cor_produto']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
         form.instance.usuario_pedido = self.request.user
@@ -88,17 +42,31 @@ class CorCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de cor"
         context["titulo"] = "Cadastrar nova cor de produto"
-        context["subtitulo"] = "Cadastro de cores"
+        context["subtitulo"] = "Cadastro de cor"
         context["botao"] = "Cadastrar"
         return context
 
 
-class TipoMovCreate(LoginRequiredMixin, CreateView):
+def salva_cor(request):
+    cor_produto = request.POST.get('cor_produto')
+    count = CorProduto.objects.filter(cor_produto=cor_produto).count()  # contar cores
+    if count > 0:
+        # messages.error(request, 'Já cadastrada.')
+        messages.add_message(request, messages.SUCCESS, 'Cor já cadastrada no sistema!')
+        return redirect('cadastrar-produto')
+    else:
+        form = CorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastrar-produto')
+
+
+class CategoriaCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
-    model = TipoMovimentacao
-    fields = ['tipo_movimentacao']
+    model = Categoria
+    fields = ['categoria']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
         form.instance.usuario_pedido = self.request.user
@@ -107,9 +75,9 @@ class TipoMovCreate(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = "Cadastro de movimentação"
-        context["titulo"] = "Cadastrar novo tipo de movimentação"
-        context["subtitulo"] = "Cadastro de movimentações"
+        context["titulo_pagina"] = "Cadastro de categoria"
+        context["titulo"] = "Cadastrar nova categoria de produto"
+        context["subtitulo"] = "Cadastro de categoria"
         context["botao"] = "Cadastrar"
         return context
 
@@ -119,7 +87,7 @@ class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
     model = TamanhoProduto
     fields = ['tamanho_produto']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
         form.instance.usuario_pedido = self.request.user
@@ -130,49 +98,64 @@ class TamanhoProdutoCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de tamanho"
         context["titulo"] = "Cadastrar novo tamanho de produto"
-        context["subtitulo"] = "Cadastro de tamanhos"
+        context["subtitulo"] = "Cadastro de tamanho"
         context["botao"] = "Cadastrar"
         return context
 
 
-class ProdutoCreate(LoginRequiredMixin, CreateView):
+class ProdutoCreate(LoginRequiredMixin, CreateView, SuccessMessageMixin):
     login_url = reverse_lazy('Login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
-              'quantidade_disponivel', 'tamanho_produto', 'cor_produto']
+              'quantidade_disponivel', 'tamanho_produto', 'cor_produto', 'peso', 'categoria', 'ncm', 'fabricante', 'localizacao', 'estoque_minimo',  'foto']
     template_name = 'cadastros/form_produto.html'
     success_url = reverse_lazy('inicio')
 
     def form_valid(self, form):
-        url = super().form_valid(form)
-        return url
+        messages.success(self.request, "Cadastro do produto realizado com sucesso!")
+        return super().form_valid(form)
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            calculated_field=self.object.calculated_field,
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Cadastro de produto"
         context['titulo'] = 'Cadastrar novo produto'
-        context['subtitulo'] = 'Cadastro de produtos'
+        context['subtitulo'] = 'Cadastro de produto'
         context['botao'] = 'Cadastrar'
         return context
 
 
-class ItemCreate(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
-    model = Item
-    fields = ['quantidade_item ', 'desconto',
-              'valor_item', 'produto', 'pedido']
-    template_name = 'cadastros/form.html'
+class FornecedorCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('Login')
+    model = Fornecedor
+    fields = ['nome_fornecedor',
+              'nome_fornecedor_redizido',
+              'cnpj_fornecedor',
+              'logradouro_fornecedor',
+              'numero_via_fornecedor',
+              'cidade_fornecedor',
+              'uf_fornecedor',
+              'contato_fornecedor',
+              'email_fornecedor',
+              'telefone_fornecedor'
+              ]
+    template_name = 'cadastros/form_fornecedor.html'
     success_url = reverse_lazy('inicio')
 
     def form_valid(self, form):
-        url = super().form_valid(form)
-        return url
+        messages.success(self.request, "Fornecedor cadastrado com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = "Cadastro de item"
-        context['titulo'] = 'Cadastrar novo item'
-        context['subtitulo'] = 'Cadastro de itens'
+        context["titulo_pagina"] = "Cadastro fornecedor"
+        context['titulo'] = 'Cadastrar novo fornecedor/fabricante'
+        context['subtitulo'] = 'Cadastro de fornecedor/fabricante'
         context['botao'] = 'Cadastrar'
         return context
 
@@ -187,6 +170,10 @@ class UsuarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-usuarios')
 
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["titulo_pagina"] = "Atualizar usuário"
@@ -195,38 +182,55 @@ class UsuarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return context
 
 
-class PedidoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     group_required = u"Adm"
     login_url = reverse_lazy('login')
-    model = Usuario
-    fields = ['valor_pedido']
+    model = Fornecedor
+    fields = ['nome_fornecedor',
+              'nome_fornecedor_redizido',
+              'cnpj_fornecedor',
+              'logradouro_fornecedor',
+              'numero_via_fornecedor',
+              'cidade_fornecedor',
+              'uf_fornecedor',
+              'contato_fornecedor',
+              'email_fornecedor',
+              'telefone_fornecedor'
+              ]
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-pedidos')
+    success_url = reverse_lazy('listar-fornecedores')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = "Atualizar pedido"
-        context["titulo"] = "Editar pedidos"
-        context["subtitulo"] = "Editar pedidos cadastrados no SIIC"
-        context["botao"] = "Editar"
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["titulo_pagina"] = "Atualizar fornecedor"
+        context["titulo"] = 'Atualizar dados do fornecedor'
+        context["botao"] = 'Atualizar'
         return context
 
 
-class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class ProdutoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     group_required = [u"Adm", u"Padrão"]
     login_url = reverse_lazy('login')
     model = Produto
     fields = ['nome_produto', 'descricao_produto', 'preco_unitario',
-              'tamanho_produto', 'cor_produto', 'quantidade_disponivel']
+              'tamanho_produto', 'cor_produto', 'quantidade_disponivel', 'categoria', 'peso', 'ncm', 'fabricante', 'localizacao', 'estoque_minimo', 'foto']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produtos')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Alteração realizada com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["titulo_pagina"] = "Atualizar produto"
         context["titulo"] = "Editar produtos"
         context["subtitulo"] = "Editar produtos cadastrados no SIIC"
-        context["botao"] = "Editar"
+        context["botao"] = "Salvar edição"
 
         return context
 
@@ -239,14 +243,6 @@ class UsuarioDelete(LoginRequiredMixin, DeleteView):
     model = Usuario
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-usuarios')
-
-
-class PedidoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
-    group_required = u"Adm"
-    login_url = reverse_lazy('login')
-    model = Pedido
-    template_name = 'cadastros/form-excluir.html'
-    success_url = reverse_lazy('listar-pedidos')
 
 
 class ProdutoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
@@ -266,18 +262,18 @@ class UsuarioList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     template_name = 'cadastros/listas/usuarios.html'
 
 
-class PedidoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
-    group_required = [u"Adm", u"Padrão"]
-    login_url = reverse_lazy('login')
-    model = Pedido
-    template_name = 'cadastros/listas/pedidos.html'
-
-
 class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"Adm", u"Padrão"]
     login_url = reverse_lazy('login')
     model = Produto
     template_name = 'cadastros/listas/produtos.html'
+
+
+class FornecedorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    group_required = [u"Adm", u"Padrão"]
+    login_url = reverse_lazy('login')
+    model = Fornecedor
+    template_name = 'cadastros/listas/fornecedores.html'
 
 
 def ProdutoDetalhes(request, pk):
