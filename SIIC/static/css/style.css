@@ -1,21 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+span.required:after {
+    content: "*";
+    color: red;
+}
+
+#titulo_index {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-control {
+    margin: 7px;
+}
+
+.form-group {
+    vertical-align: auto;
+}
+
+.select2.select2-container {
+    margin-right: 10px;
+}
+
+.checkbox {
+    color: grey !important;
+    margin-left: 20px !important;
+    text-indent: 7px;
+}
+
+h5 {
+    background-color: #768591 !important;
+    border-radius: 3px;
+    color: #F0F0EB;
+    text-align: left;
+    padding-left: 10px;
+    padding: 5px;
+}
+
+i {
+    vertical-align: auto;
+}
+
+#rodape {
+    margin-top: 15px;
+}
+
+#seta_nota {
+    padding: 0.5rem;
+}
+
+#estoque {
+    background-color: #F5F5F5;
+    border: 0.1rem solid lightgrey;
+}
+
+#total_geral {
+    /* text-transform: uppercase; */
+    float: right;
+    vertical-align: auto;
+}
+
+.control-label {
+    padding: 0.5rem;
+}
+
+.form-inline {
+    display: inline-block !important;
+    margin: auto;
+}
+
+.asteriskField {
+    margin: 0.2rem;
+}
+
+#tbl_detail {
+    white-space: nowrap;
+    vertical-align: 20%;
+}
+
+.imagem_produto {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    max-height: min-content;
+}
+
+#celula_foto {
+    width: 30%;
+}
+
+.clPreco {
+    text-align: center;
+    margin: 5px;
+    padding: 0px !important;
+    width: 8rem !important;
+}
+
+.clQuantidade {
+    text-align: center;
+    margin: 5px;
+    padding: 0px !important;
+    font-weight: bold !important;
+    width: 7rem !important;
+}
+
+.select2 {
+    text-align: center;
+    color: red !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    width: 33rem !important;
+}
+
+.lead.saldo {
+    text-align: center;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+}
+
+#id_preco_unitario {
+    text-align: center;
+}
+
+.red {
+    background-color: gold !important;
+}
+
+.grey {
+    background-color: #EE3B3B!important;
+    color: white;
+}
+
 body {
     background-color: #dddddd;
 }
 
-.form {
-    width: 400px;
-    margin: auto;
-    padding-top: 40px;
+
+/* CARDS */
+
+.card {
+    padding: 1rem;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    background-color: white;
+    border-radius: 2px;
+    width: 18rem;
+    height: 34rem;
 }
 
-.card-top {
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.card-title {
+    padding: 0.5em;
+}
+
+.imagem_card {
+    border-radius: 0.5rem;
+    background-color: #F0F0EB;
+    width: 100%;
+    height: 75%;
 }
 
 .imglogin {
     border-radius: 100px;
     box-shadow: 1px 1px 5px grey;
+}
+
+#card-titulo-cadastro {
+    vertical-align: bottom;
+    background-color: coral;
+    color: whitesmoke;
+    width: 70%;
+    border-radius: 5em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#card-titulo-estoque {
+    vertical-align: bottom;
+    background-color: darkcyan;
+    color: whitesmoke;
+    width: 70%;
+    border-radius: 5em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#card-titulo-exportacao {
+    vertical-align: bottom;
+    background-color: #009ACD;
+    color: whitesmoke;
+    width: 70%;
+    border-radius: 5em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#card-titulo-relatorios {
+    vertical-align: bottom;
+    background-color: #EE3B3B;
+    color: whitesmoke;
+    width: 70%;
+    border-radius: 5em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.card-top {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .title-card-top {
@@ -58,13 +243,95 @@ body {
     background-image: linear-gradient(to right, #05384d, #02010e);
 }
 
-.card {
-    box-shadow: 1px 1px 10px rgb(150, 149, 149);
-    background-color: white;
-    padding: 30px;
-    border-radius: 6px;
+.card-corpo {
+    width: 100%;
+    height: 7rem;
+    margin: 0px;
+    padding: 0.5rem;
 }
 
-.jumbotron {
-    max-height: 50%;
+.fa-arrow-alt-circle-right,
+.fa-grip-lines {
+    color: #dddddd;
+}
+
+#total_geral {
+    display: table;
+    width: 100%;
+    background-color: gainsboro;
+    color: darkslategray;
+}
+
+#id_main-nf_arquivo {
+    border-color: white;
+    vertical-align: auto;
+    border: 0rem;
+    padding-top: 0.2rem;
+}
+
+#form_entrada {
+    margin-bottom: 2rem;
+}
+
+#form_saida {
+    margin-bottom: 2rem;
+}
+
+#resumo {
+    padding-top: 0rem;
+}
+
+#bloco_botoes_detalhes {
+    text-align: center;
+}
+
+#box {
+    border-color: #768591;
+    border-style: dotted;
+}
+
+.invalid-feedback {
+    display: none !important;
+}
+
+input[id$="-fabricante"] {
+    display: none !important;
+}
+
+input[id$="-saldo"] {
+    display: none !important;
+}
+
+
+/* 
+#id_quantidade_disponivel {} */
+
+
+/* SOBRE */
+
+.main-title {
+    padding: 2%;
+    margin: 0 0 65px 0;
+    font-size=40px;
+    text-align: center;
+}
+
+.main-title {
+    text-align: center;
+    margin: auto;
+}
+
+.about-title {
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#texto_sobre {
+    text-align: justify;
+}
+
+.dt-buttons {
+    position: absolute;
+    left: 45%;
 }

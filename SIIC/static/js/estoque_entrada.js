@@ -1,15 +1,37 @@
 $(document).ready(function() {
+
+    var els = document.querySelectorAll("input.form-control");
+    for (var x = 0; x < els.length; x++) {
+        els[x].addEventListener("keypress", function(e) {
+            var k = e.which || e.keyCode;
+            if (k == 13) {
+                e.preventDefault();
+                var p = this.parentNode.parentNode.nextElementSibling.querySelector("input.form-control");
+                if (p) p.focus();
+            }
+        });
+    }
+
+
     // Insere classe no primeiro item de produto
     $('#id_estoque-0-produto').addClass('clProduto');
+    $('#id_estoque-0-preco_unit').addClass('clPreco');
     $('#id_estoque-0-quantidade').addClass('clQuantidade');
+    $('#id_estoque-0-fabricante').addClass('clFabricante');
+
+
     // Desabilita o primeiro campo 'Saldo'
-    $('#id_estoque-0-saldo').prop('type', 'hidden')
-        // Cria um span para mostrar o saldo na tela.
+    $('#id_estoque-0-saldo').prop('type', 'hidden');
+    // Desabilita o primeiro campo 'Fabricante'
+    $('#id_estoque-0-fabricante').prop('type', 'hidden');
+    $('#id_estoque-0-justificativa_baixa').prop('type', 'hidden');
+
+    // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
         // Cria um campo com o estoque inicial.
     $('label[for="id_estoque-0-saldo"]').append('<input id="id_estoque-0-inicial" class="form-control" type="hidden" />')
-        // Select2
     $('.clProduto').select2()
+
 });
 
 $('#add-item').click(function(ev) {
@@ -23,7 +45,10 @@ $('#add-item').click(function(ev) {
     $('#id_estoque-TOTAL_FORMS').attr('value', count + 1);
 
     // Desabilita o campo 'Saldo'
-    $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden')
+    $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden');
+    $('#id_estoque-' + (count) + '-fabricante').prop('type', 'hidden');
+    $('#id_estoque-' + (count) + '-justificativa_baixa').prop('type', 'hidden');
+    //$('#id_estoque-' + (count) + '-DELETE').prop('type', 'hidden');
 
     // some animate to scroll to view our new form
     $('html, body').animate({
@@ -31,7 +56,9 @@ $('#add-item').click(function(ev) {
     }, 800);
 
     $('#id_estoque-' + (count) + '-produto').addClass('clProduto');
+    $('#id_estoque-' + (count) + '-preco_unit').addClass('clPreco');
     $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
+    $('#id_estoque-' + (count) + '-fabricante').addClass('clFabricante');
 
     // Cria um span para mostrar o saldo na tela.
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left: 10px; color: blue; padding-right: 30px;"></span>')
@@ -39,6 +66,9 @@ $('#add-item').click(function(ev) {
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<input id="id_estoque-' + (count) + '-inicial" class="form-control" type="hidden" />')
         // Select2
     $('.clProduto').select2()
+
+
+
 });
 
 let estoque
@@ -46,23 +76,35 @@ let saldo
 let campo
 let campo2
 let quantidade
+let preco
+let campo3
+let campo4
 
 $(document).on('change', '.clProduto', function() {
+
     let self = $(this)
     let pk = $(this).val()
     let url = '/produto/' + pk + '/json/'
-
     $.ajax({
         url: url,
         type: 'GET',
+        enctype: 'multipart/form-data',
         success: function(response) {
+            fabricante = response.data[0].fabricante
+            preco_unitario = response.data[0].preco_unitario
             estoque = response.data[0].estoque
-            campo = self.attr('id').replace('produto', 'quantidade')
-            estoque_inicial = self.attr('id').replace('produto', 'inicial')
-                // Estoque inicial
-            $('#' + estoque_inicial).val(estoque)
-                // Remove o valor do campo 'quantidade'
-            $('#' + campo).val('')
+            campo3 = self.attr('id').replace('produto', 'preco_unit');
+            campo4 = self.attr('id').replace('produto', 'fabricante');
+            campo = self.attr('id').replace('produto', 'quantidade');
+            estoque_inicial = self.attr('id').replace('produto', 'inicial');
+            preco = Number(preco_unitario)
+            fab = fabricante
+
+            // Estoque inicial
+            $('#' + estoque_inicial).val(estoque);
+            $('#' + campo).val('');
+            $('#' + campo3).val(preco.toFixed(2));
+            $('#' + campo4).val(fab);
         },
         error: function(xhr) {
             // body...
@@ -72,6 +114,12 @@ $(document).on('change', '.clProduto', function() {
 
 $(document).on('change', '.clQuantidade', function() {
     quantidade = $(this).val();
+    while (quantidade <= 0) {
+        alert("Informe um número maior que 0!");
+        quantidade = $(this).val('');
+        return quantidade;
+    }
+
     // Aqui é feito o cálculo de soma do estoque
     saldo = Number(quantidade) + Number(estoque);
     campo = $(this).attr('id').replace('quantidade', 'saldo')
@@ -88,8 +136,8 @@ $(document).on('change', '.clQuantidade', function() {
 });
 
 
-$('#form').bind('submit', false);
+// $('#form').bind('submit', false);
 
-$('button#submit').click(function() {
-    $('#form').submit();
-});
+// $('button#submit').click(function() {
+//     $('#form').submit();
+// });

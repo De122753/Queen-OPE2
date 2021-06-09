@@ -1,0 +1,110 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+{% block titulo %}
+<title>Relação de fornecedores</title>
+{% endblock titulo %}
+
+{% block conteudo %}
+<p>
+    <h3 class="titulos_listas" align=center>RELAÇÃO DE FORNECEDORES CADASTRADOS</h3>
+</p>
+
+<div class="container-fluid">
+    <style>
+        .dataTables_filter {
+            float: right !important;
+        }
+    </style>
+    <hr>
+    <div class="table-responsive">
+        <style>
+            a {
+                color: black;
+            }
+        </style>
+        <table class="table table-hover table-condensed" id='tabela_listar_fornecedores'>
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID fornecedor</th>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>Contato</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for Fornecedor in object_list %}
+
+                <tr>
+                    <td>{{Fornecedor.codigo_fornecedor_formatado}}</td>
+                    <td>{{Fornecedor.nome_fornecedor_redizido}}</td>
+                    {% comment %} <td>
+                        <a href="{% url 'detalhar-produto' Produto.pk %}">{{Produto.nome_produto}}</a>
+                    </td> {% endcomment %}
+                    <td align="center">{{Fornecedor.cnpj_fornecedor}}</td>
+                    <td align="left">{{Fornecedor.contato_fornecedor}}</td>
+                    <td>{{Fornecedor.telefone_fornecedor}}</td>
+                    <td>{{Fornecedor.email_fornecedor}}</td>
+                    <td>
+                        <a href="{% url 'editar-fornecedor' Fornecedor.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                                class="fas fa-edit" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Nenhum campo registrado</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% comment %} Datatable Jquery {% endcomment %}
+        {% block scripts %}
+        <script>
+            $(document).ready(function () {
+                $('#tabela_listar_fornecedores').DataTable({
+                    retrieve: true,
+                    "createdRow": function (row, data, dataIndex) {
+                        if (data[8] <= Number(data[7])) {
+                            $(row).addClass('red');
+                        }
+                    },
+                    "aaSorting": [],
+                    "pageLength": 50,
+                    "language": {
+                        "decimal": "",
+                        "emptyTable": "Sem dados disponíveis",
+                        "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                        "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "loadingRecords": "A carregar dados...",
+                        "processing": "A processar...",
+                        "search": "Procurar:",
+                        "zeroRecords": "Não foram encontrados resultados",
+                        "paginate": {
+                            "first": "Primeiro",
+                            "last": "Último",
+                            "next": "Seguinte",
+                            "previous": "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending": ": ordem crescente",
+                            "sortDescending": ": ordem decrescente"
+                        }
+                    }
+                });
+            });
+        </script>
+        {% endblock scripts %}
+        <hr>
+    </div>
+</div>
+{% endblock conteudo %}
