@@ -34,7 +34,7 @@ class CorCreate(LoginRequiredMixin, CreateView, SuccessMessageMixin):
     success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
-        messages.success(self.request, "Cadastro do cor realizado com sucesso!")
+        messages.success(self.request, "Nova cor cadastrada com sucesso!")
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -68,9 +68,8 @@ class CategoriaCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('cadastrar-produto')
 
     def form_valid(self, form):
-        form.instance.usuario_pedido = self.request.user
-        url = super().form_valid(form)
-        return url
+        messages.success(self.request, "Nova categoria cadastrada com sucesso!")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -5,7 +5,7 @@
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
 {% block titulo %}
-<title>Relação completa</title>
+<title>Detalhamento</title>
 {% endblock titulo %}
 {% block conteudo %}
 
@@ -49,6 +49,7 @@
 <script>
     $(document).ready(function () {
         $('#tbl_lista_completa').DataTable({
+            //Botões
             dom: 'Blfrtip',
             buttons: ['excel',
                         {
@@ -107,5 +108,6 @@
 
         });
     });
+
 </script>
 {% endblock scripts %}

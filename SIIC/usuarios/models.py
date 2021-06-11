@@ -39,18 +39,13 @@ class Administrador(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    nome_completo = models.CharField(
-        max_length=255, verbose_name='Nome completo')
+    nome_completo = models.CharField(max_length=255, verbose_name='Nome completo')
     cpf = models.CharField(max_length=14, verbose_name='CPF')
-    username = models.CharField(
-        max_length=50, unique=True, verbose_name="Nome de usuário")
-    email = models.EmailField(verbose_name='email',
-                              max_length=255, unique=True)
+    username = models.CharField(max_length=50, unique=True, verbose_name="Nome de usuário")
+    email = models.EmailField(verbose_name='email', max_length=255, unique=True)
     telefone = models.CharField(max_length=15, verbose_name='Telefone')
-    date_joined = models.DateTimeField(verbose_name="data de registro",
-                                       auto_now=True)
-    last_login = models.DateTimeField(
-        verbose_name='ultimo login', auto_now=True)
+    date_joined = models.DateTimeField(verbose_name="data de registro", auto_now=True)
+    last_login = models.DateTimeField(verbose_name='ultimo login', auto_now=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
