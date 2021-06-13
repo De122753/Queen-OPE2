@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'usuarios.apps.UsuariosConfig',
     'estoque.apps.EstoqueConfig',
     'relatorio.apps.RelatorioConfig',
+    'django_extensions',
 
     'bootstrapform',
     'bootstrap4',
@@ -184,3 +185,8 @@ LOGIN_URL = 'login'
 
 # Redireciona usuário para a página pós logout
 LOGOUT_REDIRECT_URL = 'login'
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
