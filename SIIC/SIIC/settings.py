@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'usuarios.apps.UsuariosConfig',
     'estoque.apps.EstoqueConfig',
     'relatorio.apps.RelatorioConfig',
-    'django_extensions',
 
+    'django_extensions',
     'bootstrapform',
     'bootstrap4',
     'widget_tweaks',
